@@ -1,0 +1,61 @@
+{
+  "page": {
+    "loading": "Loading...",
+    "share": "Share",
+    "reset": "Reset view",
+    "zoom": {
+      "in": "Zoom in",
+      "out": "Zoom out"
+    },
+    "confirm": {
+      "title": "Confirm?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  },
+  "location": {
+    "upload": "Upload floor plan",
+    "sidebar": {
+      "description": "Upload an image to preview fit with the dimensions and marker positions:",
+      "dimensions": "Image Dimensions:",
+      "scaleX": "Scale image X",
+      "scaleY": "Scale image Y",
+      "action": {
+        "save": "Save",
+        "cancel": "Cancel"
+      }
+    }
+  },
+  "marker": {
+    "info": {
+      "close": "Close",
+      "recenter": "Recenter",
+      "share": "Share link"
+    },
+    "rotation": "Rotation",
+    "action": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "move": "Move",
+      "delete": "Delete",
+      "confirm": {
+        "title": "Delete marker \"{name}\"?",
+        "description": "Are you sure, you want to delete this marker permanently?"
+      }
+    }
+  },
+  "nav": {
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "search": "Search",
+    "types": {
+      "toggle": "Toggle {type} markers",
+      "new": "Create new {type} marker",
+      "title": "Show and hide",
+      "tooltips": {
+        "toggle": "Toggle tooltips of {type} markers"
+      }
+    }
+  }
+}

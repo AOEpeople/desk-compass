@@ -1,0 +1,17 @@
+.git
+.husky
+.idea
+.tmp
+docs
+node_modules
+workspaces/api/coverage
+workspaces/api/dist
+workspaces/api/node_modules
+workspaces/frontend/coverage
+workspaces/frontend/dist
+workspaces/frontend/node_modules
+.gitignore
+.gitlab-ci.yml
+CONTRIBUTING.md
+Dockerfile*
+LICENSE

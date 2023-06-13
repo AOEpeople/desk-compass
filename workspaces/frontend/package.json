@@ -1,0 +1,79 @@
+{
+  "name": "frontend",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build --emptyOutDir",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "start": "vite",
+    "format": "eslint --cache --fix .",
+    "lint": "eslint . --ext .ts,.svelte",
+    "pretest:lint": "yarn lint",
+    "pretest:prettier": "prettier --write \"src/**/*.{ts,svelte,css}\"",
+    "pretest:svelte": "yarn run check",
+    "serve": "vite preview",
+    "test": "vitest --no-watch",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --no-watch --coverage"
+  },
+  "devDependencies": {
+    "@iconify/svelte": "^3.1.4",
+    "@sveltejs/vite-plugin-svelte": "^2.4.1",
+    "@tailwindcss/forms": "^0.5.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/svelte": "^3.2.2",
+    "@tsconfig/svelte": "^4.0.1",
+    "@types/leaflet": "^1.9.3",
+    "@types/svelte-range-slider-pips": "^2.0.0",
+    "@types/testing-library__jest-dom": "^5.14.6",
+    "@typescript-eslint/eslint-plugin": "*",
+    "@typescript-eslint/parser": "*",
+    "@vitest/coverage-v8": "*",
+    "autoprefixer": "^10.4.14",
+    "eslint": "*",
+    "eslint-config-prettier": "*",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-json-format": "^2.0.1",
+    "eslint-plugin-prettier": "*",
+    "eslint-plugin-svelte": "^2.30.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jsdom": "^22.1.0",
+    "lint-staged": "^13.0.3",
+    "msw": "^1.2.2",
+    "postcss": "^8.4.24",
+    "postcss-import": "^15.1.0",
+    "postcss-load-config": "^4.0.1",
+    "prettier": "*",
+    "prettier-plugin-svelte": "^2.10.1",
+    "svelte": "^3.58.0",
+    "svelte-check": "^3.4.3",
+    "svelte-eslint-parser": "^0.31.0",
+    "svelte-i18n": "^3.6.0",
+    "svelte-preprocess": "^5.0.4",
+    "svelte-range-slider-pips": "^2.1.1",
+    "tailwindcss": "^3.3.2",
+    "tslib": "^2.5.3",
+    "typescript": "*",
+    "v8": "*",
+    "vite": "^4.3.9",
+    "vitest": "*"
+  },
+  "dependencies": {
+    "@rgossiaux/svelte-headlessui": "^2.0.0",
+    "@svelteuidev/composables": "^0.13.0",
+    "cross-fetch": "^3.1.5",
+    "leaflet": "^1.9.3",
+    "svelte-spa-router": "^3.3.0"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,svelte,css}": [
+      "svelte-check --tsconfig ./tsconfig.json",
+      "prettier --write 'src/**/*.{ts,svelte,css}'",
+      "eslint --fix --quiet . --ext .ts,.svelte"
+    ],
+    "*.{yaml,yml,json,js}": [
+      "prettier --write"
+    ]
+  }
+}

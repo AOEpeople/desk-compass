@@ -1,0 +1,213 @@
+/* Write your global styles here, in PostCSS syntax */
+@import "../../../node_modules/leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --range-slider:          #80909F; /* slider main background color */
+    --range-handle-inactive: #173d7a; /* inactive handle color */
+    --range-handle:          #80909F; /* non-focussed handle color */
+    --range-handle-focus:    #029df7; /* focussed handle color */
+    --range-handle-border:   var(--range-handle);
+    --range-range-inactive:  var(--range-handle-inactive); /* inactive range bar background color */
+    --range-range:           var(--range-handle-focus); /* active range bar background color */
+    --range-float-inactive:  var(--range-handle-inactive); /* inactive floating label background color */
+    --range-float:           var(--range-handle-focus); /* floating label background color */
+    --range-float-text:      white; /* text color on floating label */
+  }
+
+  body {
+    @apply font-sans text-base text-default selection:bg-cyan;
+  }
+}
+@layer components {
+  [contenteditable='false'] {
+    @apply font-bold text-base text-default border-0 outline-0;
+  }
+  select,
+  [contenteditable='true'] {
+    @apply font-light text-sm text-grey border-0 outline-0 border-grey-700 border-b-2 caret-orange;
+    @apply focus-visible:text-primary focus-visible:border-0 focus-visible:outline-0 focus-visible:border-grey-700;
+    @apply focus-visible:border-b-2 focus-visible:caret-orange;
+  }
+  [contenteditable='true'].updated {
+    @apply text-default focus-visible:text-primary;
+  }
+
+  .sidebar {
+    @apply transition-sidebar duration-300 ease-in-out;
+  }
+  .sidebar.closed {
+    @apply h-0 md:w-0 invisible bg-transparent;
+  }
+
+  /* Common buttons */
+
+  .btn-group {
+    @apply mt-4 md:mt-6 flex flex-row flex-wrap gap-2;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    @apply h-9 items-center text-center font-medium px-[34px] whitespace-nowrap;
+    @apply disabled:bg-grey disabled:hover:bg-grey;
+  }
+
+  .btn-primary {
+    @apply ml-0 rounded-none border-none px-2 text-white shadow-transparent bg-highlight py-0.5;
+    @apply hover:bg-cyan;
+  }
+  .btn-primary .icon {
+    @apply text-white;
+  }
+
+  .btn-secondary {
+    @apply ml-0 rounded-none border-none px-2 text-white shadow-transparent bg-grey-700 py-0.5;
+    @apply hover:bg-cyan;
+    @apply disabled:bg-grey disabled:hover:bg-grey;
+  }
+  .btn-secondary .icon {
+    @apply text-white;
+  }
+
+  .feedback-button {
+    @apply bg-white text-xl/8 transition duration-700;
+  }
+  .click-success {
+    @apply bg-cyan transition duration-700 !important;
+  }
+  .click-failed {
+    @apply bg-red transition duration-700 !important;
+  }
+
+  /* Leaflet */
+  .leaflet-layer .marker-overlay {
+    @apply origin-center text-center leading-[0rem] w-full h-full;
+  }
+  .leaflet-layer.selected .marker-overlay {
+    @apply ring-4 ring-orange ring-offset-2;
+  }
+  .leaflet-layer .marker-overlay svg {
+    @apply w-full h-full;
+  }
+  .leaflet-layer.movable {
+    @apply cursor-move;
+  }
+
+  /* Leaflet tooltips */
+  .leaflet-tooltip.tooltip {
+    @apply rounded-none px-1 font-sans bg-grey-300 border-grey-700 py-0.5;
+  }
+  .leaflet-tooltip.leaflet-tooltip-left.tooltip::before {
+    @apply border-l-grey-700;
+  }
+  .leaflet-tooltip.leaflet-tooltip-right.tooltip::before {
+    @apply border-r-grey-700;
+  }
+
+  /* Leaflet controls */
+  .leaflet-touch .leaflet-control-container .leaflet-control {
+    @apply border-grey-700 rounded-none;
+  }
+  .leaflet-touch .leaflet-control-container .leaflet-control a {
+    @apply text-default font-bold;
+  }
+
+  .zoom-icon {
+    @apply text-cyan;
+  }
+  .zoom-2 .zoom-icon {
+    @apply text-[10px];
+  }
+  .zoom-1 .zoom-icon {
+    @apply text-[20px];
+  }
+  .zoom0 .zoom-icon {
+    @apply text-[40px];
+  }
+  .zoom1 .zoom-icon {
+    @apply text-[80px];
+  }
+  .zoom2 .zoom-icon {
+    @apply text-[160px];
+  }
+  .zoom3 .zoom-icon {
+    @apply text-[320px];
+  }
+  .zoom4 .zoom-icon {
+    @apply text-[640px];
+  }
+}
+
+@layer utilities {
+  @font-face {
+    font-family: 'Material Symbols Sharp';
+    font-style: normal;
+    src: url(./assets/fonts/MaterialSymbolsSharp.woff2) format('woff2');
+  }
+
+  .icon {
+    font-family: 'Material Symbols Sharp';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+   font-variation-settings:
+     'FILL' 1,
+     'wght' 700,
+     'GRAD' 0,
+     'opsz' 48
+  }
+}
+
+.marker-overlay-person_with_table,
+.marker-overlay-table_only {
+  @apply border-grey-600 border-2 bg-grey-500;
+}
+
+.table {
+  @apply before:content-['\eac6'] text-grey-800;
+}
+
+.person,
+.table_only,
+.person_with_table,
+.person_remote
+{
+  @apply before:content-['\e7fd'] text-cyan;
+}
+.table_only {
+  @apply text-transparent;
+}
+.room,
+.room_public {
+  @apply before:content-['\f720'] text-green;
+}
+.room_bookable {
+  @apply before:content-['\eb4f'] text-green;
+}
+.toilet {
+  @apply before:content-['\e63d'] text-yellow;
+}
+.toilet_female {
+  @apply before:content-['\e13e'] text-yellow;
+}
+.toilet_male {
+  @apply before:content-['\e4eb'] text-yellow;
+}
+.firstaidkit,
+.first_aid_kit {
+  @apply before:content-['\f109'] text-red;
+}
+.other,
+.unknown {
+  @apply before:content-['\f86e'] text-violet;
+}

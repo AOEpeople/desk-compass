@@ -1,0 +1,61 @@
+{
+  "page": {
+    "loading": "Lade...",
+    "share": "Teilen",
+    "reset": "Ansicht resetten",
+    "zoom": {
+      "in": "Heranzoomen",
+      "out": "Herauszoomen"
+    },
+    "confirm": {
+      "title": "Bestätigen?",
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen"
+    }
+  },
+  "location": {
+    "upload": "Grundriss anpassen",
+    "sidebar": {
+      "description": "Lade ein Bild hoch, um die Darstellung als Karte und die Positionen der Marker zu prüfen:",
+      "dimensions": "Bildgröße:",
+      "scaleX": "Bildskalierung X",
+      "scaleY": "Bildskalierung Y",
+      "action": {
+        "save": "Speichern",
+        "cancel": "Abbrechen"
+      }
+    }
+  },
+  "marker": {
+    "info": {
+      "close": "Schließen",
+      "recenter": "Zentrieren",
+      "share": "Teilen-Link"
+    },
+    "rotation": "Rotation",
+    "action": {
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "edit": "Bearbeiten",
+      "move": "Bewegen",
+      "delete": "Löschen",
+      "confirm": {
+        "title": "Markierung für \"{name}\" löschen?",
+        "description": "Bist du sicher, dass du diese Markierung löschen möchtest?"
+      }
+    }
+  },
+  "nav": {
+    "collapse": "Verkleinern",
+    "expand": "Vergößern",
+    "search": "Suchen",
+    "types": {
+      "toggle": "{type} umschalten",
+      "new": "Neue Markierung für {type} erstellen",
+      "title": "Sichtbarkeit",
+      "tooltips": {
+        "toggle": "Label für {type} umschalten"
+      }
+    }
+  }
+}

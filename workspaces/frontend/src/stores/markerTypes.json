@@ -1,0 +1,276 @@
+[
+  {
+    "id": "table",
+    "name": "Table",
+    "navIcon": "table-restaurant",
+    "navColor": "#4D5A67",
+    "zIndex": 10,
+    "visibleByDefault": true,
+    "labelShownByDefault": false,
+    "variants": [
+      {
+        "name": "table",
+        "mapIcon": "square",
+        "mapWidth": 100,
+        "mapHeight": 60
+      }
+    ],
+    "allowedAttributes": [
+      {
+        "name": "Description",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "id": "person",
+    "name": "Person",
+    "navIcon": "person",
+    "navColor": "#029df7",
+    "zIndex": 100,
+    "visibleByDefault": true,
+    "labelShownByDefault": true,
+    "variants": [
+      {
+        "name": "person",
+        "mapIcon": "person",
+        "mapWidth": 80,
+        "mapHeight": 80
+      }
+    ],
+    "allowedAttributes": [
+      {
+        "name": "Post",
+        "type": "text"
+      },
+      {
+        "name": "Team",
+        "type": "csv"
+      },
+      {
+        "name": "Email",
+        "type": "link"
+      },
+      {
+        "name": "Website",
+        "type": "link"
+      },
+      {
+        "name": "Twitter",
+        "type": "link"
+      },
+      {
+        "name": "Phone Office",
+        "type": "text"
+      },
+      {
+        "name": "Phone Cell",
+        "type": "text"
+      },
+      {
+        "name": "Fax",
+        "type": "text"
+      },
+      {
+        "name": "Skype",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "id": "room",
+    "name": "Room",
+    "navIcon": "deployed-code",
+    "navColor": "#129806",
+    "zIndex": 20,
+    "visibleByDefault": true,
+    "labelShownByDefault": true,
+    "variants": [
+      {
+        "name": "bookable",
+        "mapIcon": "deployed-code",
+        "mapWidth": 50,
+        "mapHeight": 50
+      },
+      {
+        "name": "public",
+        "mapIcon": "activity-zone",
+        "mapWidth": 50,
+        "mapHeight": 50
+      }
+    ],
+    "allowedAttributes": [
+      {
+        "name": "Description",
+        "type": "text"
+      },
+      {
+        "name": "Usage",
+        "type": "text"
+      },
+      {
+        "name": "Email",
+        "type": "link"
+      },
+      {
+        "name": "capacity",
+        "type": "number"
+      },
+      {
+        "name": "Equipment",
+        "type": "csv"
+      },
+      {
+        "name": "Screen",
+        "type": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "toilet",
+    "name": "Toilet",
+    "navIcon": "wc",
+    "navColor": "#FFCC47",
+    "zIndex": 20,
+    "visibleByDefault": true,
+    "labelShownByDefault": false,
+    "variants": [
+      {
+        "name": "unisex",
+        "mapIcon": "wc",
+        "mapWidth": 100,
+        "mapHeight": 100
+      },
+      {
+        "name": "ladies",
+        "mapIcon": "woman",
+        "mapWidth": 100,
+        "mapHeight": 100
+      },
+      {
+        "name": "gentlemens",
+        "mapIcon": "man",
+        "mapWidth": 100,
+        "mapHeight": 100
+      },
+      {
+        "name": "accessable",
+        "mapIcon": "accessable",
+        "mapWidth": 100,
+        "mapHeight": 100
+      },
+      {
+        "name": "baby",
+        "mapIcon": "baby-changing-station",
+        "mapWidth": 100,
+        "mapHeight": 100
+      },
+      {
+        "name": "bathroom",
+        "mapIcon": "bathroom",
+        "mapWidth": 100,
+        "mapHeight": 100
+      }
+    ],
+    "allowedAttributes": [
+      {
+        "name": "Description",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "id": "emergency",
+    "name": "Emergency",
+    "navIcon": "emergency",
+    "navColor": "#D40000",
+    "zIndex": 50,
+    "visibleByDefault": true,
+    "labelShownByDefault": true,
+    "variants": [
+      {
+        "name": "firstaidkit",
+        "mapIcon": "medical-services",
+        "mapWidth": 50,
+        "mapHeight": 50
+      },
+      {
+        "name": "emergencyexit",
+        "mapIcon": "exit-to-app",
+        "mapWidth": 50,
+        "mapHeight": 50
+      },
+      {
+        "name": "fireextinguisher",
+        "mapIcon": "fire-extinguisher",
+        "mapWidth": 50,
+        "mapHeight": 50
+      }
+    ],
+    "allowedAttributes": [
+      {
+        "name": "Description",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "id": "other",
+    "name": "Other",
+    "navIcon": "interests",
+    "navColor": "#782994",
+    "zIndex": 20,
+    "visibleByDefault": true,
+    "labelShownByDefault": false,
+    "variants": [
+      {
+        "name": "other",
+        "mapIcon": "widgets",
+        "mapWidth": 50,
+        "mapHeight": 50
+      },
+      {
+        "name": "printer",
+        "mapIcon": "print",
+        "mapWidth": 50,
+        "mapHeight": 50
+      },
+      {
+        "name": "fridge",
+        "mapIcon": "kitchen",
+        "mapWidth": 50,
+        "mapHeight": 70
+      },
+      {
+        "name": "coffee",
+        "mapIcon": "coffee",
+        "mapWidth": 50,
+        "mapHeight": 50
+      },
+      {
+        "name": "shelf",
+        "mapIcon": "shelves",
+        "mapWidth": 50,
+        "mapHeight": 50
+      },
+      {
+        "name": "water",
+        "mapIcon": "water-full",
+        "mapWidth": 50,
+        "mapHeight": 50
+      },
+      {
+        "name": "play",
+        "mapIcon": "videogame-asset",
+        "mapWidth": 50,
+        "mapHeight": 50
+      }
+    ],
+    "allowedAttributes": [
+      {
+        "name": "Description",
+        "type": "text"
+      }
+    ]
+  }
+]

@@ -1,0 +1,52 @@
+name: Report a bug in Desk Compass
+description: Tell us if something is not working as expected
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for reaching out!
+        Before submitting a bug please make sure that you use latest version of Desk Compass.
+  - type: textarea
+    id: description
+    attributes:
+      label: A clear and concise description of what the bug is
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Use browser '...' on system '...'
+        2. Go to '....'
+        3. Click on '....'
+        4. Scroll down to '....'
+        5. See the error
+    validations:
+      required: true
+  - type: dropdown
+    id: fix
+    attributes:
+      label: Do you know how to fix the issue
+      options:
+        - 'Yes'
+        - 'No'
+    validations:
+      required: true
+  - type: dropdown
+    id: participate
+    attributes:
+      label: Are you willing to participate in fixing this issue and create a pull request with the fix
+      options:
+        - 'Yes'
+        - 'No'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Relevant Assets
+      description: |
+        A list of assets (errors, screenshots) relevant to this bug.
+
+        Tip: You can attach images or log files by highlighting this area and dragging files into it.
