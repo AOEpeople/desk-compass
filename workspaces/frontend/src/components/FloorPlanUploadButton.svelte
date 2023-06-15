@@ -7,7 +7,7 @@
   let title = $_('location.upload');
 
   const openSidebar = () => {
-    document.dispatchEvent(new CustomEvent('floorplan', { detail: { action: 'upload', imageOverlay: targetImageOverlay } }));
+    document.dispatchEvent(new CustomEvent('floorplan', { detail: { action: 'open', imageOverlay: targetImageOverlay } }));
   };
 </script>
 

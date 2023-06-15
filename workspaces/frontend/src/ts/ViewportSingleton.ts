@@ -8,6 +8,8 @@ import { ResetMapControl } from './ResetMapControl';
 import { ShareMapControl } from './ShareMapControl';
 import { FloorPlanUploadMapControl } from './FloorPlanUploadMapControl';
 import { getApiUrl } from './ApiUrl';
+import { Grid } from './Grid';
+import type { GridZoomSpacing } from './Grid';
 
 export let viewport: Viewport;
 export const viewportInitialized: Writable<boolean> = writable(false);
@@ -49,6 +51,8 @@ export class Viewport {
   private readonly _leafletMap: L.Map;
   private readonly _controls: { remove: () => void }[] = [];
 
+  private readonly _grid: Grid;
+
   private readonly _imageOverlay: L.ImageOverlay;
   private _imageUrl = getApiUrl().toString();
   private _imageWidth = 1000;
@@ -81,8 +85,8 @@ export class Viewport {
     const mapBounds = this.getImageBounds().pad(0.9);
     this._leafletMap = L.map(container, {
       crs: L.CRS.Simple,
-      minZoom: -2,
-      maxZoom: 4,
+      minZoom: -3,
+      maxZoom: 3,
       zoomControl: false,
       layers: [this._imageOverlay],
     })
@@ -93,6 +97,22 @@ export class Viewport {
     // Link to repository and version number
     const appVersion = import.meta.env.PACKAGE_VERSION ?? '';
     this._leafletMap.attributionControl.addAttribution(`<a href="https://github.com/AOEpeople/desk-compass">Desk Compass ${appVersion}</a>`);
+
+    // Grid
+    const zoomIntervals: GridZoomSpacing[] = [
+      { startZoomLevel: -3, endZoomLevel: -2, spacing: 200 },
+      { startZoomLevel: -1, endZoomLevel: 0, spacing: 100 },
+      { startZoomLevel: 0, endZoomLevel: 4, spacing: 50 },
+    ];
+
+    this._grid = new Grid({
+      hidden: true,
+      labelSteps: 100,
+      showOriginLabel: true,
+      redrawEvent: 'moveend resize',
+      zoomSpacing: zoomIntervals,
+    });
+    this._grid.addTo(this._leafletMap);
 
     // Set correct image dimensions
     fetch(getApiUrl('info')).then((response) => {
@@ -168,6 +188,14 @@ export class Viewport {
     this.setMaxBounds(newImageBounds.pad(0.9));
     this.setView(L.latLng(this._imageHeight / 2, this._imageWidth / 2), -2, { animate: false, duration: 1 });
     this.fitBounds(newImageBounds, { animate: false, duration: 1 });
+  }
+
+  public showGrid(): void {
+    this._grid.show();
+  }
+
+  public hideGrid(): void {
+    this._grid.hide();
   }
 
   public reset(): void {
