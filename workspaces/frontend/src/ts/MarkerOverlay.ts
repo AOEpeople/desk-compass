@@ -279,7 +279,7 @@ export class MarkerOverlay extends L.Layer {
       this._map.latLngToLayerPoint(this._latLngBounds.getNorthWest()),
       this._map.latLngToLayerPoint(this._latLngBounds.getSouthEast())
     );
-    const size = bounds.getSize();
+    const size = bounds.getSize().multiplyBy(1.3); // multiply to compensate inner svg offsets
 
     this.__setPosition(container, bounds.min);
 

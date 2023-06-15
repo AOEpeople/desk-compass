@@ -11,8 +11,8 @@
       {
         "name": "table",
         "mapIcon": "square",
-        "mapWidth": 100,
-        "mapHeight": 60
+        "mapWidth": 150,
+        "mapHeight": 80
       }
     ],
     "allowedAttributes": [
@@ -34,8 +34,8 @@
       {
         "name": "person",
         "mapIcon": "person",
-        "mapWidth": 80,
-        "mapHeight": 80
+        "mapWidth": 70,
+        "mapHeight": 70
       }
     ],
     "allowedAttributes": [
@@ -138,38 +138,38 @@
       {
         "name": "unisex",
         "mapIcon": "wc",
-        "mapWidth": 100,
-        "mapHeight": 100
+        "mapWidth": 50,
+        "mapHeight": 50
       },
       {
         "name": "ladies",
         "mapIcon": "woman",
-        "mapWidth": 100,
-        "mapHeight": 100
+        "mapWidth": 50,
+        "mapHeight": 50
       },
       {
         "name": "gentlemens",
         "mapIcon": "man",
-        "mapWidth": 100,
-        "mapHeight": 100
+        "mapWidth": 50,
+        "mapHeight": 50
       },
       {
-        "name": "accessable",
-        "mapIcon": "accessable",
-        "mapWidth": 100,
-        "mapHeight": 100
+        "name": "accessible",
+        "mapIcon": "accessible",
+        "mapWidth": 50,
+        "mapHeight": 50
       },
       {
         "name": "baby",
         "mapIcon": "baby-changing-station",
-        "mapWidth": 100,
-        "mapHeight": 100
+        "mapWidth": 50,
+        "mapHeight": 50
       },
       {
         "name": "bathroom",
         "mapIcon": "bathroom",
-        "mapWidth": 100,
-        "mapHeight": 100
+        "mapWidth": 50,
+        "mapHeight": 50
       }
     ],
     "allowedAttributes": [
@@ -226,44 +226,44 @@
       {
         "name": "other",
         "mapIcon": "widgets",
-        "mapWidth": 50,
-        "mapHeight": 50
+        "mapWidth": 40,
+        "mapHeight": 40
       },
       {
         "name": "printer",
         "mapIcon": "print",
-        "mapWidth": 50,
-        "mapHeight": 50
+        "mapWidth": 40,
+        "mapHeight": 40
       },
       {
         "name": "fridge",
         "mapIcon": "kitchen",
-        "mapWidth": 50,
-        "mapHeight": 70
+        "mapWidth": 40,
+        "mapHeight": 40
       },
       {
         "name": "coffee",
         "mapIcon": "coffee",
-        "mapWidth": 50,
-        "mapHeight": 50
+        "mapWidth": 40,
+        "mapHeight": 40
       },
       {
         "name": "shelf",
         "mapIcon": "shelves",
-        "mapWidth": 50,
-        "mapHeight": 50
+        "mapWidth": 40,
+        "mapHeight": 40
       },
       {
         "name": "water",
         "mapIcon": "water-full",
-        "mapWidth": 50,
-        "mapHeight": 50
+        "mapWidth": 40,
+        "mapHeight": 40
       },
       {
         "name": "play",
         "mapIcon": "videogame-asset",
-        "mapWidth": 50,
-        "mapHeight": 50
+        "mapWidth": 40,
+        "mapHeight": 40
       }
     ],
     "allowedAttributes": [

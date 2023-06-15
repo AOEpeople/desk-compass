@@ -17,11 +17,12 @@
   let originalImageDimensions: ImageDimensions;
 
   document.addEventListener('floorplan', (e: CustomEvent) => {
-    if (e.detail['action'] === 'upload') {
+    if (e.detail['action'] === 'open') {
       open = true;
       originalImage = viewport.getImageUrl();
       imageDimensions = viewport.getImageDimensions();
       originalImageDimensions = structuredClone(imageDimensions);
+      viewport.showGrid();
     }
   });
 
@@ -52,6 +53,7 @@
       open = false;
       imageFileInput = undefined;
       files = undefined;
+      viewport.hideGrid();
     }
   };
 
@@ -63,6 +65,7 @@
     imageManipulation.scaleY = 100;
     imageFileInput.value = '';
     await viewport.updateImage(originalImageDimensions, originalImage);
+    viewport.hideGrid();
   };
 </script>
 
@@ -93,7 +96,7 @@
         {#if imageDimensions}
           <p>
             <b>{$_(`location.sidebar.dimensions`)}</b>
-            {imageDimensions.width} x {imageDimensions.height}
+            <span data-testid="floorPlanPane-dimensions">{imageDimensions.width} x {imageDimensions.height}</span>
           </p>
         {/if}
       </div>
