@@ -58,6 +58,7 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "*",
     "v8": "*",
+    "vite": "*",
     "vitest": "*"
   }
 }
