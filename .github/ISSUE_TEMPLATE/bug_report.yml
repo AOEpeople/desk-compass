@@ -1,5 +1,6 @@
 name: Report a bug in Desk Compass
 description: Tell us if something is not working as expected
+title: 'bug: '
 labels: ['bug']
 body:
   - type: markdown
