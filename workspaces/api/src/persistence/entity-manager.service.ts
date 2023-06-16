@@ -1,29 +1,41 @@
 import { existsSync, promises as p } from 'fs';
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  OnModuleInit,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as uuid from '@lukeed/uuid';
 import { JsonDB, Config } from 'node-json-db';
 import { Entity } from './entities/entity';
 import { EntityType } from './entities/entity.type';
+import { MigrationService } from './migrations/migration.service';
 
 @Injectable()
-export class EntityManagerService {
+export class EntityManagerService implements OnModuleInit {
   public static PROVIDER = 'EntityManagerService';
 
   private readonly logger = new Logger(EntityManagerService.name);
 
-  constructor(private db: JsonDB) {}
+  private db: JsonDB;
 
-  static async init(configService: ConfigService): Promise<JsonDB> {
-    const logger = new Logger(EntityManagerService.name);
-    const dbPath = configService.getOrThrow<string>('database.path');
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly migrationService: MigrationService,
+  ) {}
+
+  async onModuleInit(): Promise<void> {
+    const dbPath = this.configService.getOrThrow<string>('database.path');
     const dbFile = 'data.json';
     const dbFilePath = `${dbPath}/${dbFile}`;
 
     // Check data storage availability
-    logger.debug(`Checking data folder ${dbFilePath}`);
+    this.logger.debug(`Checking data folder ${dbFilePath}`);
     if (!existsSync(dbFilePath)) {
-      logger.warn('Target file not found, creating new empty database file');
+      this.logger.warn(
+        'Target file not found, creating new empty database file',
+      );
       if (!existsSync(dbPath)) {
         try {
           await p.mkdir(dbPath, {
@@ -32,7 +44,7 @@ export class EntityManagerService {
           });
         } catch (e) {
           const error = new Error('Could not create data folder');
-          logger.error(error.message, { cause: e });
+          this.logger.error(error.message, { cause: e });
           throw error;
         }
       }
@@ -45,7 +57,7 @@ export class EntityManagerService {
         });
       } catch (e) {
         const error = new Error('Could not create data storage file');
-        logger.error(error.message, { cause: e });
+        this.logger.error(error.message, { cause: e });
         throw error;
       }
     }
@@ -55,13 +67,20 @@ export class EntityManagerService {
       await p.readFile(dbFilePath, { flag: 'r' });
     } catch (e) {
       const error = new Error('Could not read data storage file');
-      logger.error(error.message, { cause: e });
+      this.logger.error(error.message, { cause: e });
       throw error;
     }
 
-    logger.debug('Loading database from ' + dbFilePath);
-    const humanReadable = configService.get<boolean>('database.humanReadable');
-    return new JsonDB(new Config(dbFilePath, true, humanReadable, '/', true));
+    this.logger.debug('Loading database from ' + dbFilePath);
+    const humanReadable = this.configService.get<boolean>(
+      'database.humanReadable',
+    );
+
+    await this.migrationService.migrate(dbFilePath, humanReadable);
+
+    this.db = new JsonDB(
+      new Config(dbFilePath, true, humanReadable, '/', true),
+    );
   }
 
   async getAll<Type extends Entity>(entityType: EntityType): Promise<Type[]> {

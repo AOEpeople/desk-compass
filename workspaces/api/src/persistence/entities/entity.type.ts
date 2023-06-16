@@ -1,1 +1,1 @@
-export type EntityType = '' | '/marker';
+export type EntityType = '/locations' | '/markers';

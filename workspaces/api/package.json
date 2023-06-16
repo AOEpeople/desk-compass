@@ -31,6 +31,7 @@
     "multer": "^1.4.5-lts.1",
     "nestjs-otel": "^5.1.2",
     "nestjs-pino": "^3.2.0",
+    "node-jq": "^2.3.5",
     "node-json-db": "^2.2.0",
     "pino-http": "^8.3.3",
     "pino-pretty": "^10.0.0",

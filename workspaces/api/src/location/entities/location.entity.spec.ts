@@ -6,7 +6,7 @@ describe('Location', () => {
     it('should provide database entity type', () => {
       const marker = new Location();
 
-      expect(marker.getType()).toBe('');
+      expect(marker.getType()).toBe('/locations');
     });
   });
 });

@@ -9,11 +9,12 @@ describe('AppService', () => {
   const entityManagerService: EntityManagerService = {} as EntityManagerService;
   const uploadManagerService: UploadManagerService = {} as UploadManagerService;
 
-  const id = 'bgFloorplan';
+  const id = 'abc-123';
 
   beforeEach(async () => {
     entityManagerService.create = vi.fn();
     entityManagerService.get = vi.fn();
+    entityManagerService.getAll = vi.fn();
     entityManagerService.update = vi.fn();
     uploadManagerService.get = vi.fn();
     uploadManagerService.upload = vi.fn();
@@ -26,25 +27,21 @@ describe('AppService', () => {
     it('should get image', async () => {
       const imageId = 'xyz-789';
       const entity = new Location({ id: id, image: imageId });
-      vi
-        .spyOn(entityManagerService, 'get')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(entity)),
-        );
+      vi.spyOn(entityManagerService, 'getAll').mockImplementation(
+        () => new Promise<Location[]>((resolve) => resolve([entity])),
+      );
 
       await service.getFloorPlan();
 
-      expect(entityManagerService.get).toHaveBeenCalledWith('', id);
+      expect(entityManagerService.getAll).toHaveBeenCalledWith(Location.TYPE);
       expect(uploadManagerService.get).toHaveBeenCalledWith(imageId);
     });
 
     it('should provide default image, if no image data is available', async () => {
       const entity = new Location({ id: id });
-      vi
-        .spyOn(entityManagerService, 'get')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(entity)),
-        );
+      vi.spyOn(entityManagerService, 'getAll').mockImplementation(
+        () => new Promise<Location[]>((resolve) => resolve([entity])),
+      );
 
       const actual = await service.getFloorPlan();
 
@@ -56,16 +53,12 @@ describe('AppService', () => {
 
     it('should create missing floor plan, if no database entry exists', async () => {
       const entity = new Location({ id: id });
-      vi
-        .spyOn(entityManagerService, 'get')
-        .mockImplementation(
-          () => new Promise<Location>((_, reject) => reject()),
-        );
-      vi
-        .spyOn(entityManagerService, 'create')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(entity)),
-        );
+      vi.spyOn(entityManagerService, 'getAll').mockImplementation(
+        () => new Promise<Location[]>((_, reject) => reject()),
+      );
+      vi.spyOn(entityManagerService, 'create').mockImplementation(
+        () => new Promise<Location>((resolve) => resolve(entity)),
+      );
 
       const actual = await service.getFloorPlan();
 
@@ -89,30 +82,22 @@ describe('AppService', () => {
         width: imageWidth,
         height: imageHeight,
       });
-      vi
-        .spyOn(entityManagerService, 'get')
-        .mockImplementation(
-          () => new Promise<Location>((_, reject) => reject()),
-        );
-      vi
-        .spyOn(entityManagerService, 'create')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(entity)),
-        );
-      vi
-        .spyOn(uploadManagerService, 'upload')
-        .mockImplementation(
-          () => new Promise<string>((resolve) => resolve(imageId)),
-        );
-      vi
-        .spyOn(entityManagerService, 'update')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(updatedEntity)),
-        );
+      vi.spyOn(entityManagerService, 'getAll').mockImplementation(
+        () => new Promise<Location[]>((_, reject) => reject()),
+      );
+      vi.spyOn(entityManagerService, 'create').mockImplementation(
+        () => new Promise<Location>((resolve) => resolve(entity)),
+      );
+      vi.spyOn(uploadManagerService, 'upload').mockImplementation(
+        () => new Promise<string>((resolve) => resolve(imageId)),
+      );
+      vi.spyOn(entityManagerService, 'update').mockImplementation(
+        () => new Promise<Location>((resolve) => resolve(updatedEntity)),
+      );
 
       await service.uploadFloorPlan(file, imageWidth, imageHeight);
 
-      expect(entityManagerService.get).toHaveBeenCalledWith('', id);
+      expect(entityManagerService.getAll).toHaveBeenCalledWith(Location.TYPE);
       expect(uploadManagerService.upload).toHaveBeenCalledWith(file);
       expect(entityManagerService.update).toHaveBeenCalledWith(
         Location.TYPE,
@@ -132,25 +117,19 @@ describe('AppService', () => {
         width: imageWidth,
         height: imageHeight,
       });
-      vi
-        .spyOn(entityManagerService, 'get')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(entity)),
-        );
-      vi
-        .spyOn(uploadManagerService, 'upload')
-        .mockImplementation(
-          () => new Promise<string>((resolve) => resolve(imageId)),
-        );
-      vi
-        .spyOn(entityManagerService, 'update')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(updatedEntity)),
-        );
+      vi.spyOn(entityManagerService, 'getAll').mockImplementation(
+        () => new Promise<Location[]>((resolve) => resolve([entity])),
+      );
+      vi.spyOn(uploadManagerService, 'upload').mockImplementation(
+        () => new Promise<string>((resolve) => resolve(imageId)),
+      );
+      vi.spyOn(entityManagerService, 'update').mockImplementation(
+        () => new Promise<Location>((resolve) => resolve(updatedEntity)),
+      );
 
       await service.uploadFloorPlan(file, imageWidth, imageHeight);
 
-      expect(entityManagerService.get).toHaveBeenCalledWith('', id);
+      expect(entityManagerService.getAll).toHaveBeenCalledWith(Location.TYPE);
       expect(uploadManagerService.upload).toHaveBeenCalledWith(file);
       expect(entityManagerService.update).toHaveBeenCalledWith(
         Location.TYPE,
@@ -176,25 +155,19 @@ describe('AppService', () => {
         width: imageWidth,
         height: imageHeight,
       });
-      vi
-        .spyOn(entityManagerService, 'get')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(entity)),
-        );
-      vi
-        .spyOn(uploadManagerService, 'upload')
-        .mockImplementation(
-          () => new Promise<string>((resolve) => resolve(newImageId)),
-        );
-      vi
-        .spyOn(entityManagerService, 'update')
-        .mockImplementation(
-          () => new Promise<Location>((resolve) => resolve(updatedEntity)),
-        );
+      vi.spyOn(entityManagerService, 'getAll').mockImplementation(
+        () => new Promise<Location[]>((resolve) => resolve([entity])),
+      );
+      vi.spyOn(uploadManagerService, 'upload').mockImplementation(
+        () => new Promise<string>((resolve) => resolve(newImageId)),
+      );
+      vi.spyOn(entityManagerService, 'update').mockImplementation(
+        () => new Promise<Location>((resolve) => resolve(updatedEntity)),
+      );
 
       await service.uploadFloorPlan(file, imageWidth, imageHeight);
 
-      expect(entityManagerService.get).toHaveBeenCalledWith('', id);
+      expect(entityManagerService.getAll).toHaveBeenCalledWith(Location.TYPE);
       expect(uploadManagerService.upload).toHaveBeenCalledWith(file);
       expect(entityManagerService.update).toHaveBeenCalledWith(
         Location.TYPE,

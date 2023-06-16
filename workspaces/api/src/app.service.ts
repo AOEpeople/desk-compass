@@ -7,10 +7,7 @@ import { join } from 'path';
 
 @Injectable()
 export class AppService {
-  private readonly floorPlanId = 'bgFloorplan';
-
   constructor(
-    @Inject(EntityManagerService.PROVIDER)
     private readonly em: EntityManagerService,
     @Inject(UploadManagerService.PROVIDER)
     private readonly uploadManager: UploadManagerService,
@@ -23,11 +20,12 @@ export class AppService {
   }> {
     let location;
     try {
-      location = await this.em.get<Location>(Location.TYPE, this.floorPlanId);
+      const allLocations = await this.em.getAll<Location>(Location.TYPE);
+      location = allLocations[0];
     } catch (e) {
       location = await this.em.create<Location>(
         Location.TYPE,
-        new Location({ id: this.floorPlanId }),
+        new Location(),
       );
     }
 
@@ -54,12 +52,12 @@ export class AppService {
     height: number,
   ): Promise<string> {
     let location: Location = new Location({
-      id: this.floorPlanId,
       width: width,
       height: height,
     });
     try {
-      location = await this.em.get<Location>(Location.TYPE, this.floorPlanId);
+      const allLocations = await this.em.getAll<Location>(Location.TYPE);
+      location = allLocations[0];
     } catch (e) {
       location = await this.em.create<Location>(Location.TYPE, location);
     }

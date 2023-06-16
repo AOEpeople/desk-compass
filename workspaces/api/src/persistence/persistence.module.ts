@@ -1,20 +1,11 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { EntityManagerService } from './entity-manager.service';
 import { UploadManagerService } from './upload-manager.service';
-import { ConfigService } from '@nestjs/config';
 import { EntityManagerHealthIndicator } from './entity-manager.health';
 import { UploadManagerHealthIndicator } from './upload-manager.health';
-
-const entityManagerProvider = {
-  provide: EntityManagerService.PROVIDER,
-  inject: [ConfigService],
-  async useFactory(
-    configService: ConfigService,
-  ): Promise<EntityManagerService> {
-    const db = await EntityManagerService.init(configService);
-    return new EntityManagerService(db);
-  },
-};
+import { V1ToV2Migration } from './migrations/v1-to-v2.migration';
+import { MigrationService } from './migrations/migration.service';
 
 const uploadManagerProvider = {
   provide: UploadManagerService.PROVIDER,
@@ -28,14 +19,17 @@ const uploadManagerProvider = {
 };
 
 @Module({
+  imports: [ConfigModule],
   providers: [
-    entityManagerProvider,
+    V1ToV2Migration,
+    MigrationService,
+    EntityManagerService,
     uploadManagerProvider,
     EntityManagerHealthIndicator,
     UploadManagerHealthIndicator,
   ],
   exports: [
-    EntityManagerService.PROVIDER,
+    EntityManagerService,
     UploadManagerService.PROVIDER,
     EntityManagerHealthIndicator,
     UploadManagerHealthIndicator,

@@ -13,9 +13,9 @@ describe('UploadManagerHealthIndicator', () => {
 
   describe('isHealthy', () => {
     it('should be true', async () => {
-      vi
-        .spyOn(uploadManagerService, 'isHealthy')
-        .mockReturnValue(new Promise<boolean>((resolve) => resolve(true)));
+      vi.spyOn(uploadManagerService, 'isHealthy').mockReturnValue(
+        new Promise<boolean>((resolve) => resolve(true)),
+      );
 
       const actual = await healthIndicator.isHealthy('test');
 
@@ -30,9 +30,9 @@ describe('UploadManagerHealthIndicator', () => {
         null,
       );
       let errorWasTriggered = false;
-      vi
-        .spyOn(uploadManagerService, 'isHealthy')
-        .mockReturnValue(new Promise<boolean>((resolve) => resolve(false)));
+      vi.spyOn(uploadManagerService, 'isHealthy').mockReturnValue(
+        new Promise<boolean>((resolve) => resolve(false)),
+      );
 
       try {
         await healthIndicator.isHealthy('test');
