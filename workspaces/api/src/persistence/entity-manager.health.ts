@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   HealthCheckError,
   HealthIndicator,
@@ -8,15 +8,12 @@ import { EntityManagerService } from './entity-manager.service';
 
 @Injectable()
 export class EntityManagerHealthIndicator extends HealthIndicator {
-  constructor(
-    @Inject(EntityManagerService.PROVIDER)
-    private readonly em: EntityManagerService,
-  ) {
+  constructor(private readonly entityManagerService: EntityManagerService) {
     super();
   }
 
   async isHealthy(key: string): Promise<HealthIndicatorResult> {
-    const isHealthy = await this.em.isHealthy();
+    const isHealthy = await this.entityManagerService.isHealthy();
     const result = this.getStatus(key, isHealthy);
 
     if (isHealthy) {

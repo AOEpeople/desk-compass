@@ -10,8 +10,7 @@ import { MarkerMapperService } from './utils/marker-mapper.service';
 @Injectable()
 export class MarkerService {
   constructor(
-    @Inject(EntityManagerService.PROVIDER)
-    private readonly em: EntityManagerService,
+    private readonly entityManagerService: EntityManagerService,
     @Inject(UploadManagerService.PROVIDER)
     private readonly uploadManager: UploadManagerService,
     private readonly mapper: MarkerMapperService,
@@ -20,19 +19,19 @@ export class MarkerService {
   async create(createMarkerDto: CreateMarkerDto): Promise<MarkerDto> {
     const entity = this.mapper.dtoToEntity(createMarkerDto);
     entity.id = undefined;
-    const persistedEntity = await this.em.create<Marker>(Marker.TYPE, entity);
+    const persistedEntity = await this.entityManagerService.create<Marker>(Marker.TYPE, entity);
     return this.mapper.entityToDto(persistedEntity);
   }
 
   async findAll(): Promise<MarkerDto[]> {
-    const markers = await this.em.getAll<Marker>(Marker.TYPE);
+    const markers = await this.entityManagerService.getAll<Marker>(Marker.TYPE);
     return markers.map((m) => {
       return this.mapper.entityToDto(m);
     });
   }
 
   async findOne(id: string): Promise<MarkerDto> {
-    const marker = await this.em.get<Marker>(Marker.TYPE, id);
+    const marker = await this.entityManagerService.get<Marker>(Marker.TYPE, id);
     return this.mapper.entityToDto(marker);
   }
 
@@ -41,17 +40,17 @@ export class MarkerService {
     updateMarkerDto: UpdateMarkerDto,
   ): Promise<MarkerDto> {
     const entity = this.mapper.dtoToEntity(updateMarkerDto);
-    const updatedEntity = await this.em.update<Marker>(Marker.TYPE, entity);
+    const updatedEntity = await this.entityManagerService.update<Marker>(Marker.TYPE, entity);
     return this.mapper.entityToDto(updatedEntity);
   }
 
   async delete(id: string): Promise<void> {
-    const marker = await this.em.get<Marker>(Marker.TYPE, id);
-    await this.em.delete(Marker.TYPE, marker);
+    const marker = await this.entityManagerService.get<Marker>(Marker.TYPE, id);
+    await this.entityManagerService.delete(Marker.TYPE, marker);
   }
 
   async getImage(id: string): Promise<Buffer> {
-    const marker = await this.em.get<Marker>(Marker.TYPE, id);
+    const marker = await this.entityManagerService.get<Marker>(Marker.TYPE, id);
     if (!marker.image) {
       throw new NotFoundException('No image available');
     }
@@ -59,10 +58,10 @@ export class MarkerService {
   }
 
   async uploadImage(id: string, file: Express.Multer.File): Promise<string> {
-    const marker = await this.em.get<Marker>(Marker.TYPE, id);
+    const marker = await this.entityManagerService.get<Marker>(Marker.TYPE, id);
     const previousImageId = marker.image;
     marker.image = await this.uploadManager.upload(file);
-    const updatedMarker = await this.em.update<Marker>(Marker.TYPE, marker);
+    const updatedMarker = await this.entityManagerService.update<Marker>(Marker.TYPE, marker);
     if (previousImageId) {
       await this.uploadManager.delete(previousImageId);
     }

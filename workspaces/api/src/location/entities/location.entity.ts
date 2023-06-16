@@ -2,7 +2,7 @@ import { Entity } from '../../persistence/entities/entity';
 import { EntityType } from '../../persistence/entities/entity.type';
 
 export class Location extends Entity {
-  static TYPE: EntityType = '';
+  static TYPE: EntityType = '/locations';
 
   image: string;
   width: number;
