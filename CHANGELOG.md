@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+# [1.2.0](https://github.com/AOEpeople/desk-compass/compare/v1.1.0...v1.2.0) (2023-06-19)
+
+
+### Features
+
+* create database migration ([8c56cd1](https://github.com/AOEpeople/desk-compass/commit/8c56cd165a16a79377b57a937e419213ae5bc3b2)), closes [#17](https://github.com/AOEpeople/desk-compass/issues/17)
+
 # [1.1.0](https://github.com/AOEpeople/desk-compass/compare/v1.0.0...v1.1.0) (2023-06-19)
 
 
