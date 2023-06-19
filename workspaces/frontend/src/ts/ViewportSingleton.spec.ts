@@ -1,3 +1,5 @@
+import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { waitFor } from '@testing-library/svelte';
 import * as L from 'leaflet';
 import { get } from 'svelte/store';
 import { mapAction, Viewport, viewport, viewportInitialized } from './ViewportSingleton';
@@ -16,14 +18,21 @@ describe('ViewportSingleton', () => {
     expect(get(viewportInitialized)).toBe(false);
   });
 
-  test('viewport should be bindable', () => {
+  test('viewport should be bindable', async () => {
     const dispatchEventSpy = vi.spyOn(document, 'dispatchEvent');
-
     const destroyObj = mapAction(mapElement);
 
     expect(destroyObj).toBeDefined();
     expect(destroyObj.destroy).toBeDefined();
     expect(viewport).toBeDefined();
+
+    await waitFor(() => {
+      if (get(viewportInitialized)) {
+        return true;
+      }
+      throw new Error('Viewport not yet initialized');
+    });
+
     expect(get(viewportInitialized)).toBe(true);
 
     expect(dispatchEventSpy).toHaveBeenNthCalledWith(1, new CustomEvent('map:created'));

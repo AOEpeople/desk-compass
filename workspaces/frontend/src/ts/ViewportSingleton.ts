@@ -23,7 +23,6 @@ export const setViewport = (vp: Viewport) => {
 
 export const mapAction = (container): { destroy: () => void } => {
   viewport = Viewport.Instance(container);
-  viewportInitialized.set(true);
 
   const invalidateSizeFn = () => {
     viewport.invalidateSize();
@@ -119,6 +118,7 @@ export class Viewport {
       if (response.ok) {
         response.json().then((dimensions) => {
           this.updateImage(dimensions);
+          viewportInitialized.set(true);
         });
       }
     });
