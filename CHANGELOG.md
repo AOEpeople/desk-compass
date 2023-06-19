@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+# [1.1.0](https://github.com/AOEpeople/desk-compass/compare/v1.0.0...v1.1.0) (2023-06-19)
+
+
+### Features
+
+* display meter grid in map when uploading floor plan image ([b23d981](https://github.com/AOEpeople/desk-compass/commit/b23d98198afa5d01bb0978a9bde0ecef9fc94d81)), closes [#14](https://github.com/AOEpeople/desk-compass/issues/14)
+
 # 1.0.0 (2023-06-14)
 
 
