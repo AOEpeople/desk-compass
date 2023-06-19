@@ -1,8 +1,7 @@
 <script lang="ts">
   import * as L from 'leaflet';
-  import { onMount } from 'svelte';
   import { get } from 'svelte/store';
-  import { mapAction, viewport } from '../ts/ViewportSingleton';
+  import { mapAction, viewport, viewportInitialized } from '../ts/ViewportSingleton';
   import InfoPane from './InfoPaneSideBar.svelte';
   import Navigation from './NavigationSideBar.svelte';
   import { markerStore } from '../stores/markers';
@@ -10,9 +9,9 @@
 
   export let params = {};
 
-  onMount(async () => {
+  $: if ($viewportInitialized) {
     if (params['markerId']) {
-      const result = get(markerStore).find((m) => m.id === parseInt(params['markerId']));
+      const result = get(markerStore).find((m) => m.id === params['markerId']);
       if (result) {
         document.dispatchEvent(new CustomEvent('marker', { detail: { action: 'select', marker: result } }));
         viewport.flyTo([result.lat, result.lng], 0);
@@ -21,7 +20,7 @@
     if (params['lat'] && params['lng'] && params['zoom']) {
       viewport.flyTo(L.latLng(params['lat'], params['lng']), parseInt(params['zoom']));
     }
-  });
+  }
 </script>
 
 <div class="flex flex-col md:flex-row h-screen min-h-screen w-full max-w-full">
