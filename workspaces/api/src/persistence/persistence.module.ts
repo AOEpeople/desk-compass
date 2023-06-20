@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { RegistryModule } from '../registry/registry.module';
 import { EntityManagerService } from './entity-manager.service';
 import { UploadManagerService } from './upload-manager.service';
 import { EntityManagerHealthIndicator } from './entity-manager.health';
@@ -10,16 +11,14 @@ import { MigrationService } from './migrations/migration.service';
 const uploadManagerProvider = {
   provide: UploadManagerService.PROVIDER,
   inject: [ConfigService],
-  async useFactory(
-    configService: ConfigService,
-  ): Promise<UploadManagerService> {
+  async useFactory(configService: ConfigService): Promise<UploadManagerService> {
     const storage = await UploadManagerService.init(configService);
     return new UploadManagerService(storage);
   },
 };
 
 @Module({
-  imports: [ConfigModule],
+  imports: [ConfigModule, RegistryModule],
   providers: [
     V1ToV2Migration,
     MigrationService,
@@ -28,11 +27,6 @@ const uploadManagerProvider = {
     EntityManagerHealthIndicator,
     UploadManagerHealthIndicator,
   ],
-  exports: [
-    EntityManagerService,
-    UploadManagerService.PROVIDER,
-    EntityManagerHealthIndicator,
-    UploadManagerHealthIndicator,
-  ],
+  exports: [EntityManagerService, UploadManagerService.PROVIDER, EntityManagerHealthIndicator, UploadManagerHealthIndicator],
 })
 export class PersistenceModule {}

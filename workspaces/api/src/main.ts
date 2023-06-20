@@ -43,16 +43,16 @@ async function bootstrap() {
   }
 
   // Setup Swagger
-  const devMode = configService.get<boolean>('devMode');
-  if (devMode) {
-    const swaggerConfig = new DocumentBuilder()
-      .setTitle('Desk Compass')
-      .setDescription('CRUD and management of necessary data for desk compass')
-      .setVersion('1.0')
-      .build();
-    const document = SwaggerModule.createDocument(app, swaggerConfig);
-    SwaggerModule.setup('swagger', app, document);
-  }
+  // const devMode = configService.get<boolean>('devMode');
+  // if (devMode) {
+  //   const swaggerConfig = new DocumentBuilder()
+  //     .setTitle('Desk Compass')
+  //     .setDescription('CRUD and management of necessary data for desk compass')
+  //     .setVersion('1.0')
+  //     .build();
+  //   const document = SwaggerModule.createDocument(app, swaggerConfig);
+  //   SwaggerModule.setup('swagger', app, document);
+  // }
 
   await app.listen(configService.get<number>('appPort'));
 }
