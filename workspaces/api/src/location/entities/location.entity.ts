@@ -4,6 +4,9 @@ import { EntityType } from '../../persistence/entities/entity.type';
 export class Location extends Entity {
   static TYPE: EntityType = '/locations';
 
+  name: string;
+  shortName: string;
+  description: string;
   image: string;
   width: number;
   height: number;

@@ -6,6 +6,7 @@
   import type { MType } from '../ts/MarkerType';
   import { viewport } from '../ts/ViewportSingleton';
   import { generateMarker } from '../ts/Marker';
+  import NavigationItem from './NavigationItem.svelte';
 
   let slim = false;
 
@@ -27,6 +28,10 @@
       return currentMarkerTooltips;
     });
   }
+
+  const selectLocation = (location: string): void => {
+    // do nothing yet
+  };
 
   function createMarker(markerType: MType): void {
     const mapCenter = viewport.getCenter();
@@ -80,35 +85,47 @@
   </div>
 
   <div class="hidden md:block">
+    <div class="nav-section">{$_('nav.locations.title')}</div>
+    <div class="nav-item-list">
+      <NavigationItem
+        active={true}
+        color="#0B2D64"
+        counter={$markerStore.length}
+        toggleVisibility={() => selectLocation('home')}>
+        <span slot="title">Home</span>
+        <span
+          slot="short-title"
+          class="icon">
+          <Icon
+            icon="{MARKER_ICON_LIBRARY}:home"
+            color="#0B2D64"
+            height="20"
+            inline={true} />
+        </span>
+      </NavigationItem>
+    </div>
+  </div>
+
+  <div class="hidden md:block">
     <div class="nav-section">{$_('nav.types.title')}</div>
     <div class="nav-item-list">
       {#each $markerTypeStore as markerType}
-        <div
-          class="nav-item nav-item--active"
-          class:nav-item--active={$markerTypeVisibility[markerType.id]}
-          class:font-bold={$markerTypeVisibility[markerType.id]}>
-          <div class="nav-item-title">
-            <button
-              type="button"
-              title={$_('nav.types.toggle', { values: { type: markerType.name } })}
-              class="w-full text-left hover:text-black"
-              on:click={() => toggleMarkerVisibilityByType(markerType)}>
-              <span class="icon nav-item-title--short">
-                <Icon
-                  icon="{MARKER_ICON_LIBRARY}:{markerType.navIcon}"
-                  color={markerType.navColor}
-                  height="20"
-                  inline={true} />
-              </span>
-              <span class="nav-item-title--long capitalize">{markerType.name}</span>
-              <span
-                class="counter-badge"
-                style:background-color={markerType.navColor}>
-                {$markerTypeCounter[markerType.id]}
-              </span>
-            </button>
-          </div>
-          <div class="nav-item-actions nav-item-actions--long leading-none">
+        <NavigationItem
+          active={$markerTypeVisibility[markerType.id]}
+          color={markerType.navColor}
+          counter={$markerTypeCounter[markerType.id]}
+          toggleVisibility={() => toggleMarkerVisibilityByType(markerType)}>
+          <span slot="title">{markerType.name}</span>
+          <span
+            slot="short-title"
+            class="icon">
+            <Icon
+              icon="{MARKER_ICON_LIBRARY}:{markerType.navIcon}"
+              color={markerType.navColor}
+              height="20"
+              inline={true} />
+          </span>
+          <span slot="actions">
             <button
               type="button"
               class="text-xl icon enabled:hover:text-black"
@@ -129,8 +146,8 @@
               title={$_('nav.types.new', { values: { type: markerType.name } })}>
               add
             </button>
-          </div>
-        </div>
+          </span>
+        </NavigationItem>
       {/each}
     </div>
   </div>
@@ -146,65 +163,3 @@
     {/if}
   </button>
 </nav>
-
-<style lang="postcss">
-  .nav {
-    @apply bg-white overflow-hidden w-full md:w-72 md:h-screen md:min-h-screen flex flex-col z-[1234] shadow-sidebar;
-    @apply transition-sidebar duration-300 ease-in-out;
-  }
-  .nav.slim {
-    @apply w-12;
-  }
-  .nav-section {
-    @apply text-grey uppercase mt-8 mb-1 px-10 font-light text-xs;
-  }
-  .nav-item-list {
-    @apply flex flex-col gap-px my-2 md:my-0;
-  }
-  .nav-item {
-    @apply text-base text-grey-700 flex flex-row items-center font-bold mx-2 gap-3;
-    @apply md:mx-0 md:pl-10 md:pr-6 md:h-10;
-  }
-  .nav-item--active {
-    @apply bg-grey-300 text-default;
-  }
-  .nav-item-title {
-    @apply grow;
-  }
-  [class$='--short'],
-  [class*='--short'] {
-    @apply hidden;
-  }
-
-  .counter-badge {
-    @apply inline-block whitespace-nowrap rounded-full bg-blue-400 px-[0.4em] pb-[0.2em] pt-[0.25em];
-    @apply text-center align-top text-[0.7em] font-normal leading-none text-white;
-  }
-  .slim .counter-badge {
-    @apply absolute left-6;
-  }
-
-  .slim .nav-section {
-    @apply md:invisible md:h-4;
-  }
-  .slim .nav-item {
-    @apply px-2 justify-center;
-  }
-  .slim .nav-item button {
-    @apply w-auto;
-  }
-  .slim .nav-item-title {
-    @apply grow-0;
-  }
-  .slim [class$='--short'],
-  .slim [class*='--short'] {
-    @apply inline-block;
-  }
-  .slim [class$='--long'],
-  .slim [class*='--long'] {
-    @apply hidden;
-  }
-  .slim .search {
-    @apply md:hidden;
-  }
-</style>
