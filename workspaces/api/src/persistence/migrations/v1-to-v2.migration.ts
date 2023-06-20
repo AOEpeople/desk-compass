@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import * as uuid from '@lukeed/uuid';
+import { Discover } from '../../registry/discover.decorator';
 import { Migration } from './migration';
 
 @Injectable()
+@Discover('migration')
 export class V1ToV2Migration extends Migration {
   version(): number {
     return 2;

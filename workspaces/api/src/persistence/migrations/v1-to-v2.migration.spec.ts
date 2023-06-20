@@ -62,9 +62,7 @@ describe('V1ToV2Migration', () => {
     it('should create "locations"', async () => {
       const actual = await migration.migrate(dbContent, false);
 
-      expect(actual).toContain(
-        `"locations":{"${mockId}":{"id":"${mockId}","image":null,"width":null,"height":null}}`,
-      );
+      expect(actual).toContain(`"locations":{"${mockId}":{"id":"${mockId}","image":null,"width":null,"height":null}}`);
       expect(actual).toContain('"version":2');
     });
 
@@ -74,7 +72,7 @@ describe('V1ToV2Migration', () => {
       expect(actual).toContain('"version": 2');
     });
 
-    it('should return original content, if migration is not applicable', async () => {
+    it('should return original content, if migration with version 2 is already applied', async () => {
       const dbContent = '{"markers":{},"locations":{},"version":2}';
       const actual = await migration.migrate(dbContent, false);
 
