@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.2.1](https://github.com/AOEpeople/desk-compass/compare/v1.2.0...v1.2.1) (2023-06-20)
+
+
+### Bug Fixes
+
+* focus marker only once map is completely initialized ([490e59b](https://github.com/AOEpeople/desk-compass/commit/490e59b1e8d5447a50b58392dece208721a24d73)), closes [#39](https://github.com/AOEpeople/desk-compass/issues/39)
+
 # [1.2.0](https://github.com/AOEpeople/desk-compass/compare/v1.1.0...v1.2.0) (2023-06-19)
 
 
