@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+# [1.3.0](https://github.com/AOEpeople/desk-compass/compare/v1.2.1...v1.3.0) (2023-06-20)
+
+
+### Features
+
+* add basic crud operations for locations ([5fa39fb](https://github.com/AOEpeople/desk-compass/commit/5fa39fb85c679d29ec58a720e78a594a451ae235)), closes [#18](https://github.com/AOEpeople/desk-compass/issues/18)
+
 ## [1.2.1](https://github.com/AOEpeople/desk-compass/compare/v1.2.0...v1.2.1) (2023-06-20)
 
 
