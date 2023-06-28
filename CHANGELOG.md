@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.3.1](https://github.com/AOEpeople/desk-compass/compare/v1.3.0...v1.3.1) (2023-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nestjs-pino to v3.3.0 ([221507b](https://github.com/AOEpeople/desk-compass/commit/221507b76d4df9c4521f322c28bbcbd105942f47))
+
 # [1.3.0](https://github.com/AOEpeople/desk-compass/compare/v1.2.1...v1.3.0) (2023-06-20)
 
 
