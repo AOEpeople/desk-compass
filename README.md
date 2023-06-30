@@ -37,7 +37,7 @@ You'll need Node.js >= 18.x and Yarn:
 - Copy `workspaces/api/local.env` to `workspaces/api/.env`
 - Start server and frontend simultaneously with `yarn start`
 - See application UI http://localhost:3000/
-- See API at http://localhost:3030/swagger and as OpenAPI JSON at http://localhost:3030/swagger-json
+- See API at http://localhost:3030/api/swagger and as OpenAPI JSON at http://localhost:3030/api/swagger-json
 - See health indicator at http://localhost:3030/health
 - See application metrics at http://localhost:3033/metrics
 
