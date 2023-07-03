@@ -7,8 +7,6 @@ import { HealthModule } from './health/health.module';
 import { MarkerModule } from './marker/marker.module';
 import { LocationModule } from './location/location.module';
 import { PersistenceModule } from './persistence/persistence.module';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -28,7 +26,7 @@ import { join } from 'path';
     MarkerModule,
     LocationModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

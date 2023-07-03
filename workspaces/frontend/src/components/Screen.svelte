@@ -5,7 +5,7 @@
   import InfoPane from './InfoPaneSideBar.svelte';
   import Navigation from './NavigationSideBar.svelte';
   import { markerStore } from '../stores/markers';
-  import FloorPlanPaneSideBar from './FloorPlanPaneSideBar.svelte';
+  import FloorPlanPaneSideBar from './locations/LocationSideBar.svelte';
 
   export let params = {};
 

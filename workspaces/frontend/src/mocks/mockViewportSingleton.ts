@@ -1,6 +1,6 @@
 import { beforeEach, vi } from 'vitest';
 import type { LatLng, Layer, Map, PointExpression } from 'leaflet';
-import { point, latLng, Renderer, latLngBounds } from 'leaflet';
+import { latLng, latLngBounds, point, Renderer } from 'leaflet';
 import { setViewport, Viewport } from '../ts/ViewportSingleton';
 import type { ImageDimensions } from '../ts/ImageDimensions';
 
@@ -30,7 +30,7 @@ const _mockViewport = {
   _leafletMap: mockMap,
   getLeafletMap: () => mockMap,
 
-  getImageUrl: () => vi.fn(),
+  getImageBounds: () => latLngBounds([1, 2], [3, 4]),
 
   getImageDimensions: () => vi.fn(),
 

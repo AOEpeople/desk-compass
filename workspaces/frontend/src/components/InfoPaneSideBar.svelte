@@ -3,12 +3,13 @@
   import RangeSlider from 'svelte-range-slider-pips';
   import { afterUpdate } from 'svelte';
   import { markerStore } from '../stores/markers.js';
-  import { viewport } from '../ts/ViewportSingleton';
+  import { currentLocation } from '../stores/locations';
+  import { markerTypeVariantByName } from '../ts/MarkerType';
   import { generateMarker } from '../ts/Marker';
+  import { viewport } from '../ts/ViewportSingleton';
   import { getApiUrl } from '../ts/ApiUrl';
   import ShareButton from './ShareButton.svelte';
   import ConfirmationDialog from './ConfirmationDialog.svelte';
-  import { markerTypeVariantByName } from '../ts/MarkerType';
 
   let editMode = false;
   let dragMode = false;
@@ -39,7 +40,7 @@
       avatar = 'https://via.placeholder.com/100/575757/fff?text=Upload';
     }
     if (viewMarker?.image) {
-      avatar = getApiUrl(`marker/${viewMarker.id}/image`);
+      avatar = getApiUrl(`locations/${$currentLocation.id}/markers/${viewMarker.id}/image`);
     }
   }
 
@@ -108,7 +109,7 @@
     if (files && files[0]) {
       const formData = new FormData();
       formData.append('file', files[0]);
-      const response = await fetch(getApiUrl(`marker/${editMarker.id}/image/upload`), {
+      const response = await fetch(getApiUrl(`locations/${$currentLocation.id}/markers/${editMarker.id}/image/upload`), {
         method: 'POST',
         body: formData,
       });
@@ -131,7 +132,7 @@
   };
 
   afterUpdate(() => {
-    document.dispatchEvent(new CustomEvent('infopane', { detail: { open: !!viewMarker } }));
+    document.dispatchEvent(new CustomEvent('sidebar', { detail: { open: !!viewMarker } }));
   });
 </script>
 

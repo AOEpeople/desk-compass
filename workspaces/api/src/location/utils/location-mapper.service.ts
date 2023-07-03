@@ -1,6 +1,6 @@
+import { Injectable } from '@nestjs/common';
 import { Location } from '../entities/location.entity';
 import { LocationDto } from '../dto/location.dto';
-import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class LocationMapperService {
@@ -11,8 +11,8 @@ export class LocationMapperService {
       shortName: entity.shortName,
       description: entity.description,
       image: entity.image,
-      width: entity.width,
-      height: entity.height,
+      width: entity.width ?? 1000,
+      height: entity.height ?? 1000,
     });
   }
 

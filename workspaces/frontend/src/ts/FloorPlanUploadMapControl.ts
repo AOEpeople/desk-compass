@@ -1,6 +1,6 @@
 import * as L from 'leaflet';
-import FloorPlanUploadButton from '../components/FloorPlanUploadButton.svelte';
 import { ImageOverlay } from 'leaflet';
+import FloorPlanUploadButton from '../components/FloorPlanUploadButton.svelte';
 
 export class FloorPlanUploadMapControl extends L.Control {
   _uploadButton: FloorPlanUploadButton;
@@ -21,9 +21,6 @@ export class FloorPlanUploadMapControl extends L.Control {
     container.className = 'leaflet-bar leaflet-control hidden md:block';
     this._uploadButton = new FloorPlanUploadButton({
       target: container,
-      props: {
-        targetImageOverlay: this.imageOverlay,
-      },
     });
 
     return container;

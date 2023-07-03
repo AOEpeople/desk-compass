@@ -1,12 +1,15 @@
 import { waitFor } from '@testing-library/svelte';
+import { afterEach, beforeEach, describe, expect, test } from 'vitest';
 import { get } from 'svelte/store';
 import { server } from '../mocks/server';
 import { generateMarker } from '../ts/Marker';
-import { markerStore } from './markers';
 import { markerTypeStore } from './markerTypes';
+import { locationStore } from './locations';
+import { markerStore } from './markers';
 
 describe('Markers store', () => {
   beforeEach(async () => {
+    await locationStore.init();
     await markerTypeStore.init();
     await markerStore.init();
   });

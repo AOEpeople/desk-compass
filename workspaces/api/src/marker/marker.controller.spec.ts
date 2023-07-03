@@ -33,11 +33,9 @@ describe('MarkerController', () => {
   describe('findAll', () => {
     it('should return an array of markers', async () => {
       const expectedResult = [new MarkerDto({}), new MarkerDto({})];
-      const result: Promise<MarkerDto[]> = new Promise<MarkerDto[]>(
-        (resolve) => {
-          resolve(expectedResult);
-        },
-      );
+      const result: Promise<MarkerDto[]> = new Promise<MarkerDto[]>((resolve) => {
+        resolve(expectedResult);
+      });
       markerService.findAll = vi.fn();
       vi.spyOn(markerService, 'findAll').mockImplementation(() => result);
 
@@ -100,7 +98,7 @@ describe('MarkerController', () => {
         return new Promise<Buffer>((resolve) => resolve(mockImage));
       });
 
-      await controller.getImage('abc-123', mockResponse);
+      await controller.getImage('xyz-000', 'abc-123', mockResponse);
 
       expect(markerService.getImage).toHaveBeenCalledTimes(1);
       expect(mockResponse.type).toHaveBeenCalledWith('png');
@@ -113,11 +111,7 @@ describe('MarkerController', () => {
       markerService.uploadImage = vi.fn();
       vi.spyOn(markerService, 'uploadImage');
 
-      await controller.uploadImage(
-        'abc-123',
-        new UploadDto(),
-        {} as Express.Multer.File,
-      );
+      await controller.uploadImage('abc-123', new UploadDto(), {} as Express.Multer.File);
 
       expect(markerService.uploadImage).toHaveBeenCalledTimes(1);
     });

@@ -6,6 +6,7 @@ import { UploadManagerService } from './upload-manager.service';
 import { EntityManagerHealthIndicator } from './entity-manager.health';
 import { UploadManagerHealthIndicator } from './upload-manager.health';
 import { V1ToV2Migration } from './migrations/v1-to-v2.migration';
+import { V2ToV3Migration } from './migrations/v2-to-v3.migration';
 import { MigrationService } from './migrations/migration.service';
 
 const uploadManagerProvider = {
@@ -21,6 +22,7 @@ const uploadManagerProvider = {
   imports: [ConfigModule, RegistryModule],
   providers: [
     V1ToV2Migration,
+    V2ToV3Migration,
     MigrationService,
     EntityManagerService,
     uploadManagerProvider,

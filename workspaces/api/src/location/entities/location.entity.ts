@@ -1,5 +1,6 @@
 import { Entity } from '../../persistence/entities/entity';
 import { EntityType } from '../../persistence/entities/entity.type';
+import { Marker } from '../../marker/entities/marker.entity';
 
 export class Location extends Entity {
   static TYPE: EntityType = '/locations';
@@ -10,6 +11,7 @@ export class Location extends Entity {
   image: string;
   width: number;
   height: number;
+  markers: { [key: string]: Marker } = {};
 
   constructor(partial?: Partial<Location>) {
     super();

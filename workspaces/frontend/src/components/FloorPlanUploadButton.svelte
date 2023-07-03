@@ -1,13 +1,10 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
-  import type { ImageOverlay } from 'leaflet';
-
-  export let targetImageOverlay: ImageOverlay;
 
   let title = $_('location.upload');
 
   const openSidebar = () => {
-    document.dispatchEvent(new CustomEvent('floorplan', { detail: { action: 'open', imageOverlay: targetImageOverlay } }));
+    document.dispatchEvent(new CustomEvent('location', { detail: { action: 'edit' } }));
   };
 </script>
 
