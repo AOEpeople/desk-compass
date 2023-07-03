@@ -54,6 +54,27 @@ describe('LocationMapperService', () => {
       expect(actual.id).toBe(objData.id);
       expect(actual.name).toBe(objData.name);
       expect(actual.image).toBe(objData.image);
+      expect(actual.width).toBe(objData.width);
+      expect(actual.height).toBe(objData.height);
+    });
+
+    it('should create LocationDto from Location entity with fallback size', async () => {
+      const objData = {
+        id: 'abc-123',
+        name: 'This is a test',
+        shortName: 'T',
+        description: 'A description text',
+        image: 'def-456-ghi-789',
+      };
+      const input = new Location(objData);
+
+      const actual = service.entityToDto(input);
+
+      expect(actual.id).toBe(objData.id);
+      expect(actual.name).toBe(objData.name);
+      expect(actual.image).toBe(objData.image);
+      expect(actual.width).toBe(1000);
+      expect(actual.height).toBe(1000);
     });
   });
 });

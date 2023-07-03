@@ -13,7 +13,7 @@ export abstract class Migration {
   async migrate(jsonContent: string, humanReadable: boolean): Promise<string> {
     const obj = JSON.parse(jsonContent);
     if (!this.isApplicable(jsonContent)) {
-      if (obj['version'] === this.version()) {
+      if (obj['version'] >= this.version()) {
         this.logger.debug(`Migration to version ${this.version()} is already applied, skipped`);
       } else {
         this.logger.error(`Migration to version ${this.version()} is not applicable, skipped`);

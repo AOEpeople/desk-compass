@@ -14,16 +14,28 @@
     }
   },
   "location": {
-    "upload": "Grundriss anpassen",
-    "sidebar": {
+    "upload": "Ort anpassen",
+    "action": {
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "delete": "Löschen",
+      "confirm": {
+        "title": "Ort \"{name}\" löschen?",
+        "description": "Bist du sicher, dass du diesen Ort löschen möchtest?"
+      }
+    },
+    "edit": {
+      "name": "Name",
+      "short": "Kurzname",
+      "description": "Beschreibung",
+      "dimensions": "Bildgröße"
+    },
+    "floorplan": {
+      "title": "Grundriss hochladen",
       "description": "Lade ein Bild hoch, um die Darstellung als Karte und die Positionen der Marker zu prüfen:",
       "dimensions": "Bildgröße:",
       "scaleX": "Bildskalierung X",
-      "scaleY": "Bildskalierung Y",
-      "action": {
-        "save": "Speichern",
-        "cancel": "Abbrechen"
-      }
+      "scaleY": "Bildskalierung Y"
     }
   },
   "marker": {
@@ -56,6 +68,9 @@
       "tooltips": {
         "toggle": "Label für {type} umschalten"
       }
+    },
+    "locations": {
+      "title": "Orte"
     }
   }
 }

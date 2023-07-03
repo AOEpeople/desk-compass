@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { NotFoundException } from '@nestjs/common';
 import { EntityManagerService } from '../persistence/entity-manager.service';
 import { UploadManagerService } from '../persistence/upload-manager.service';
 import { LocationMapperService } from './utils/location-mapper.service';
@@ -8,6 +7,7 @@ import { CreateLocationDto } from './dto/create-location.dto';
 import { Location } from './entities/location.entity';
 import { LocationDto } from './dto/location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
+import { Marker } from '../marker/entities/marker.entity';
 
 describe('LocationService', () => {
   let service: LocationService;
@@ -127,33 +127,28 @@ describe('LocationService', () => {
       expect(uploadManagerService.get).toHaveBeenCalledWith(imageId);
     });
 
-    it('should throw error without image data', async () => {
+    it('should provide fallback image without image data', async () => {
       const entity = new Location({ id: id });
-      const expectedError = new NotFoundException('No image available');
-      let errorWasTriggered = false;
       vi.spyOn(entityManagerService, 'get').mockImplementation(() => new Promise<Location>((resolve) => resolve(entity)));
 
-      try {
-        await service.getImage(id);
-      } catch (error) {
-        expect(error.toString()).toBe(expectedError.toString());
-        errorWasTriggered = true;
-      }
+      const actual = await service.getImage(id);
 
-      expect(errorWasTriggered).toBe(true);
+      expect(actual.toString()).toContain('PNG');
     });
   });
 
   describe('uploadImage', () => {
     it('should upload image', async () => {
       const imageId = 'xyz-789';
+      const width = 123;
+      const height = 456;
       const file = {} as Express.Multer.File;
       const updatedEntity = new Location({ id: id, image: imageId });
       vi.spyOn(entityManagerService, 'get').mockImplementation(() => new Promise<Location>((resolve) => resolve(entity)));
       vi.spyOn(uploadManagerService, 'upload').mockImplementation(() => new Promise<string>((resolve) => resolve(imageId)));
       vi.spyOn(entityManagerService, 'update').mockImplementation(() => new Promise<Location>((resolve) => resolve(updatedEntity)));
 
-      await service.uploadImage(id, file);
+      await service.uploadImage(id, width, height, file);
 
       expect(entityManagerService.get).toHaveBeenCalledWith(Location.TYPE, id);
       expect(uploadManagerService.upload).toHaveBeenCalledWith(file);
@@ -163,6 +158,8 @@ describe('LocationService', () => {
     it('should upload image and delete previous one', async () => {
       const previousImageId = 'ooo-000';
       const newImageId = 'xyz-789';
+      const width = 123;
+      const height = 456;
       const file = {} as Express.Multer.File;
       const entity = new Location({ id: id, image: previousImageId });
       const updatedEntity = new Location({ id: id, image: newImageId });
@@ -170,12 +167,54 @@ describe('LocationService', () => {
       vi.spyOn(uploadManagerService, 'upload').mockImplementation(() => new Promise<string>((resolve) => resolve(newImageId)));
       vi.spyOn(entityManagerService, 'update').mockImplementation(() => new Promise<Location>((resolve) => resolve(updatedEntity)));
 
-      await service.uploadImage(id, file);
+      await service.uploadImage(id, width, height, file);
 
       expect(entityManagerService.get).toHaveBeenCalledWith(Location.TYPE, id);
       expect(uploadManagerService.upload).toHaveBeenCalledWith(file);
       expect(entityManagerService.update).toHaveBeenCalledWith(Location.TYPE, entity);
       expect(uploadManagerService.delete).toHaveBeenCalledWith(previousImageId);
+    });
+  });
+
+  describe('addMarker', () => {
+    it('should add marker to location', async () => {
+      const marker = new Marker({ id: 'xyz-000' });
+      const updatedEntity = new Location({ id: id, markers: { 'xyz-000': marker } });
+      vi.spyOn(entityManagerService, 'get').mockImplementation(() => new Promise<Location>((resolve) => resolve(entity)));
+      vi.spyOn(entityManagerService, 'update').mockImplementation(() => new Promise<Location>((resolve) => resolve(updatedEntity)));
+
+      await service.addMarker(id, marker);
+
+      expect(entityManagerService.get).toHaveBeenCalledWith(Location.TYPE, id);
+      expect(entityManagerService.update).toHaveBeenCalledWith(Location.TYPE, entity);
+    });
+  });
+
+  describe('updateMarker', () => {
+    it('should update a marker in a location', async () => {
+      const marker = new Marker({ id: 'xyz-000' });
+      const updatedEntity = new Location({ id: id, markers: { 'xyz-000': marker } });
+      vi.spyOn(entityManagerService, 'get').mockImplementation(() => new Promise<Location>((resolve) => resolve(entity)));
+      vi.spyOn(entityManagerService, 'update').mockImplementation(() => new Promise<Location>((resolve) => resolve(updatedEntity)));
+
+      await service.updateMarker(id, marker);
+
+      expect(entityManagerService.get).toHaveBeenCalledWith(Location.TYPE, id);
+      expect(entityManagerService.update).toHaveBeenCalledWith(Location.TYPE, entity);
+    });
+  });
+
+  describe('deleteMarker', () => {
+    it('should delete a marker from a location', async () => {
+      const marker = new Marker({ id: 'xyz-000' });
+      const updatedEntity = new Location({ id: id, markers: { 'xyz-000': marker } });
+      vi.spyOn(entityManagerService, 'get').mockImplementation(() => new Promise<Location>((resolve) => resolve(entity)));
+      vi.spyOn(entityManagerService, 'update').mockImplementation(() => new Promise<Location>((resolve) => resolve(updatedEntity)));
+
+      await service.deleteMarker(id, marker.id);
+
+      expect(entityManagerService.get).toHaveBeenCalledWith(Location.TYPE, id);
+      expect(entityManagerService.update).toHaveBeenCalledWith(Location.TYPE, entity);
     });
   });
 });

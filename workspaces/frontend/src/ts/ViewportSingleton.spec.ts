@@ -3,6 +3,7 @@ import { waitFor } from '@testing-library/svelte';
 import * as L from 'leaflet';
 import { get } from 'svelte/store';
 import { mapAction, Viewport, viewport, viewportInitialized } from './ViewportSingleton';
+import { locationStore } from '../stores/locations';
 
 describe('ViewportSingleton', () => {
   document.body.innerHTML =
@@ -12,6 +13,10 @@ describe('ViewportSingleton', () => {
     '</div>' +
     '<div id="map"></div>';
   const mapElement = document.getElementById('map');
+
+  beforeEach(async () => {
+    await locationStore.init();
+  });
 
   test('has empty viewport', () => {
     expect(viewport).toBeUndefined;
@@ -48,20 +53,14 @@ describe('ViewportSingleton', () => {
       mapAction(mapElement);
     });
 
-    test('.getImageUrl returns current image URL', () => {
-      const actual = viewport.getImageUrl();
-
-      expect(actual).toEqual('http://localhost:3000/api');
-    });
-
     test('.getImageDimensions returns current image width and height', () => {
       const actual = viewport.getImageDimensions();
 
-      expect(actual.width).toEqual(1000);
-      expect(actual.height).toEqual(1000);
+      expect(actual.width).toEqual(123);
+      expect(actual.height).toEqual(456);
     });
 
-    test('.updateImage set new image URL, width and height', () => {
+    test('.updateImage set image width and height', () => {
       const expectedImage = 'abc';
       const expectedImageWidth = 123;
       const expectedImageHeight = 456;
@@ -71,8 +70,6 @@ describe('ViewportSingleton', () => {
       const actualDimension = viewport.getImageDimensions();
       expect(actualDimension.width).toEqual(expectedImageWidth);
       expect(actualDimension.height).toEqual(expectedImageHeight);
-      const actualImage = viewport.getImageUrl();
-      expect(actualImage).toEqual(expectedImage);
     });
 
     test('.reset calls leaflet fitBounds internally', () => {

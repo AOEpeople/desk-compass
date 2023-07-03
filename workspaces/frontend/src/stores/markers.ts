@@ -1,13 +1,14 @@
-import { derived, writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
+import { derived, get, writable } from 'svelte/store';
 import fetch from 'cross-fetch';
 import { getApiUrl } from '../ts/ApiUrl';
 import { generateMarker, Marker } from '../ts/Marker';
 import { viewport, viewportInitialized } from '../ts/ViewportSingleton';
-import { generateMarkerTypeTableFromProperty, generateMarkerTypeTableWithDefaultValue } from '../ts/MarkerTypeTable';
 import type { MarkerTypeTable } from '../ts/MarkerTypeTable';
+import { generateMarkerTypeTableFromProperty, generateMarkerTypeTableWithDefaultValue } from '../ts/MarkerTypeTable';
 import type { RemoteWritable } from './RemoteWritable';
 import { markerTypeStore } from './markerTypes';
+import { currentLocation } from './locations';
 
 const createMarkerStore = (): RemoteWritable<Marker> => {
   const internalStore: Writable<Marker[]> = writable([]);
@@ -18,7 +19,7 @@ const createMarkerStore = (): RemoteWritable<Marker> => {
     set,
     update,
     init: async (): Promise<boolean> => {
-      const res = await fetch(getApiUrl('marker'));
+      const res = await fetch(getApiUrl(`locations/${get(currentLocation).id}/markers`));
       if (res.ok) {
         const json: any[] = await res.json();
         const resultObjects: Marker[] = json.map((item) => generateMarker(item)).filter((item) => item !== null);
@@ -29,7 +30,7 @@ const createMarkerStore = (): RemoteWritable<Marker> => {
     createItem: (obj: Marker) => {
       const markerDto = obj.getDto();
 
-      fetch(getApiUrl('marker'), {
+      fetch(getApiUrl(`locations/${get(currentLocation).id}/markers`), {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -62,7 +63,7 @@ const createMarkerStore = (): RemoteWritable<Marker> => {
         if (!item) {
           throw new Error('Cannot update non-existing marker');
         }
-        fetch(getApiUrl(`marker/${obj.id}`), {
+        fetch(getApiUrl(`locations/${get(currentLocation).id}/markers/${obj.id}`), {
           method: 'PUT',
           mode: 'cors',
           headers: {
@@ -80,7 +81,7 @@ const createMarkerStore = (): RemoteWritable<Marker> => {
         return m;
       }),
     deleteItem: (obj: Marker) =>
-      fetch(getApiUrl(`marker/${obj.id}`), {
+      fetch(getApiUrl(`locations/${get(currentLocation).id}/markers/${obj.id}`), {
         method: 'DELETE',
         mode: 'cors',
         headers: {
@@ -115,6 +116,7 @@ export const visibleMarkers = derived(
       return;
     }
 
+    viewport.clearLayers();
     $markerStore.forEach((marker) => {
       // set visibility
       const shouldBeVisible =

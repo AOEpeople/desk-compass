@@ -1,10 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/svelte';
-import { vi } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { get } from 'svelte/store';
 import { markerStore } from '../stores/markers';
+import { locationStore } from '../stores/locations';
+import { markerTypeStore } from '../stores/markerTypes';
 import { viewport } from '../ts/ViewportSingleton';
 import InfoPaneSideBar from './InfoPaneSideBar.svelte';
-import { markerTypeStore } from '../stores/markerTypes';
 
 describe('InfoPaneSideBar', () => {
   test('should be initialized', async () => {
@@ -16,6 +17,7 @@ describe('InfoPaneSideBar', () => {
 
   describe('initialized with a marker', () => {
     beforeEach(async () => {
+      await locationStore.init();
       await markerTypeStore.init();
       await markerStore.init();
       const marker = get(markerStore)[1];

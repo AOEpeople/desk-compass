@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
   export let active = false;
   export let color = '#000000';
   export let toggleVisibility = () => {
     // nothing to do
   };
-  export let counter = 0;
+  export let counter: number = undefined;
 </script>
 
 <div
@@ -22,14 +22,18 @@
       <span class="nav-item-title--long capitalize">
         <slot name="title" />
       </span>
-      <span
-        class="counter-badge"
-        style:background-color={color}>
-        {counter}
-      </span>
+      {#if counter !== undefined}
+        <span
+          class="counter-badge"
+          style:background-color={color}>
+          {counter}
+        </span>
+      {/if}
     </button>
   </div>
-  <div class="nav-item-actions nav-item-actions--long leading-none">
-    <slot name="actions" />
-  </div>
+  {#if $$slots.actions}
+    <div class="nav-item-actions nav-item-actions--long leading-none">
+      <slot name="actions" />
+    </div>
+  {/if}
 </div>

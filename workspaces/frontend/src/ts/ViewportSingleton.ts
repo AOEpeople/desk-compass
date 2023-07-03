@@ -1,15 +1,16 @@
 import { _ } from 'svelte-i18n';
-import fetch from 'cross-fetch';
 import * as L from 'leaflet';
 import type { Writable } from 'svelte/store';
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
+import { currentLocation } from '../stores/locations';
+import { markerStore } from '../stores/markers';
+import { FloorPlanUploadMapControl } from './FloorPlanUploadMapControl';
 import type { ImageDimensions } from './ImageDimensions';
 import { ResetMapControl } from './ResetMapControl';
 import { ShareMapControl } from './ShareMapControl';
-import { FloorPlanUploadMapControl } from './FloorPlanUploadMapControl';
-import { getApiUrl } from './ApiUrl';
-import { Grid } from './Grid';
+import type { Location } from './Location';
 import type { GridZoomSpacing } from './Grid';
+import { Grid } from './Grid';
 
 export let viewport: Viewport;
 export const viewportInitialized: Writable<boolean> = writable(false);
@@ -23,21 +24,32 @@ export const setViewport = (vp: Viewport) => {
 
 export const mapAction = (container): { destroy: () => void } => {
   viewport = Viewport.Instance(container);
+  viewportInitialized.set(true);
 
   const invalidateSizeFn = () => {
     viewport.invalidateSize();
   };
 
+  const updateLocation = async (e: CustomEvent) => {
+    if (e.detail['location'] && e.detail['action'] === 'select') {
+      const location: Location = get(currentLocation);
+      viewport.updateImage(location.getDimensions(), location.getImageUrl());
+      await markerStore.init();
+    }
+  };
+
   viewport.getLeafletMap().whenReady(() => {
     document.addEventListener('navbar', invalidateSizeFn);
-    document.addEventListener('infopane', invalidateSizeFn);
+    document.addEventListener('sidebar', invalidateSizeFn);
+    document.addEventListener('location', updateLocation);
     document.dispatchEvent(new CustomEvent('map:created'));
   });
 
   return {
     destroy: () => {
       document.removeEventListener('navbar', invalidateSizeFn);
-      document.removeEventListener('infopane', invalidateSizeFn);
+      document.removeEventListener('sidebar', invalidateSizeFn);
+      document.removeEventListener('location', updateLocation);
       viewport.getControls().forEach((c) => c.remove());
       viewport.remove();
     },
@@ -53,13 +65,15 @@ export class Viewport {
   private readonly _grid: Grid;
 
   private readonly _imageOverlay: L.ImageOverlay;
-  private _imageUrl = getApiUrl().toString();
-  private _imageWidth = 1000;
-  private _imageHeight = 1000;
+  private _imageWidth: number;
+  private _imageHeight: number;
+
+  private readonly _markerLayerGroup: L.LayerGroup = L.layerGroup([]);
 
   getLeafletMap() {
     return this._leafletMap;
   }
+
   getControls() {
     return this._controls;
   }
@@ -69,7 +83,10 @@ export class Viewport {
     let zoomOutTitle = 'Zoom out';
 
     // Office image
-    this._imageOverlay = L.imageOverlay(this._imageUrl, this.getImageBounds(), {
+    const imageUrl = get(currentLocation).getImageUrl();
+    this._imageWidth = get(currentLocation).width;
+    this._imageHeight = get(currentLocation).height;
+    this._imageOverlay = L.imageOverlay(imageUrl, this.getImageBounds(), {
       opacity: 1,
     });
 
@@ -87,7 +104,7 @@ export class Viewport {
       minZoom: -3,
       maxZoom: 3,
       zoomControl: false,
-      layers: [this._imageOverlay],
+      layers: [this._imageOverlay, this._markerLayerGroup],
     })
       .setView(L.latLng(this._imageHeight / 2, this._imageWidth / 2), -2, { animate: false, duration: 1 })
       .fitBounds(this.getImageBounds(), { animate: false, duration: 1 })
@@ -95,7 +112,7 @@ export class Viewport {
 
     // Link to repository and version number
     const appVersion = import.meta.env.PACKAGE_VERSION ?? '';
-    this._leafletMap.attributionControl.addAttribution(`<a href="https://github.com/AOEpeople/desk-compass">Desk Compass ${appVersion}</a>`);
+    this._leafletMap.attributionControl.addAttribution(`<a href='https://github.com/AOEpeople/desk-compass'>Desk Compass ${appVersion}</a>`);
 
     // Grid
     const zoomIntervals: GridZoomSpacing[] = [
@@ -112,16 +129,6 @@ export class Viewport {
       zoomSpacing: zoomIntervals,
     });
     this._grid.addTo(this._leafletMap);
-
-    // Set correct image dimensions
-    fetch(getApiUrl('info')).then((response) => {
-      if (response.ok) {
-        response.json().then((dimensions) => {
-          this.updateImage(dimensions);
-          viewportInitialized.set(true);
-        });
-      }
-    });
 
     // Add controls
     L.control
@@ -160,14 +167,6 @@ export class Viewport {
     return this._instance || (this._instance = new this(container));
   }
 
-  private getImageBounds(): L.LatLngBounds {
-    return L.latLngBounds(L.latLng(0, 0), L.latLng(this._imageHeight, this._imageWidth));
-  }
-
-  public getImageUrl(): string {
-    return this._imageUrl;
-  }
-
   public getImageDimensions(): ImageDimensions {
     return {
       width: this._imageWidth,
@@ -175,11 +174,8 @@ export class Viewport {
     } as ImageDimensions;
   }
 
-  public updateImage(dimensions: ImageDimensions, image?: string): void {
-    if (image) {
-      this._imageUrl = image;
-      this._imageOverlay.setUrl(this._imageUrl);
-    }
+  public updateImage(dimensions: ImageDimensions, image: string): void {
+    this._imageOverlay.setUrl(image);
     this._imageWidth = dimensions.width;
     this._imageHeight = dimensions.height;
 
@@ -205,25 +201,32 @@ export class Viewport {
   public flyTo(latLng: L.LatLngExpression, zoom?: number): void {
     this._leafletMap.flyTo(latLng, zoom);
   }
+
   public panTo(latLng: L.LatLngExpression): void {
     this._leafletMap.panTo(latLng);
   }
+
   public setView(center: L.LatLngExpression, zoom?: number, options?: L.ZoomPanOptions): void {
     this._leafletMap.setView(center, zoom, options);
   }
+
   public fitBounds(bounds: L.LatLngBoundsExpression, options?: L.FitBoundsOptions): void {
     this.invalidateSize();
     this._leafletMap.fitBounds(bounds, options);
   }
+
   public setMaxBounds(bounds: L.LatLngBoundsExpression): void {
     this._leafletMap.setMaxBounds(bounds);
   }
+
   public getCenter(): L.LatLng {
     return this._leafletMap.getCenter();
   }
+
   public invalidateSize(animate = true): void {
     this._leafletMap.invalidateSize(animate);
   }
+
   public layerPointToLatLng(point: L.PointExpression): L.LatLng {
     return this._leafletMap.layerPointToLatLng(point);
   }
@@ -231,14 +234,24 @@ export class Viewport {
   public hasLayer(layer: L.Layer): boolean {
     return this._leafletMap.hasLayer(layer);
   }
+
   public addLayer(layer: L.Layer): void {
-    this._leafletMap.addLayer(layer);
+    this._markerLayerGroup.addLayer(layer);
   }
+
   public removeLayer(layer: L.Layer): void {
-    this._leafletMap.removeLayer(layer);
+    this._markerLayerGroup.removeLayer(layer);
+  }
+
+  public clearLayers(): void {
+    this._markerLayerGroup.clearLayers();
   }
 
   public remove() {
     return this._leafletMap.remove();
+  }
+
+  private getImageBounds(): L.LatLngBounds {
+    return L.latLngBounds(L.latLng(0, 0), L.latLng(this._imageHeight, this._imageWidth));
   }
 }

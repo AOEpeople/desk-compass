@@ -1,14 +1,14 @@
 import * as L from 'leaflet';
 import { markerStore } from '../stores/markers';
-import { markerTypeById, markerTypeVariantByName } from './MarkerType';
 import type { MType, MTypeVariant } from './MarkerType';
-import { toMarkerDto } from './MarkerDto';
+import { markerTypeById, markerTypeVariantByName } from './MarkerType';
 import type { MarkerDto } from './MarkerDto';
+import { toMarkerDto } from './MarkerDto';
 import { viewport } from './ViewportSingleton';
 import { MarkerOverlay } from './MarkerOverlay';
 
 export class Marker {
-  id: number;
+  id: string;
   lat: number;
   lng: number;
   rotation: number;

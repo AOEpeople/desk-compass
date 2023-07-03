@@ -7,6 +7,8 @@
   import { viewport } from '../ts/ViewportSingleton';
   import { generateMarker } from '../ts/Marker';
   import NavigationItem from './NavigationItem.svelte';
+  import { currentLocation, locationStore } from '../stores/locations';
+  import { Location } from '../ts/Location';
 
   let slim = false;
 
@@ -29,8 +31,14 @@
     });
   }
 
-  const selectLocation = (location: string): void => {
-    // do nothing yet
+  const createLocation = (): void => {
+    const newLocation = new Location({ name: '[New Location]', shortName: '--' });
+    locationStore.createItem(newLocation);
+  };
+
+  const selectLocation = (location: Location): void => {
+    currentLocation.set(location);
+    document.dispatchEvent(new CustomEvent('location', { detail: { action: 'select', location: location } }));
   };
 
   function createMarker(markerType: MType): void {
@@ -85,24 +93,26 @@
   </div>
 
   <div class="hidden md:block">
-    <div class="nav-section">{$_('nav.locations.title')}</div>
+    <div class="nav-section flex flex-row">
+      <div class="grow">{$_('nav.locations.title')}</div>
+      <div>
+        <button
+          class="icon text-lg"
+          on:click={createLocation}>
+          add
+        </button>
+      </div>
+    </div>
     <div class="nav-item-list">
-      <NavigationItem
-        active={true}
-        color="#0B2D64"
-        counter={$markerStore.length}
-        toggleVisibility={() => selectLocation('home')}>
-        <span slot="title">Home</span>
-        <span
-          slot="short-title"
-          class="icon">
-          <Icon
-            icon="{MARKER_ICON_LIBRARY}:home"
-            color="#0B2D64"
-            height="20"
-            inline={true} />
-        </span>
-      </NavigationItem>
+      {#each $locationStore as location}
+        <NavigationItem
+          active={$currentLocation.id === location.id}
+          color="#0B2D64"
+          toggleVisibility={() => selectLocation(location)}>
+          <span slot="title">{location.name}</span>
+          <span slot="short-title">{location.shortName}</span>
+        </NavigationItem>
+      {/each}
     </div>
   </div>
 

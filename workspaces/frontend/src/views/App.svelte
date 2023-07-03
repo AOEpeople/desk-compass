@@ -4,6 +4,7 @@
   import Loading from '../components/Loading.svelte';
   import { markerStore } from '../stores/markers';
   import { markerTypeStore } from '../stores/markerTypes';
+  import { locationStore } from '../stores/locations';
 
   const pageTitle = import.meta.env.VITE_PAGE_TITLE ?? 'Desk Compass';
   const appVersion = import.meta.env.PACKAGE_VERSION ?? '';
@@ -11,7 +12,7 @@
   const loadMarkersFn = async () => {
     const markerTypesInitialized = await markerTypeStore.init();
     if (markerTypesInitialized) {
-      return await markerStore.init();
+      return (await locationStore.init()) && (await markerStore.init());
     }
     return false;
   };

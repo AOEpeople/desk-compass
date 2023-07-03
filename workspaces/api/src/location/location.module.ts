@@ -8,5 +8,6 @@ import { LocationController } from './location.controller';
   imports: [PersistenceModule],
   controllers: [LocationController],
   providers: [LocationService, LocationMapperService],
+  exports: [LocationService],
 })
 export class LocationModule {}

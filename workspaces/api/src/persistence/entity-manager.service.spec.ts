@@ -83,9 +83,7 @@ describe('EntityManagerService', () => {
         .mockImplementationOnce(() => false)
         .mockImplementationOnce(() => true);
       const writeFilePromise = new Promise<void>((_, reject) => reject());
-      vi.spyOn(fs.promises, 'writeFile').mockImplementation(
-        () => writeFilePromise,
-      );
+      vi.spyOn(fs.promises, 'writeFile').mockImplementation(() => writeFilePromise);
 
       const exec = async () => await service.onModuleInit();
 
@@ -98,9 +96,7 @@ describe('EntityManagerService', () => {
       vi.spyOn(configService, 'getOrThrow').mockReturnValue(dbPath);
       vi.spyOn(fs, 'existsSync').mockImplementation(() => true);
       const readFilePromise = new Promise<Buffer>((_, reject) => reject());
-      vi.spyOn(fs.promises, 'readFile').mockImplementation(
-        () => readFilePromise,
-      );
+      vi.spyOn(fs.promises, 'readFile').mockImplementation(() => readFilePromise);
 
       const exec = async () => await service.onModuleInit();
 
@@ -111,12 +107,8 @@ describe('EntityManagerService', () => {
       vi.spyOn(configService, 'getOrThrow').mockReturnValue(dbPath);
       vi.spyOn(configService, 'get').mockReturnValue(true);
       vi.spyOn(fs, 'existsSync').mockImplementation(() => true);
-      const readFilePromise = new Promise<Buffer>((resolve) =>
-        resolve(Buffer.from('abc')),
-      );
-      vi.spyOn(fs.promises, 'readFile').mockImplementation(
-        () => readFilePromise,
-      );
+      const readFilePromise = new Promise<Buffer>((resolve) => resolve(Buffer.from('abc')));
+      vi.spyOn(fs.promises, 'readFile').mockImplementation(() => readFilePromise);
 
       await service.onModuleInit();
 
@@ -132,12 +124,8 @@ describe('EntityManagerService', () => {
       vi.spyOn(configService, 'getOrThrow').mockReturnValue(dbPath);
       vi.spyOn(configService, 'get').mockReturnValue(true);
       vi.spyOn(fs, 'existsSync').mockImplementation(() => true);
-      const readFilePromise = new Promise<Buffer>((resolve) =>
-        resolve(Buffer.from('abc')),
-      );
-      vi.spyOn(fs.promises, 'readFile').mockImplementation(
-        () => readFilePromise,
-      );
+      const readFilePromise = new Promise<Buffer>((resolve) => resolve(Buffer.from('abc')));
+      vi.spyOn(fs.promises, 'readFile').mockImplementation(() => readFilePromise);
 
       await service.onModuleInit();
     });
@@ -197,10 +185,7 @@ describe('EntityManagerService', () => {
 
         const actual = await service.create<Marker>(Marker.TYPE, expected);
 
-        expect(jsonDB.push).toHaveBeenCalledWith(
-          expect.stringContaining('/markers/'),
-          expected,
-        );
+        expect(jsonDB.push).toHaveBeenCalledWith(expect.stringContaining('/markers/'), expected);
         expect(actual).toBe(expected);
       });
 
@@ -213,10 +198,7 @@ describe('EntityManagerService', () => {
 
         const actual = await service.create<Marker>(Marker.TYPE, expected);
 
-        expect(jsonDB.push).toHaveBeenCalledWith(
-          expect.stringContaining('/markers/'),
-          expected,
-        );
+        expect(jsonDB.push).toHaveBeenCalledWith(expect.stringContaining('/markers/'), expected);
         expect(actual).toBe(expected);
       });
     });
@@ -233,11 +215,7 @@ describe('EntityManagerService', () => {
         const actual = await service.update<Marker>(Marker.TYPE, expected);
 
         expect(jsonDB.getObject).toHaveBeenCalledWith(`/markers/${id}`);
-        expect(jsonDB.push).toHaveBeenCalledWith(
-          `/markers/${id}`,
-          expected,
-          true,
-        );
+        expect(jsonDB.push).toHaveBeenCalledWith(`/markers/${id}`, expected, false);
         expect(actual).toBe(expected);
         expect(actual.id).toBe(id);
       });
@@ -282,9 +260,7 @@ describe('EntityManagerService', () => {
 
     describe('isHealthy', () => {
       it('should return true, if everything works', async () => {
-        jsonDB.exists.mockImplementation(
-          () => new Promise<boolean>((resolve) => resolve(true)),
-        );
+        jsonDB.exists.mockImplementation(() => new Promise<boolean>((resolve) => resolve(true)));
 
         const actual = await service.isHealthy();
 
@@ -292,9 +268,7 @@ describe('EntityManagerService', () => {
       });
 
       it('should return false, if something fails', async () => {
-        jsonDB.exists.mockImplementation(
-          () => new Promise<boolean>((resolve) => resolve(false)),
-        );
+        jsonDB.exists.mockImplementation(() => new Promise<boolean>((resolve) => resolve(false)));
 
         const actual = await service.isHealthy();
 

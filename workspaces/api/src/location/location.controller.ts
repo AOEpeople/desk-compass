@@ -1,41 +1,33 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Put,
-  Param,
+  Controller,
   Delete,
-  UploadedFile,
-  ParseUUIDPipe,
-  ParseFilePipe,
-  MaxFileSizeValidator,
   FileTypeValidator,
+  Get,
+  MaxFileSizeValidator,
+  Param,
+  ParseFilePipe,
+  ParseUUIDPipe,
+  Post,
+  Put,
   Res,
+  UploadedFile,
 } from '@nestjs/common';
-import {
-  ApiExtraModels,
-  ApiOperation,
-  ApiParam,
-  ApiProduces,
-  ApiResponse,
-  ApiTags,
-  getSchemaPath,
-} from '@nestjs/swagger';
+import { ApiExtraModels, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
 import { LocationDto } from './dto/location.dto';
-import { UploadDto } from '../persistence/dto/upload.dto';
 import { ApiImageDownload } from '../persistence/decorators/api-image-download.decorator';
 import { ApiUpload } from '../persistence/decorators/api-upload.decorator';
 import { LocationService } from './location.service';
+import { SizeAwareUploadDto } from '../persistence/dto/size-aware-upload.dto';
 
 @Controller(['locations'])
 @ApiTags('locations')
 @ApiExtraModels(LocationDto)
 export class LocationController {
-  private static readonly MAX_FILE_SIZE = Math.pow(1024, 2);
+  private static readonly MAX_FILE_SIZE = 5 * Math.pow(1024, 2); // 5 MB
 
   constructor(private readonly locationService: LocationService) {}
 
@@ -84,10 +76,7 @@ export class LocationController {
     summary: 'Update a location',
   })
   @ApiParam({ name: 'id', description: 'Marker ID' })
-  update(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateMarkerDto: UpdateLocationDto,
-  ): Promise<LocationDto> {
+  update(@Param('id', ParseUUIDPipe) id: string, @Body() updateMarkerDto: UpdateLocationDto): Promise<LocationDto> {
     return this.locationService.update(id, updateMarkerDto);
   }
 
@@ -118,15 +107,14 @@ export class LocationController {
 
   @Post(':id/image/upload')
   @ApiOperation({
-    summary:
-      'Upload for a location image; Returns image ID; (This may change in the future)',
+    summary: 'Upload for a location image; Returns image ID; (This may change in the future)',
   })
   @ApiUpload('file', LocationController.MAX_FILE_SIZE)
   @ApiProduces('text/plain')
   @ApiParam({ name: 'id', description: 'Marker ID' })
   async uploadImage(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() uploadDto: UploadDto,
+    @Body() uploadDto: SizeAwareUploadDto,
     @UploadedFile(
       new ParseFilePipe({
         fileIsRequired: true,
@@ -138,6 +126,6 @@ export class LocationController {
     )
     file: Express.Multer.File,
   ): Promise<string> {
-    return this.locationService.uploadImage(id, file);
+    return this.locationService.uploadImage(id, uploadDto.width, uploadDto.height, file);
   }
 }

@@ -14,16 +14,28 @@
     }
   },
   "location": {
-    "upload": "Upload floor plan",
-    "sidebar": {
-      "description": "Upload an image to preview fit with the dimensions and marker positions:",
+    "upload": "Edit location",
+    "action": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "confirm": {
+        "title": "Delete location \"{name}\"?",
+        "description": "Are you sure, you want to delete this location and its markers permanently?"
+      }
+    },
+    "edit": {
+      "name": "Name",
+      "short": "Short name",
+      "description": "Description",
+      "dimensions": "Dimensions"
+    },
+    "floorplan": {
+      "title": "Upload floor plan",
+      "description": "Upload an image and preview fit with the dimensions and marker positions:",
       "dimensions": "Image Dimensions:",
       "scaleX": "Scale image X",
-      "scaleY": "Scale image Y",
-      "action": {
-        "save": "Save",
-        "cancel": "Cancel"
-      }
+      "scaleY": "Scale image Y"
     }
   },
   "marker": {

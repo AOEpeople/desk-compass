@@ -1,16 +1,27 @@
 import { rest } from 'msw';
 
 // Mock Data
+const locations = [
+  {
+    id: '1000',
+    name: 'Location',
+    shortName: 'loc',
+    description: 'This is an example location',
+    image: '53a9fe58-3036-47d3-838f-6e3e5300f322',
+    width: 123,
+    height: 456,
+  },
+];
 export const markers = [
   {
-    id: 1,
+    id: '1',
     lat: 1496,
     lng: 3676,
     name: 'First person',
     icon: 'person',
     type: 'person',
     rotation: 90,
-    image: '',
+    image: 'c4c980ca-328c-417e-a0dd-881afec4dfe3',
     attributes: {
       Post: 'Employee',
       Skype: 'skyper01',
@@ -24,7 +35,7 @@ export const markers = [
     },
   },
   {
-    id: 1,
+    id: '2',
     lat: 1496,
     lng: 3676,
     name: 'Some Room',
@@ -43,25 +54,48 @@ export const handlers = [
   rest.get('api', (req, res, ctx) => {
     return res(ctx.status(200), ctx.text('dummy'));
   }),
-  rest.get('api/info', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ width: 1000, height: 1000 }));
+
+  rest.get('api/locations', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(locations));
+  }),
+
+  rest.post('api/locations', async (req, res, ctx) => {
+    const newLocation = await req.json();
+    return res(ctx.status(200), ctx.json(newLocation));
+  }),
+
+  rest.get('api/locations/1000', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(locations[0]));
+  }),
+
+  rest.put('api/locations/1000', async (req, res, ctx) => {
+    const newLocation = await req.json();
+    return res(ctx.status(200), ctx.json(newLocation));
+  }),
+
+  rest.delete('api/locations/1000', async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({}));
   }),
 
   // marker endpoints
-  rest.get('api/marker', (req, res, ctx) => {
+  rest.get('api/locations/1000/markers', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(markers));
   }),
 
-  rest.put('api/marker/1', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(markers[0]));
-  }),
-
-  rest.post('api/marker', async (req, res, ctx) => {
+  rest.post('api/locations/1000/markers', async (req, res, ctx) => {
     const newMarker = await req.json();
     return res(ctx.status(200), ctx.json(newMarker));
   }),
 
-  rest.delete('api/marker/1', async (req, res, ctx) => {
+  rest.put('api/locations/1000/markers/1', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(markers[0]));
+  }),
+
+  rest.put('api/locations/1000/markers/2', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(markers[1]));
+  }),
+
+  rest.delete('api/locations/1000/markers/1', async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({}));
   }),
 ];

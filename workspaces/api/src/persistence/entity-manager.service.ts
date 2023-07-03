@@ -1,13 +1,8 @@
 import { existsSync, promises as p } from 'fs';
-import {
-  Injectable,
-  Logger,
-  NotFoundException,
-  OnModuleInit,
-} from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as uuid from '@lukeed/uuid';
-import { JsonDB, Config } from 'node-json-db';
+import { Config, JsonDB } from 'node-json-db';
 import { Entity } from './entities/entity';
 import { EntityType } from './entities/entity.type';
 import { MigrationService } from './migrations/migration.service';
@@ -20,10 +15,7 @@ export class EntityManagerService implements OnModuleInit {
 
   private db: JsonDB;
 
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly migrationService: MigrationService,
-  ) {}
+  constructor(private readonly configService: ConfigService, private readonly migrationService: MigrationService) {}
 
   async onModuleInit(): Promise<void> {
     const dbPath = this.configService.getOrThrow<string>('database.path');
@@ -33,9 +25,7 @@ export class EntityManagerService implements OnModuleInit {
     // Check data storage availability
     this.logger.debug(`Checking data folder ${dbFilePath}`);
     if (!existsSync(dbFilePath)) {
-      this.logger.warn(
-        'Target file not found, creating new empty database file',
-      );
+      this.logger.warn('Target file not found, creating new empty database file');
       if (!existsSync(dbPath)) {
         try {
           await p.mkdir(dbPath, {
@@ -72,15 +62,11 @@ export class EntityManagerService implements OnModuleInit {
     }
 
     this.logger.debug('Loading database from ' + dbFilePath);
-    const humanReadable = this.configService.get<boolean>(
-      'database.humanReadable',
-    );
+    const humanReadable = this.configService.get<boolean>('database.humanReadable');
 
     await this.migrationService.migrate(dbFilePath, humanReadable);
 
-    this.db = new JsonDB(
-      new Config(dbFilePath, true, humanReadable, '/', true),
-    );
+    this.db = new JsonDB(new Config(dbFilePath, true, humanReadable, '/', true));
   }
 
   async getAll<Type extends Entity>(entityType: EntityType): Promise<Type[]> {
@@ -89,10 +75,7 @@ export class EntityManagerService implements OnModuleInit {
     return Object.values(data);
   }
 
-  async get<Type extends Entity>(
-    entityType: EntityType,
-    id: string,
-  ): Promise<Type> {
+  async get<Type extends Entity>(entityType: EntityType, id: string): Promise<Type> {
     this.logger.debug(`Load ${entityType} ${id}`);
     try {
       return await this.db.getObject<Type>(`${entityType}/${id}`);
@@ -101,26 +84,18 @@ export class EntityManagerService implements OnModuleInit {
     }
   }
 
-  async create<Type extends Entity>(
-    entityType: EntityType,
-    entity: Type,
-  ): Promise<Type> {
+  async create<Type extends Entity>(entityType: EntityType, entity: Type): Promise<Type> {
     this.logger.debug(`Create new ${entityType}`);
-    if (!entity.id) {
-      entity.id = uuid.v4();
-    }
+    entity.id = uuid.v4();
     await this.db.push(`${entityType}/${entity.id}`, entity);
     return entity;
   }
 
-  async update<Type extends Entity>(
-    entityType: EntityType,
-    entity: Type,
-  ): Promise<Type> {
+  async update<Type extends Entity>(entityType: EntityType, entity: Type): Promise<Type> {
     this.logger.debug(`Update existing ${entityType} ${entity.id}`);
     try {
       await this.db.getObject<Type>(`${entityType}/${entity.id}`);
-      await this.db.push(`${entityType}/${entity.id}`, entity, true);
+      await this.db.push(`${entityType}/${entity.id}`, entity, false);
       return entity;
     } catch (error) {
       throw new NotFoundException('Entity does not exist', { cause: error });
