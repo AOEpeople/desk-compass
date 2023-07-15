@@ -1,24 +1,33 @@
 <script lang="ts">
   import * as L from 'leaflet';
   import { get } from 'svelte/store';
+  import { markerStore } from '../stores/markers';
+  import { locationStore } from '../stores/locations';
+  import { currentLocation } from '../stores/currentLocation';
   import { mapAction, viewport, viewportInitialized } from '../ts/ViewportSingleton';
+  import FloorPlanPaneSideBar from './locations/LocationSideBar.svelte';
   import InfoPane from './InfoPaneSideBar.svelte';
   import Navigation from './NavigationSideBar.svelte';
-  import { markerStore } from '../stores/markers';
-  import FloorPlanPaneSideBar from './locations/LocationSideBar.svelte';
 
   export let params = {};
 
   $: if ($viewportInitialized) {
-    if (params['markerId']) {
-      const result = get(markerStore).find((m) => m.id === params['markerId']);
-      if (result) {
-        document.dispatchEvent(new CustomEvent('marker', { detail: { action: 'select', marker: result } }));
-        viewport.flyTo([result.lat, result.lng], 0);
+    if (params['locationId']) {
+      const targetLocation = get(locationStore).find((l) => l.id === params['locationId']);
+      if (targetLocation) {
+        currentLocation.select(targetLocation).then(() => {
+          if (params['markerId']) {
+            const targetMarker = get(markerStore).find((m) => m.id === params['markerId']);
+            if (targetMarker) {
+              document.dispatchEvent(new CustomEvent('marker', { detail: { action: 'select', marker: targetMarker } }));
+              viewport.flyTo([targetMarker.lat, targetMarker.lng], 0);
+            }
+          }
+          if (params['lat'] && params['lng'] && params['zoom']) {
+            viewport.flyTo(L.latLng(params['lat'], params['lng']), parseInt(params['zoom']));
+          }
+        });
       }
-    }
-    if (params['lat'] && params['lng'] && params['zoom']) {
-      viewport.flyTo(L.latLng(params['lat'], params['lng']), parseInt(params['zoom']));
     }
   }
 </script>

@@ -9,7 +9,7 @@
   const pageTitle = import.meta.env.VITE_PAGE_TITLE ?? 'Desk Compass';
   const appVersion = import.meta.env.PACKAGE_VERSION ?? '';
 
-  const loadMarkersFn = async () => {
+  const loadDataFn = async () => {
     const markerTypesInitialized = await markerTypeStore.init();
     if (markerTypesInitialized) {
       return (await locationStore.init()) && (await markerStore.init());
@@ -23,17 +23,22 @@
     '/': wrap({
       asyncComponent: () => import('../components/Screen.svelte'),
       loadingComponent: Loading,
-      conditions: [loadMarkersFn],
+      conditions: [loadDataFn],
     }),
-    '/markers/:markerId': wrap({
+    '/locations/:locationId': wrap({
       asyncComponent: () => import('../components/Screen.svelte'),
       loadingComponent: Loading,
-      conditions: [loadMarkersFn],
+      conditions: [loadDataFn],
     }),
-    '/coords/:lat/:lng/:zoom': wrap({
+    '/locations/:locationId/markers/:markerId': wrap({
       asyncComponent: () => import('../components/Screen.svelte'),
       loadingComponent: Loading,
-      conditions: [loadMarkersFn],
+      conditions: [loadDataFn],
+    }),
+    '/locations/:locationId/coords/:lat/:lng/:zoom': wrap({
+      asyncComponent: () => import('../components/Screen.svelte'),
+      loadingComponent: Loading,
+      conditions: [loadDataFn],
     }),
   };
 </script>

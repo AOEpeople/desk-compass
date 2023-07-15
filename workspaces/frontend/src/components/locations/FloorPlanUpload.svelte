@@ -1,7 +1,8 @@
 <script lang="ts">
   import { _ } from 'svelte-i18n';
   import fetch from 'cross-fetch';
-  import { currentLocation, locationStore } from '../../stores/locations';
+  import { locationStore } from '../../stores/locations';
+  import { currentLocation } from '../../stores/currentLocation';
   import { getApiUrl } from '../../ts/ApiUrl';
   import { viewport } from '../../ts/ViewportSingleton';
 

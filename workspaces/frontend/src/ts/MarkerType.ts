@@ -7,6 +7,7 @@ export interface MTypeVariant {
   mapWidth: number;
   mapHeight: number;
 }
+
 export interface MTypeProperty {
   name: string;
   type: 'boolean' | 'text' | 'link' | 'csv' | 'number';

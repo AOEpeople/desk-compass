@@ -8,7 +8,7 @@ import type { MarkerTypeTable } from '../ts/MarkerTypeTable';
 import { generateMarkerTypeTableFromProperty, generateMarkerTypeTableWithDefaultValue } from '../ts/MarkerTypeTable';
 import type { RemoteWritable } from './RemoteWritable';
 import { markerTypeStore } from './markerTypes';
-import { currentLocation } from './locations';
+import { currentLocation } from './currentLocation';
 
 const createMarkerStore = (): RemoteWritable<Marker> => {
   const internalStore: Writable<Marker[]> = writable([]);

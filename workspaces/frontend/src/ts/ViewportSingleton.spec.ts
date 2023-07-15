@@ -2,8 +2,9 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { waitFor } from '@testing-library/svelte';
 import * as L from 'leaflet';
 import { get } from 'svelte/store';
-import { mapAction, Viewport, viewport, viewportInitialized } from './ViewportSingleton';
 import { locationStore } from '../stores/locations';
+import { markerTypeStore } from '../stores/markerTypes';
+import { mapAction, Viewport, viewport, viewportInitialized } from './ViewportSingleton';
 
 describe('ViewportSingleton', () => {
   document.body.innerHTML =
@@ -15,6 +16,7 @@ describe('ViewportSingleton', () => {
   const mapElement = document.getElementById('map');
 
   beforeEach(async () => {
+    await markerTypeStore.init();
     await locationStore.init();
   });
 
