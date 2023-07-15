@@ -10,3 +10,6 @@ coverage/
 mockserver/images/
 .tmp/
 **/.env
+test-results/
+playwright-report/
+playwright/.cache/
