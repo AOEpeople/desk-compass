@@ -79,7 +79,7 @@ yarn start
 - See application metrics at http://localhost:3033/metrics
 
 
-### Run tests
+### Run unit tests
 
 Run frontend and API tests
 ```shell
@@ -96,6 +96,28 @@ yarn workspace frontend run test
 ```
 
 For all calls a `yarn run test:watch` variant exists.
+
+
+### Run e2e tests
+
+Run e2e tests:
+```shell
+yarn run e2e
+```
+
+Run e2e tests in watch mode, which opens vitest UI:
+```shell
+yarn run e2e:watch
+```
+
+To run application and e2e tests independently, start the application first with
+```shell
+yarn start
+```
+and then in another console:
+```shell
+yarn workspace e2e run test:watch
+```
 
 
 ### Run linters
