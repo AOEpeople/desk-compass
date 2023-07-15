@@ -1,4 +1,7 @@
+import { describe, expect, test, vi } from 'vitest';
 import * as L from 'leaflet';
+import { locationStore } from '../stores/locations';
+import { markerTypeStore } from '../stores/markerTypes';
 import { ShareMapControl } from './ShareMapControl';
 
 describe('ShareMapControl', () => {
@@ -20,6 +23,9 @@ describe('ShareMapControl', () => {
   });
 
   test('should contain a text', async () => {
+    await markerTypeStore.init();
+    await locationStore.init();
+
     const map = {
       getBounds: () => L.latLngBounds(L.latLng(0, 0), L.latLng(20, 20)),
       getZoom: () => 2,
@@ -28,6 +34,6 @@ describe('ShareMapControl', () => {
 
     const text = control._getText(map);
 
-    expect(text).toBe('localhost:3000/#/coords/10/10/2');
+    expect(text).toBe('localhost:3000/#/locations/1000/coords/10/10/2');
   });
 });

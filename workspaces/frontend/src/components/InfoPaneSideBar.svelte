@@ -2,8 +2,8 @@
   import { _ } from 'svelte-i18n';
   import RangeSlider from 'svelte-range-slider-pips';
   import { afterUpdate } from 'svelte';
-  import { markerStore } from '../stores/markers.js';
-  import { currentLocation } from '../stores/locations';
+  import { markerStore } from '../stores/markers';
+  import { currentLocation } from '../stores/currentLocation';
   import { markerTypeVariantByName } from '../ts/MarkerType';
   import { generateMarker } from '../ts/Marker';
   import { viewport } from '../ts/ViewportSingleton';
@@ -195,7 +195,7 @@
         {#if !editMode}
           <ShareButton
             title={$_('marker.info.share')}
-            text={`${window.location.host}${window.location.pathname}#/markers/${viewMarker.id}`} />
+            text={`${window.location.host}${window.location.pathname}#/locations/${$currentLocation.id}/markers/${viewMarker.id}`} />
         {/if}
       </div>
 

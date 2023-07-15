@@ -17,8 +17,8 @@ describe('InfoPaneSideBar', () => {
 
   describe('initialized with a marker', () => {
     beforeEach(async () => {
-      await locationStore.init();
       await markerTypeStore.init();
+      await locationStore.init();
       await markerStore.init();
       const marker = get(markerStore)[1];
       marker.mapMarker.onAdd(viewport.getLeafletMap());

@@ -1,4 +1,6 @@
 import * as L from 'leaflet';
+import { get } from 'svelte/store';
+import { currentLocation } from '../stores/currentLocation';
 import ShareButton from '../components/ShareButton.svelte';
 
 export class ShareMapControl extends L.Control {
@@ -15,7 +17,7 @@ export class ShareMapControl extends L.Control {
 
   _getText(map: L.Map) {
     return (
-      `${window.location.host}${window.location.pathname}#/coords/` +
+      `${window.location.host}${window.location.pathname}#/locations/${get(currentLocation).id}/coords/` +
       `${map?.getBounds()?.getCenter().lat}/${map?.getBounds()?.getCenter().lng}/${map?.getZoom()}`
     );
   }

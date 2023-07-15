@@ -1,11 +1,13 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/svelte';
-import { currentLocation } from '../../stores/locations';
+import { markerTypeStore } from '../../stores/markerTypes';
+import { currentLocation } from '../../stores/currentLocation';
 import { Location } from '../../ts/Location';
 import LocationSideBar from './LocationSideBar.svelte';
 
 describe('LocationSideBar', () => {
   const location = new Location({
+    id: '1000',
     name: 'abc',
     shortName: 'def',
     description: 'ghi',
@@ -14,7 +16,8 @@ describe('LocationSideBar', () => {
   });
 
   beforeEach(async () => {
-    currentLocation.set(location);
+    await markerTypeStore.init();
+    await currentLocation.select(location);
   });
 
   it('should be initialized', async () => {

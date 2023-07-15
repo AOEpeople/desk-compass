@@ -1,11 +1,10 @@
 import type { Writable } from 'svelte/store';
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import fetch from 'cross-fetch';
 import { getApiUrl } from '../ts/ApiUrl';
 import { Location } from '../ts/Location';
+import { currentLocation } from './currentLocation';
 import type { RemoteWritable } from './RemoteWritable';
-
-export const currentLocation = writable<Location>();
 
 const createLocationStore = (): RemoteWritable<Location> => {
   const internalStore: Writable<Location[]> = writable([]);
@@ -17,7 +16,7 @@ const createLocationStore = (): RemoteWritable<Location> => {
       const json: any[] = await res.json();
       const resultObjects: Location[] = json.map((item) => new Location(item)).filter((item) => item !== null);
       set(resultObjects);
-      currentLocation.set(resultObjects[0]);
+      await currentLocation.select(resultObjects[0]);
     }
     return res.ok;
   };
@@ -35,14 +34,12 @@ const createLocationStore = (): RemoteWritable<Location> => {
     });
     if (response.ok) {
       const responseJson = await response.json();
-      locationDto.id = responseJson.id;
-      const location = new Location(locationDto);
+      const location = new Location(responseJson);
       update((l) => {
         l.push(location);
         return l;
       });
-      currentLocation.set(location);
-      document.dispatchEvent(new CustomEvent('location', { detail: { action: 'select', location: location } }));
+      await currentLocation.select(location);
     } else {
       console.error('Error:', response.statusText);
     }
@@ -83,6 +80,8 @@ const createLocationStore = (): RemoteWritable<Location> => {
         l.splice(indexToRemove, 1);
         return l;
       });
+
+      await currentLocation.select(get(internalStore)[0]);
     } else {
       console.error('Error:', response.statusText);
     }

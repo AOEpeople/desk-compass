@@ -9,8 +9,8 @@ import { markerStore } from './markers';
 
 describe('Markers store', () => {
   beforeEach(async () => {
-    await locationStore.init();
     await markerTypeStore.init();
+    await locationStore.init();
     await markerStore.init();
   });
 

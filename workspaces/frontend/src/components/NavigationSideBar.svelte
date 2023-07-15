@@ -1,14 +1,15 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import { _ } from 'svelte-i18n';
-  import { markerFilter, markerStore, markerTypeCounter, markerTypeTooltips, markerTypeVisibility, visibleMarkers } from '../stores/markers.js';
+  import { markerFilter, markerStore, markerTypeCounter, markerTypeTooltips, markerTypeVisibility, visibleMarkers } from '../stores/markers';
+  import { locationStore } from '../stores/locations';
+  import { currentLocation } from '../stores/currentLocation';
   import { MARKER_ICON_LIBRARY, markerTypeStore } from '../stores/markerTypes';
-  import type { MType } from '../ts/MarkerType';
   import { viewport } from '../ts/ViewportSingleton';
+  import { Location } from '../ts/Location';
+  import type { MType } from '../ts/MarkerType';
   import { generateMarker } from '../ts/Marker';
   import NavigationItem from './NavigationItem.svelte';
-  import { currentLocation, locationStore } from '../stores/locations';
-  import { Location } from '../ts/Location';
 
   let slim = false;
 
@@ -36,9 +37,8 @@
     locationStore.createItem(newLocation);
   };
 
-  const selectLocation = (location: Location): void => {
-    currentLocation.set(location);
-    document.dispatchEvent(new CustomEvent('location', { detail: { action: 'select', location: location } }));
+  const selectLocation = async (location: Location): Promise<void> => {
+    await currentLocation.select(location);
   };
 
   function createMarker(markerType: MType): void {

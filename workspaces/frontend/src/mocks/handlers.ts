@@ -11,6 +11,12 @@ const locations = [
     width: 123,
     height: 456,
   },
+  {
+    id: '2000',
+    name: 'Location 2',
+    shortName: 'loc2',
+    description: 'This is another example location',
+  },
 ];
 export const markers = [
   {
@@ -64,38 +70,38 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(newLocation));
   }),
 
-  rest.get('api/locations/1000', (req, res, ctx) => {
+  rest.get('api/locations/:locationId', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(locations[0]));
   }),
 
-  rest.put('api/locations/1000', async (req, res, ctx) => {
+  rest.put('api/locations/:locationId', async (req, res, ctx) => {
     const newLocation = await req.json();
     return res(ctx.status(200), ctx.json(newLocation));
   }),
 
-  rest.delete('api/locations/1000', async (req, res, ctx) => {
+  rest.delete('api/locations/:locationId', async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({}));
   }),
 
   // marker endpoints
-  rest.get('api/locations/1000/markers', (req, res, ctx) => {
+  rest.get('api/locations/:locationId/markers', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(markers));
   }),
 
-  rest.post('api/locations/1000/markers', async (req, res, ctx) => {
+  rest.post('api/locations/:locationId/markers', async (req, res, ctx) => {
     const newMarker = await req.json();
     return res(ctx.status(200), ctx.json(newMarker));
   }),
 
-  rest.put('api/locations/1000/markers/1', (req, res, ctx) => {
+  rest.put('api/locations/:locationId/markers/1', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(markers[0]));
   }),
 
-  rest.put('api/locations/1000/markers/2', (req, res, ctx) => {
+  rest.put('api/locations/:locationId/markers/2', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(markers[1]));
   }),
 
-  rest.delete('api/locations/1000/markers/1', async (req, res, ctx) => {
+  rest.delete('api/locations/:locationId/markers/1', async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({}));
   }),
 ];

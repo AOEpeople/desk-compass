@@ -2,13 +2,11 @@ import { _ } from 'svelte-i18n';
 import * as L from 'leaflet';
 import type { Writable } from 'svelte/store';
 import { get, writable } from 'svelte/store';
-import { currentLocation } from '../stores/locations';
-import { markerStore } from '../stores/markers';
+import { currentLocation } from '../stores/currentLocation';
 import { FloorPlanUploadMapControl } from './FloorPlanUploadMapControl';
 import type { ImageDimensions } from './ImageDimensions';
 import { ResetMapControl } from './ResetMapControl';
 import { ShareMapControl } from './ShareMapControl';
-import type { Location } from './Location';
 import type { GridZoomSpacing } from './Grid';
 import { Grid } from './Grid';
 
@@ -32,9 +30,8 @@ export const mapAction = (container): { destroy: () => void } => {
 
   const updateLocation = async (e: CustomEvent) => {
     if (e.detail['location'] && e.detail['action'] === 'select') {
-      const location: Location = get(currentLocation);
+      const location = e.detail['location'];
       viewport.updateImage(location.getDimensions(), location.getImageUrl());
-      await markerStore.init();
     }
   };
 

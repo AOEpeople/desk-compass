@@ -1,10 +1,11 @@
 <script lang="ts">
   import { afterUpdate } from 'svelte';
   import { _ } from 'svelte-i18n';
-  import { currentLocation, locationStore } from '../../stores/locations';
+  import { locationStore } from '../../stores/locations';
+  import { currentLocation } from '../../stores/currentLocation';
   import { viewport } from '../../ts/ViewportSingleton';
-  import FloorPlanUpload from './FloorPlanUpload.svelte';
   import ConfirmationDialog from '../ConfirmationDialog.svelte';
+  import FloorPlanUpload from './FloorPlanUpload.svelte';
 
   let open = false;
   let showDeleteConfirmationDialog = false;
