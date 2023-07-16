@@ -46,8 +46,10 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, swaggerConfig);
     SwaggerModule.setup('api/swagger', app, document);
   }
-
   await app.listen(configService.get<number>('appPort'));
+
+  const appUrl = await app.getUrl();
+  app.get(Logger).log('Started application at ' + appUrl);
 }
 
 bootstrap();

@@ -1,15 +1,11 @@
 import * as process from 'process';
 
 export default () => ({
-  devMode: !!process.env.DEV_MODE,
-  appPort: process.env.APP_PORT ?? 3030,
+  devMode: process.env.NODE_ENV == 'development',
+  appPort: process.env.API_PORT ?? 3030,
   cors: {
-    allowedOrigins: process.env.CORS_ALLOWED_ORIGINS
-      ? process.env.CORS_ALLOWED_ORIGINS.split(',')
-      : [],
-    allowedMethods: process.env.CORS_ALLOWED_METHODS
-      ? process.env.CORS_ALLOWED_METHODS.split(',')
-      : ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedOrigins: process.env.CORS_ALLOWED_ORIGINS ? process.env.CORS_ALLOWED_ORIGINS.split(',') : [],
+    allowedMethods: process.env.CORS_ALLOWED_METHODS ? process.env.CORS_ALLOWED_METHODS.split(',') : ['GET', 'PUT', 'POST', 'DELETE'],
   },
   imageStoragePath: process.env.IMAGE_STORAGE_PATH,
   database: {
