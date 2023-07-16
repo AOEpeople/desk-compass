@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "playwright test",
-    "test:watch": "playwright test --ui"
+    "test": "playwright test --workers=1 --reporter=html",
+    "test:watch": "playwright test --ui --workers=1"
   },
   "devDependencies": {
     "@playwright/test": "^1.35.1"
