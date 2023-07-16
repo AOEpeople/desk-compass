@@ -9,10 +9,6 @@ export class Map {
     this.locator = locator;
   }
 
-  async isVisible(): Promise<boolean> {
-    return await this.locator.isVisible();
-  }
-
   markers(): Locator {
     return this.locator.locator(".leaflet-layer");
   }

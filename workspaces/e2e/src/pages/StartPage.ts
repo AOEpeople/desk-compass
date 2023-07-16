@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { Map } from "./Map";
+import { NavigationBar } from "./NavigationBar";
 
 export class StartPage {
   readonly page: Page;
@@ -20,8 +21,8 @@ export class StartPage {
     await this.page.goto(`http://localhost:${process.env.APP_PORT}`);
   }
 
-  getNavigationBar(): Locator {
-    return this.navigationBar;
+  getNavigationBar(): NavigationBar {
+    return new NavigationBar(this.page, this.navigationBar);
   }
 
   getMap(): Map {

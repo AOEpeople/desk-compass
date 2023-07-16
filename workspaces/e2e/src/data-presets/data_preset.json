@@ -1,56 +1,126 @@
 {
-    "markers": {
-        "a2938f13-28b2-41a0-8e36-f0869b303eea": {
-            "attributes": {},
-            "id": "a2938f13-28b2-41a0-8e36-f0869b303eea",
+    "locations": {
+        "78494004-2ac7-45c5-97ff-9a054aa906f2": {
+            "id": "78494004-2ac7-45c5-97ff-9a054aa906f2",
+            "image": "",
             "name": "2nd floor",
-            "lat": 397,
-            "lng": 622,
-            "type": "room",
-            "icon": "bookable",
-            "rotation": 0
+            "shortName": "2",
+            "description": "",
+            "markers": {
+                "a2938f13-28b2-41a0-8e36-f0869b303eea": {
+                    "attributes": {},
+                    "id": "a2938f13-28b2-41a0-8e36-f0869b303eea",
+                    "name": "2nd floor",
+                    "lat": 397,
+                    "lng": 622,
+                    "type": "room",
+                    "icon": "bookable",
+                    "rotation": 0
+                }
+            }
         },
-        "79f7a4f2-2c4e-4c8f-a9d3-d90d6a0b8995": {
-            "attributes": {},
-            "id": "79f7a4f2-2c4e-4c8f-a9d3-d90d6a0b8995",
-            "name": "Jennifer Jarsen",
-            "image": "588f17c4-5980-41e1-85ad-38940671ceb1",
-            "lat": 905,
-            "lng": 742,
-            "type": "person",
-            "icon": "person",
-            "rotation": 0
+        "979f806c-297a-4c99-88db-2363a34dba38": {
+            "markers": {
+                "79f7a4f2-2c4e-4c8f-a9d3-d90d6a0b8995": {
+                    "attributes": {},
+                    "id": "79f7a4f2-2c4e-4c8f-a9d3-d90d6a0b8995",
+                    "name": "Jennifer Jarsen",
+                    "image": "588f17c4-5980-41e1-85ad-38940671ceb1",
+                    "lat": 905,
+                    "lng": 742,
+                    "type": "person",
+                    "icon": "person",
+                    "rotation": 0
+                },
+                "8f17c459-8001-4185-ad38-940671ceb190": {
+                    "attributes": {},
+                    "id": "8f17c459-8001-4185-ad38-940671ceb190",
+                    "name": "[New Table]",
+                    "lat": 924,
+                    "lng": 770,
+                    "type": "table",
+                    "icon": "table",
+                    "rotation": 0
+                }
+            },
+            "id": "979f806c-297a-4c99-88db-2363a34dba38",
+            "name": "1st floor",
+            "shortName": "1",
+            "image": ""
         },
-        "8f17c459-8001-4185-ad38-940671ceb190": {
-            "attributes": {},
-            "id": "8f17c459-8001-4185-ad38-940671ceb190",
-            "name": "[New Table]",
-            "lat": 924,
-            "lng": 770,
-            "type": "table",
-            "icon": "table",
-            "rotation": 0
-        },
-        "d01e096f-dd0b-4f49-943c-1b4e50133501": {
-            "attributes": {},
-            "id": "d01e096f-dd0b-4f49-943c-1b4e50133501",
-            "name": "John Doe",
-            "lat": 649,
-            "lng": 26,
-            "type": "person",
-            "icon": "person",
-            "rotation": 0
-        },
-        "1e096fdd-0b2f-4994-bc1b-4e50133501d1": {
-            "attributes": {},
-            "id": "1e096fdd-0b2f-4994-bc1b-4e50133501d1",
-            "name": "First aid kit",
-            "lat": 7,
-            "lng": 18,
-            "type": "emergency",
-            "icon": "firstaidkit",
-            "rotation": 0
+        "9a6494b1-be0b-4e36-aad2-fb6588171632": {
+            "markers": {
+                "d01e096f-dd0b-4f49-943c-1b4e50133501": {
+                    "attributes": {
+                        "Post": "Receptionist"
+                    },
+                    "id": "d01e096f-dd0b-4f49-943c-1b4e50133501",
+                    "name": "John Doe",
+                    "lat": 665,
+                    "lng": 232,
+                    "type": "person",
+                    "icon": "person",
+                    "rotation": 180
+                },
+                "1e096fdd-0b2f-4994-bc1b-4e50133501d1": {
+                    "attributes": {},
+                    "id": "1e096fdd-0b2f-4994-bc1b-4e50133501d1",
+                    "name": "First aid kit",
+                    "lat": 71,
+                    "lng": 74,
+                    "type": "emergency",
+                    "icon": "firstaidkit",
+                    "rotation": 0
+                },
+                "f7122fa1-96ed-49d8-84a2-2bd4a7c41d85": {
+                    "attributes": {},
+                    "id": "f7122fa1-96ed-49d8-84a2-2bd4a7c41d85",
+                    "name": "Printer",
+                    "lat": 942,
+                    "lng": 892,
+                    "type": "other",
+                    "icon": "printer",
+                    "rotation": 0
+                },
+                "122fa196-ede9-4844-a22b-d4a7c41d854f": {
+                    "attributes": {},
+                    "id": "122fa196-ede9-4844-a22b-d4a7c41d854f",
+                    "name": "[New Toilet]",
+                    "lat": 855,
+                    "lng": 1128,
+                    "type": "toilet",
+                    "icon": "ladies",
+                    "rotation": 0
+                },
+                "2fa196ed-e9d8-44a2-abd4-a7c41d854f17": {
+                    "attributes": {},
+                    "id": "2fa196ed-e9d8-44a2-abd4-a7c41d854f17",
+                    "name": "[New Toilet]",
+                    "lat": 601,
+                    "lng": 1126,
+                    "type": "toilet",
+                    "icon": "gentlemens",
+                    "rotation": 0
+                },
+                "a196ede9-d844-422b-94a7-c41d854f17c5": {
+                    "attributes": {},
+                    "id": "a196ede9-d844-422b-94a7-c41d854f17c5",
+                    "name": "[New Table]",
+                    "lat": 644,
+                    "lng": 262,
+                    "type": "table",
+                    "icon": "table",
+                    "rotation": 0
+                }
+            },
+            "id": "9a6494b1-be0b-4e36-aad2-fb6588171632",
+            "name": "Ground",
+            "shortName": "G",
+            "image": "75f7122f-a196-4de9-9844-a22bd4a7c41d",
+            "description": "Das ist 2 Test",
+            "width": 1300,
+            "height": 1000
         }
     },
-    "version": 2
+    "version": 3
 }
