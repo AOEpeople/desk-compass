@@ -24,6 +24,7 @@ Follow the steps in [developer guide](README.md#developer-guide) to get the proj
 To ensure consistency throughout the source code, keep these rules in mind as you are working:
 
 - All features or bug fixes must be tested by one or more specs (unit-tests).
+- Make sure all (unit and end-to-end) tests are still running (`yarn test` and `yarn e2e`)
 - Make use of provided linters and formatters.
 
 ### Make a commit

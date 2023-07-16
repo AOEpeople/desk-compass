@@ -13,6 +13,7 @@ import { join } from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: join(__dirname, `../../../environments/.env.development`),
       load: [configuration],
       isGlobal: true,
     }),

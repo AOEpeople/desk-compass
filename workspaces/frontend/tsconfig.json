@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
+    "preserveWatchOutput": true,
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",

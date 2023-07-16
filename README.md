@@ -29,12 +29,11 @@ Example screenshot:
 
 ## Getting started
 
-### On your local machine
+### Build for development
 
 You'll need Node.js >= 18.x and Yarn:
 
 - Run `yarn install` to install all necessary dependencies
-- Copy `workspaces/api/local.env` to `workspaces/api/.env`
 - Start server and frontend simultaneously with `yarn start`
 - See application UI http://localhost:3000/
 - See API at http://localhost:3030/api/swagger and as OpenAPI JSON at http://localhost:3030/api/swagger-json
@@ -42,25 +41,47 @@ You'll need Node.js >= 18.x and Yarn:
 - See application metrics at http://localhost:3033/metrics
 
 
+### Build for production
+
+- Create a production environment `cp environments/.env.development environments/.env` and adjust it accordingly
+- Run `yarn install --frozen-lockfile --ingnore-scripts`
+- Run `yarn build`
+- You'll need to copy a few files to your `<TARGET_DIRECTORY`
+  - `mkdir <TARGET_DIRECTORY>/static` 
+  - `cp -r node_modules/ <TARGET_DIRECTORY>/`
+  - `cp -r workspaces/api/dist/* <TARGET_DIRECTORY>/`
+  - `cp -r workspaces/api/frontend/* <TARGET_DIRECTORY>/static/`
+- Then in your target directory `node main`
+
+
 ### With Docker
 
 ```shell
 $ docker build -t desk-compass .
-$ MSYS_NO_PATHCONV=1 docker run --rm --name=desk-compass -e DATABASE_PATH=/storage/db -e IMAGE_STORAGE_PATH=/storage/images -v "/.tmp/deskcompass:/storage:rw" -p 5000:3030 desk-compass
+$ MSYS_NO_PATHCONV=1 docker run --rm --name=desk-compass \
+  -e DATABASE_PATH=/storage/db \
+  -e IMAGE_STORAGE_PATH=/storage/images \
+  -v "/.tmp/deskcompass:/storage:rw" \
+  -p 5000:3030 desk-compass
 ```
 Open http://localhost:5000/ in your browser
 
-
 **Environment variables:**
 
-- `DEV_MODE`: Should be set to `1` for local development. This will
-  - structure and colorize JSON log output
-  - enable Swagger UI for API endpoints
-- `CORS_ALLOWED_ORIGINS`: comma-separated list of allowed origins (will be parsed as Regex), eg.: `CORS_ALLOWED_ORIGINS="localhost:3000$,127.0.0.1:3000$"`.
-- `CORS_ALLOWED_METHODS`: comma-separated list of allowed methods. If not set, it will fallback to `"GET,HEAD,OPTIONS,PUT,POST,DELETE"`
-- `DATABASE_PATH` (must): Path to folder to persist application data. Read and write permissions for the application are required.
-- `DATABASE_HUMAN_READABLE`: application data is stored in a JSON file. Set this to `true` for readability.
+The following environment variables are **required** to start the application:
+
 - `IMAGE_STORAGE_PATH` (must): Path to folder to store uploaded images. Read and write permissions for the application are required.
+- `DATABASE_PATH` (must): Path to folder to persist application data. Read and write permissions for the application are required.
+
+The following environment variables are **optional**:
+
+- `NODE_ENV`: Should be set to `development` for local development. It is empty by default. If set to `development`, it will
+  - structure and colorize JSON log output
+  - enable Swagger UI for API endpoints (at http://localhost:3030/swagger)
+- `API_PORT`: adjust port to backend API, fallback is `3030`
+- `DATABASE_HUMAN_READABLE`: application data is stored in a JSON file. Set this to `true` for readability.
+- `CORS_ALLOWED_ORIGINS`: comma-separated list of allowed origins (will be parsed as Regex). If not set, CORS will be disabled. Eg.: `CORS_ALLOWED_ORIGINS="localhost:3000$,127.0.0.1:3000$"`.
+- `CORS_ALLOWED_METHODS`: comma-separated list of allowed methods. If not set, it will fall back to `"GET,HEAD,OPTIONS,PUT,POST,DELETE"`
 - `METRICS_PORT`: Port for metrics endpoint, defaults to `3033`. This would expose `http://localhost:3033/metrics` for local development.
 
 

@@ -10,12 +10,7 @@ describe('configuration', () => {
     const actual = configuration();
 
     expect(actual).toBeDefined();
-    expect(actual.cors.allowedMethods).toEqual([
-      'GET',
-      'PUT',
-      'POST',
-      'DELETE',
-    ]);
+    expect(actual.cors.allowedMethods).toEqual(['GET', 'PUT', 'POST', 'DELETE']);
     expect(actual.cors.allowedOrigins).toEqual([]);
     expect(actual.database.path).toBeUndefined();
     expect(actual.database.humanReadable).toBe(false);
@@ -25,8 +20,8 @@ describe('configuration', () => {
   });
 
   it('initialized from environment variables', () => {
-    vi.stubEnv('DEV_MODE', '1');
-    vi.stubEnv('APP_PORT', '5555');
+    vi.stubEnv('NODE_ENV', 'development');
+    vi.stubEnv('API_PORT', '5555');
     vi.stubEnv('DATABASE_PATH', '../relative/path');
     vi.stubEnv('DATABASE_HUMAN_READABLE', 'true');
     vi.stubEnv('IMAGE_STORAGE_PATH', '/abc/def');
