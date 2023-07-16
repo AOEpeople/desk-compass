@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import { Map } from "./Map";
 
 export class StartPage {
   readonly page: Page;
@@ -23,7 +24,7 @@ export class StartPage {
     return this.navigationBar;
   }
 
-  getMap(): Locator {
-    return this.map;
+  getMap(): Map {
+    return new Map(this.page, this.map);
   }
 }

@@ -71,6 +71,7 @@ export class EntityManagerService implements OnModuleInit {
 
   async getAll<Type extends Entity>(entityType: EntityType): Promise<Type[]> {
     this.logger.debug(`Load all ${entityType}`);
+    await this.db.reload();
     const data = await this.db.getData(`${entityType}`);
     return Object.values(data);
   }

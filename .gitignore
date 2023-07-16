@@ -7,8 +7,8 @@ static
 .idea/
 *data.json
 coverage/
-mockserver/images/
 .tmp/
+test-data/
 **/.env
 test-results/
 playwright-report/

@@ -1,0 +1,56 @@
+{
+    "markers": {
+        "a2938f13-28b2-41a0-8e36-f0869b303eea": {
+            "attributes": {},
+            "id": "a2938f13-28b2-41a0-8e36-f0869b303eea",
+            "name": "2nd floor",
+            "lat": 397,
+            "lng": 622,
+            "type": "room",
+            "icon": "bookable",
+            "rotation": 0
+        },
+        "79f7a4f2-2c4e-4c8f-a9d3-d90d6a0b8995": {
+            "attributes": {},
+            "id": "79f7a4f2-2c4e-4c8f-a9d3-d90d6a0b8995",
+            "name": "Jennifer Jarsen",
+            "image": "588f17c4-5980-41e1-85ad-38940671ceb1",
+            "lat": 905,
+            "lng": 742,
+            "type": "person",
+            "icon": "person",
+            "rotation": 0
+        },
+        "8f17c459-8001-4185-ad38-940671ceb190": {
+            "attributes": {},
+            "id": "8f17c459-8001-4185-ad38-940671ceb190",
+            "name": "[New Table]",
+            "lat": 924,
+            "lng": 770,
+            "type": "table",
+            "icon": "table",
+            "rotation": 0
+        },
+        "d01e096f-dd0b-4f49-943c-1b4e50133501": {
+            "attributes": {},
+            "id": "d01e096f-dd0b-4f49-943c-1b4e50133501",
+            "name": "John Doe",
+            "lat": 649,
+            "lng": 26,
+            "type": "person",
+            "icon": "person",
+            "rotation": 0
+        },
+        "1e096fdd-0b2f-4994-bc1b-4e50133501d1": {
+            "attributes": {},
+            "id": "1e096fdd-0b2f-4994-bc1b-4e50133501d1",
+            "name": "First aid kit",
+            "lat": 7,
+            "lng": 18,
+            "type": "emergency",
+            "icon": "firstaidkit",
+            "rotation": 0
+        }
+    },
+    "version": 2
+}
