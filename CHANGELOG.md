@@ -1,5 +1,13 @@
 # Desk Compass Changelog
 
+# [1.4.0](https://github.com/AOEpeople/desk-compass/compare/v1.3.1...v1.4.0) (2023-07-16)
+
+
+### Features
+
+* **frontend:** handle location IDs in share links ([9554553](https://github.com/AOEpeople/desk-compass/commit/955455327001770b7859ee41faf23e0eb59e373d)), closes [#19](https://github.com/AOEpeople/desk-compass/issues/19)
+* **locations:** adjust api and UI to handle location CRUD ([4393840](https://github.com/AOEpeople/desk-compass/commit/4393840119b4fabe3338c970ac179d7fdafe403e)), closes [#19](https://github.com/AOEpeople/desk-compass/issues/19)
+
 ## [1.3.1](https://github.com/AOEpeople/desk-compass/compare/v1.3.0...v1.3.1) (2023-06-28)
 
 
