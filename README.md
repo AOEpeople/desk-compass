@@ -121,6 +121,8 @@ For all calls a `yarn run test:watch` variant exists.
 
 ### Run e2e tests
 
+Install browsers with `npx playwright install`
+
 Run e2e tests:
 ```shell
 yarn run e2e

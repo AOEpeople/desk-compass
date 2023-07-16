@@ -16,10 +16,14 @@
       type="button"
       class="w-full text-left hover:text-black"
       on:click={toggleVisibility}>
-      <span class="nav-item-title--short">
+      <span
+        class="nav-item-title--short"
+        data-testid="nav-item-shortTitle">
         <slot name="short-title" />
       </span>
-      <span class="nav-item-title--long capitalize">
+      <span
+        class="nav-item-title--long capitalize"
+        data-testid="nav-item-title">
         <slot name="title" />
       </span>
       {#if counter !== undefined}

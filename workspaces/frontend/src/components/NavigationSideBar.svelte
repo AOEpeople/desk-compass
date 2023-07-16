@@ -92,7 +92,9 @@
     </div>
   </div>
 
-  <div class="hidden md:block">
+  <div
+    class="hidden md:block"
+    data-testid="nav-locations">
     <div class="nav-section flex flex-row">
       <div class="grow">{$_('nav.locations.title')}</div>
       <div>
@@ -116,7 +118,9 @@
     </div>
   </div>
 
-  <div class="hidden md:block">
+  <div
+    class="hidden md:block"
+    data-testid="nav-markerTypes">
     <div class="nav-section">{$_('nav.types.title')}</div>
     <div class="nav-item-list">
       {#each $markerTypeStore as markerType}
