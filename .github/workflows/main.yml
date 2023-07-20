@@ -32,17 +32,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        id: yarn-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - run: HUSKY=0 [ ! -d "./node_modules/" ] && HUSKY=0 yarn install --frozen-lockfile --no-progress
+          cache: 'npm'
+      - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
       - run: yarn lint
       - run: yarn workspace frontend run check
 
@@ -52,17 +44,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        id: yarn-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - run: HUSKY=0 [ ! -d "./node_modules/" ] && HUSKY=0 yarn install --frozen-lockfile --no-progress
+          cache: 'npm'
+      - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
       - run: yarn workspace frontend run test:coverage
 
   unit_test_backend:
@@ -71,36 +55,26 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        id: yarn-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - run: HUSKY=0 [ ! -d "./node_modules/" ] && HUSKY=0 yarn install --frozen-lockfile --no-progress
+          cache: 'npm'
+      - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
       - run: yarn workspace api run test:coverage
 
   e2e_test:
+    container:
+      image: node:lts
+      options: --user root
     runs-on: ubuntu-latest
     needs: [prepare]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        id: yarn-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - run: HUSKY=0 [ ! -d "./node_modules/" ] && HUSKY=0 yarn install --frozen-lockfile --no-progress
+          cache: 'npm'
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        run: HUSKY=0 yarn install --frozen-lockfile --no-progress
+      - name: Install browsers
+        run: npx playwright install-deps && npx playwright install chromium
       - name: Run Playwright tests
         run: yarn e2e
       - uses: actions/upload-artifact@v3
@@ -115,17 +89,6 @@ jobs:
     needs: [lint, unit_test_frontend, unit_test_backend]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag desk-compass:$(date +%s)
 
