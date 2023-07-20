@@ -7028,9 +7028,9 @@ nerf-dart@^1.0.0:
   integrity sha512-EZSPZB70jiVsivaBLYDCyntd5eH8NTSMOn3rB+HxwdmKThGELLdYv8qVIMWvZEFy9w8ZZpW9h9OB32l1rGtj7g==
 
 nestjs-otel@^5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/nestjs-otel/-/nestjs-otel-5.1.2.tgz#01e6e6fe9b069adb26936ef378fe050e66deac81"
-  integrity sha512-WtOGXszthB8EHtzFQQ8FsPzDYVVoREH1eWBnA197yQ1pNiq3zWD4EpYCVag+8tcucGss6PtZYvd5mx9nUnM3Qw==
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/nestjs-otel/-/nestjs-otel-5.1.4.tgz#d8eb36f4858f83e4fcc59b18ac6ca54585f022cc"
+  integrity sha512-jx2q2+kg18VklVvK9kYFHpD/5lyODKkW8tD6vjU3ncS5R7yYPA7ATydqS2+8v7zD5SHjOV5Ke1q6pZ9S2OtdHA==
   dependencies:
     "@opentelemetry/api" "^1.4.1"
     "@opentelemetry/host-metrics" "^0.32.0"
