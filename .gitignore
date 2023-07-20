@@ -13,3 +13,5 @@ test-data/
 test-results/
 playwright-report/
 playwright/.cache/
+.project
+.settings/
