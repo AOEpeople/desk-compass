@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.4.1](https://github.com/AOEpeople/desk-compass/compare/v1.4.0...v1.4.1) (2023-07-20)
+
+
+### Bug Fixes
+
+* **pipeline:** e2e on main pipeline ([b648920](https://github.com/AOEpeople/desk-compass/commit/b648920b19521735e7ac11ec50bd2d255fb555b4))
+
 # [1.4.0](https://github.com/AOEpeople/desk-compass/compare/v1.3.1...v1.4.0) (2023-07-16)
 
 
