@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.4.2](https://github.com/AOEpeople/desk-compass/compare/v1.4.1...v1.4.2) (2023-07-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pino-pretty to v10.1.0 ([6622539](https://github.com/AOEpeople/desk-compass/commit/662253924dbfa6100eb06143fcc7a0c588059651))
+
 ## [1.4.1](https://github.com/AOEpeople/desk-compass/compare/v1.4.0...v1.4.1) (2023-07-20)
 
 
