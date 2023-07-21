@@ -34,7 +34,7 @@
     "node-jq": "^2.3.5",
     "node-json-db": "^2.2.0",
     "pino-http": "^8.3.3",
-    "pino-pretty": "10.0.1",
+    "pino-pretty": "10.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
