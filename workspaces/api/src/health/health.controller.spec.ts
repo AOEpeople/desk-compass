@@ -17,11 +17,7 @@ describe('HealthController', () => {
   } as any as UploadManagerHealthIndicator;
 
   beforeEach(async () => {
-    controller = new HealthController(
-      healthCheckService,
-      entityManagerHealthIndicator,
-      uploadManagerHealthIndicator,
-    );
+    controller = new HealthController(healthCheckService, entityManagerHealthIndicator, uploadManagerHealthIndicator);
   });
 
   describe('check', () => {

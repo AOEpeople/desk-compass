@@ -18,11 +18,9 @@ describe('LocationController', () => {
   describe('create', () => {
     it('should return newly created location', async () => {
       const expectedResult = new LocationDto({});
-      const result: Promise<LocationDto> = new Promise<LocationDto>(
-        (resolve) => {
-          resolve(expectedResult);
-        },
-      );
+      const result: Promise<LocationDto> = new Promise<LocationDto>((resolve) => {
+        resolve(expectedResult);
+      });
       locationService.create = vi.fn();
       vi.spyOn(locationService, 'create').mockImplementation(() => result);
 
@@ -35,11 +33,9 @@ describe('LocationController', () => {
   describe('findAll', () => {
     it('should return an array of locations', async () => {
       const expectedResult = [new LocationDto({}), new LocationDto({})];
-      const result: Promise<LocationDto[]> = new Promise<LocationDto[]>(
-        (resolve) => {
-          resolve(expectedResult);
-        },
-      );
+      const result: Promise<LocationDto[]> = new Promise<LocationDto[]>((resolve) => {
+        resolve(expectedResult);
+      });
       locationService.findAll = vi.fn();
       vi.spyOn(locationService, 'findAll').mockImplementation(() => result);
 
@@ -52,11 +48,9 @@ describe('LocationController', () => {
   describe('findOne', () => {
     it('should return a single location', async () => {
       const expectedResult = new LocationDto({});
-      const result: Promise<LocationDto> = new Promise<LocationDto>(
-        (resolve) => {
-          resolve(expectedResult);
-        },
-      );
+      const result: Promise<LocationDto> = new Promise<LocationDto>((resolve) => {
+        resolve(expectedResult);
+      });
       locationService.findOne = vi.fn();
       vi.spyOn(locationService, 'findOne').mockImplementation(() => result);
 
@@ -69,18 +63,13 @@ describe('LocationController', () => {
   describe('update', () => {
     it('should return the updated location', async () => {
       const expectedResult = new LocationDto({});
-      const result: Promise<LocationDto> = new Promise<LocationDto>(
-        (resolve) => {
-          resolve(expectedResult);
-        },
-      );
+      const result: Promise<LocationDto> = new Promise<LocationDto>((resolve) => {
+        resolve(expectedResult);
+      });
       locationService.update = vi.fn();
       vi.spyOn(locationService, 'update').mockImplementation(() => result);
 
-      const actual = await controller.update(
-        'abc-123',
-        {} as UpdateLocationDto,
-      );
+      const actual = await controller.update('abc-123', {} as UpdateLocationDto);
 
       expect(actual).toBe(expectedResult);
     });
@@ -122,11 +111,7 @@ describe('LocationController', () => {
       locationService.uploadImage = vi.fn();
       vi.spyOn(locationService, 'uploadImage');
 
-      await controller.uploadImage(
-        'abc-123',
-        new UploadDto(),
-        {} as Express.Multer.File,
-      );
+      await controller.uploadImage('abc-123', new UploadDto(), {} as Express.Multer.File);
 
       expect(locationService.uploadImage).toHaveBeenCalledTimes(1);
     });
