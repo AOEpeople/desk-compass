@@ -49,7 +49,7 @@ jobs:
       - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
       - run: yarn workspace api run test:coverage
 
-  e2e_test:
+  e2e_tests:
     container:
       image: node:lts
       options: --user root
