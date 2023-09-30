@@ -30,7 +30,7 @@ export class EntityManagerService implements OnModuleInit {
         try {
           await p.mkdir(dbPath, {
             recursive: true,
-            mode: '1600',
+            mode: '0700',
           });
         } catch (e) {
           const error = new Error('Could not create data folder');

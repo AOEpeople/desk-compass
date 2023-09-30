@@ -22,7 +22,7 @@ export class UploadManagerService {
       try {
         await p.mkdir(storagePath, {
           recursive: true,
-          mode: '1600',
+          mode: '0700',
         });
       } catch (e) {
         const error = new Error('Could not create image storage folder');
