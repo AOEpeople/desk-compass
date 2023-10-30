@@ -332,7 +332,7 @@
       </div>
 
       <ConfirmationDialog
-        isOpen={showDeleteConfirmationDialog}
+        bind:isOpen={showDeleteConfirmationDialog}
         on:dialogconfirmed={deleteMarker}
         on:dialogclosed={() => (showDeleteConfirmationDialog = false)}>
         <span slot="title">{$_(`marker.action.confirm.title`, { values: { name: editMarker.name } })}</span>

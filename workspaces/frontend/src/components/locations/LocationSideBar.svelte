@@ -139,7 +139,7 @@
     </div>
 
     <ConfirmationDialog
-      isOpen={showDeleteConfirmationDialog}
+      bind:isOpen={showDeleteConfirmationDialog}
       on:dialogconfirmed={deleteLocation}
       on:dialogclosed={() => (showDeleteConfirmationDialog = false)}>
       <span slot="title">{$_(`location.action.confirm.title`, { values: { name: $currentLocation.name } })}</span>

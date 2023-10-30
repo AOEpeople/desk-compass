@@ -60,7 +60,6 @@
     "vitest": "*"
   },
   "dependencies": {
-    "@rgossiaux/svelte-headlessui": "^2.0.0",
     "@svelteuidev/composables": "^0.14.0",
     "cross-fetch": "4.0.0",
     "leaflet": "^1.9.3",
