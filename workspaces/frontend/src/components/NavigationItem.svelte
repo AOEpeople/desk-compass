@@ -4,7 +4,7 @@
   export let toggleVisibility = () => {
     // nothing to do
   };
-  export let counter: number = undefined;
+  export let counter: number | undefined = undefined;
 </script>
 
 <div

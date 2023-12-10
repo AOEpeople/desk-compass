@@ -1,8 +1,8 @@
 import L from 'leaflet';
-import { MarkerOverlay } from './MarkerOverlay';
-import { beforeEach, expect } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { viewport } from './ViewportSingleton';
 import type { MTypeVariant } from './MarkerType';
+import { MarkerOverlay } from './MarkerOverlay';
 
 describe('MarkerOverlay', () => {
   const position = L.latLng(1, 2);
@@ -18,7 +18,7 @@ describe('MarkerOverlay', () => {
     mapWidth: 50,
     mapHeight: 50,
   } as MTypeVariant;
-  let markerOverlay;
+  let markerOverlay: any;
 
   beforeEach(async () => {
     markerOverlay = new MarkerOverlay(position, {
@@ -41,7 +41,7 @@ describe('MarkerOverlay', () => {
 
     expect(defaultMarkerOverlay).toBeDefined();
     expect(defaultMarkerOverlay.options.name).toBe('');
-    expect(defaultMarkerOverlay.options.icon.name).toBe('example_icon');
+    expect(defaultMarkerOverlay.options.icon?.name).toBe('example_icon');
     expect(defaultMarkerOverlay.options.rotation).toBe(0);
     expect(defaultMarkerOverlay.options.opacity).toBe(1);
     expect(defaultMarkerOverlay.options.zIndex).toBe(1);
@@ -51,7 +51,7 @@ describe('MarkerOverlay', () => {
     expect(defaultMarkerOverlay.getLatLng()).toBe(position);
     expect(defaultMarkerOverlay.isDraggable()).toBe(false);
     expect(defaultMarkerOverlay.getTooltip()).toBeDefined();
-    expect(defaultMarkerOverlay.getTooltip().getContent()).toBe('');
+    expect(defaultMarkerOverlay.getTooltip()?.getContent()).toBe('');
     expect(markerOverlay.getTooltip().isOpen()).toBe(false);
     expect(defaultMarkerOverlay.getElement()).toBeDefined();
     expect(defaultMarkerOverlay.getEvents()).toBeDefined();

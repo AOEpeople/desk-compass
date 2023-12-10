@@ -1,12 +1,8 @@
-import { derived, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 import type { MType } from '../ts/MarkerType';
-import { generateMarkerTypeTableFromProperty } from '../ts/MarkerTypeTable';
-import { viewportInitialized } from '../ts/ViewportSingleton';
-import type { MarkerTypeTable } from '../ts/MarkerTypeTable';
 import type { RemoteWritable } from './RemoteWritable';
 import markerTypes from './markerTypes.json';
-import { markerTypeTooltips, markerTypeVisibility } from './markers';
 
 export const MARKER_ICON_LIBRARY = 'material-symbols';
 
@@ -23,6 +19,7 @@ const createMarkerTypeStore = (): RemoteWritable<MType> => {
         // load from JSON
         const allMarkerTypes = markerTypes as MType[];
         set(allMarkerTypes);
+
         resolve(true);
       });
     },
@@ -39,32 +36,3 @@ const createMarkerTypeStore = (): RemoteWritable<MType> => {
 };
 
 export const markerTypeStore = createMarkerTypeStore();
-
-// update markerTypeLookups
-derived([viewportInitialized, markerTypeStore], ([$viewportInitialized, $markerTypeStore]) => {
-  if (!$viewportInitialized) {
-    return;
-  }
-
-  markerTypeVisibility.update((mTypeTable: MarkerTypeTable<boolean>) => {
-    const newMarkerTypeList = generateMarkerTypeTableFromProperty<boolean>('visibleByDefault');
-    $markerTypeStore.forEach((mType) => {
-      if (mTypeTable[mType.id]) {
-        newMarkerTypeList[mType.id] = mTypeTable[mType.id];
-      }
-    });
-    return newMarkerTypeList;
-  });
-
-  markerTypeTooltips.update((mTypeTable: MarkerTypeTable<boolean>) => {
-    const newMarkerTypeList = generateMarkerTypeTableFromProperty<boolean>('labelShownByDefault');
-    $markerTypeStore.forEach((mType) => {
-      if (mTypeTable[mType.id]) {
-        newMarkerTypeList[mType.id] = mTypeTable[mType.id];
-      }
-    });
-    return newMarkerTypeList;
-  });
-}).subscribe(() => {
-  // nothing to do
-});

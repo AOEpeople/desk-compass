@@ -32,9 +32,9 @@
     }
   });
 
-  let avatar;
-  let avatarFileInput;
-  let files;
+  let avatar: any;
+  let avatarFileInput: any;
+  let files: any;
   $: {
     if (editMode) {
       avatar = 'https://via.placeholder.com/100/575757/fff?text=Upload';
@@ -170,7 +170,7 @@
           <button on:click={() => avatarFileInput.click()}>
             <img
               src={avatar}
-              alt={editMarker.name}
+              alt={editMarker?.name}
               class="max-h-28 max-w-full mb-5" />
           </button>
           <input
@@ -188,9 +188,9 @@
           contenteditable={editMode}
           data-testid="infoPane-marker-name"
           class="grow"
-          class:updated={editMarker.name !== viewMarker.name}
+          class:updated={editMarker?.name !== viewMarker.name}
           on:input={updateMarkerName}>
-          {editMarker.name}
+          {editMarker?.name}
         </div>
         {#if !editMode}
           <ShareButton
@@ -207,7 +207,7 @@
               data-testid="infoPane-marker-icon-edit"
               on:change={updateMarkerIcon}>
               {#each editMarker.markerType.variants as iconVariant}
-                {#if iconVariant.name === editMarker.iconType.name}
+                {#if iconVariant.name === editMarker?.iconType?.name}
                   <option
                     value={iconVariant.name}
                     selected>
@@ -240,9 +240,9 @@
                   <div
                     contenteditable={editMode}
                     data-testid="infoPane-marker-{attribute.name}-value"
-                    class:updated={editMarker.attributes[attribute.name] !== viewMarker.attributes[attribute.name]}
+                    class:updated={editMarker?.attributes[attribute.name] !== viewMarker.attributes[attribute.name]}
                     on:input={(e) => updateAttribute(e, attribute.name)}>
-                    {editMode ? editMarker.attributes[attribute.name] ?? '' : viewMarker.attributes[attribute.name] ?? ''}
+                    {editMode ? editMarker?.attributes[attribute.name] ?? '' : viewMarker.attributes[attribute.name] ?? ''}
                   </div>
                 </td>
               </tr>
@@ -259,7 +259,7 @@
                   id="rotation"
                   pips
                   float
-                  values={[editMarker.rotation]}
+                  values={[editMarker?.rotation]}
                   min={0}
                   max={360}
                   step={45}
@@ -335,7 +335,7 @@
         bind:isOpen={showDeleteConfirmationDialog}
         on:dialogconfirmed={deleteMarker}
         on:dialogclosed={() => (showDeleteConfirmationDialog = false)}>
-        <span slot="title">{$_(`marker.action.confirm.title`, { values: { name: editMarker.name } })}</span>
+        <span slot="title">{$_(`marker.action.confirm.title`, { values: { name: editMarker?.name } })}</span>
         <p slot="description">{$_(`marker.action.confirm.description`)}</p>
       </ConfirmationDialog>
     </div>

@@ -6,15 +6,15 @@
   import { getApiUrl } from '../../ts/ApiUrl';
   import { viewport } from '../../ts/ViewportSingleton';
 
-  let files;
-  let imageFileInput;
+  let files: any;
+  let imageFileInput: any;
   $: imageDimensions = $currentLocation.getDimensions();
   const imageManipulation = {
     scaleX: 100,
     scaleY: 100,
   };
 
-  const previewImage = async (input) => {
+  const previewImage = async (input: any) => {
     const reader = new FileReader();
     reader.readAsDataURL(input);
     reader.onload = async (e) => {

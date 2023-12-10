@@ -1,7 +1,9 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import { _ } from 'svelte-i18n';
-  import { markerFilter, markerStore, markerTypeCounter, markerTypeTooltips, markerTypeVisibility, visibleMarkers } from '../stores/markers';
+  import { markerFilter, markerStore, markerTypeTooltips, markerTypeVisibility } from '../stores/markers';
+  import { markerTypeCounter } from '../stores/markerTypeCounter';
+  import { visibleMarkers } from '../stores/visibleMarkers';
   import { locationStore } from '../stores/locations';
   import { currentLocation } from '../stores/currentLocation';
   import { MARKER_ICON_LIBRARY, markerTypeStore } from '../stores/markerTypes';

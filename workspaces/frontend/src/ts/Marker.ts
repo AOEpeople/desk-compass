@@ -17,7 +17,7 @@ export class Marker {
   markerType: MType;
   iconType: MTypeVariant;
   attributes: { [key: string]: string } = {};
-  mapMarker?: MarkerOverlay;
+  mapMarker: MarkerOverlay;
 
   constructor(item: any) {
     this.id = item.id;
@@ -67,7 +67,7 @@ export class Marker {
     this.mapMarker.on('deselect', (_) => {
       this.mapMarker.setClassName('');
     });
-    this.mapMarker.getTooltip().on('click', (_) => {
+    this.mapMarker.getTooltip()?.on('click', (_) => {
       document.dispatchEvent(new CustomEvent('marker', { detail: { action: 'select', marker: this } }));
       viewport.panTo([this.lat, this.lng]);
       this.mapMarker.setClassName('selected');

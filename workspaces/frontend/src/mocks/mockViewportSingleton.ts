@@ -58,14 +58,15 @@ const _mockViewport = {
     return true;
   },
   addLayer: (_: Layer): Map => {
-    return this;
+    return mockMap;
   },
   removeLayer: (_: Layer): Map => {
-    return this;
+    return mockMap;
   },
+  clearLayers: vi.fn(),
 
   remove: (): Map => {
-    return this;
+    return mockMap;
   },
 } as unknown as Viewport;
 

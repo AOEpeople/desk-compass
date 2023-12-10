@@ -1,14 +1,14 @@
 import type { Writable } from 'svelte/store';
-import { derived, get, writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import fetch from 'cross-fetch';
 import { getApiUrl } from '../ts/ApiUrl';
 import { generateMarker, Marker } from '../ts/Marker';
-import { viewport, viewportInitialized } from '../ts/ViewportSingleton';
+import { viewport } from '../ts/ViewportSingleton';
 import type { MarkerTypeTable } from '../ts/MarkerTypeTable';
-import { generateMarkerTypeTableFromProperty, generateMarkerTypeTableWithDefaultValue } from '../ts/MarkerTypeTable';
+import { generateMarkerTypeTableFromProperty } from '../ts/MarkerTypeTable';
 import type { RemoteWritable } from './RemoteWritable';
-import { markerTypeStore } from './markerTypes';
 import { currentLocation } from './currentLocation';
+import { markerTypeStore } from './markerTypes';
 
 const createMarkerStore = (): RemoteWritable<Marker> => {
   const internalStore: Writable<Marker[]> = writable([]);
@@ -25,6 +25,10 @@ const createMarkerStore = (): RemoteWritable<Marker> => {
         const resultObjects: Marker[] = json.map((item) => generateMarker(item)).filter((item) => item !== null);
         set(resultObjects);
       }
+
+      // update
+      markerTypeVisibility.set(generateMarkerTypeTableFromProperty<boolean>('visibleByDefault'));
+      markerTypeTooltips.set(generateMarkerTypeTableFromProperty<boolean>('labelShownByDefault'));
       return res.ok;
     },
     createItem: (obj: Marker) => {
@@ -108,54 +112,3 @@ export const markerFilter: Writable<string> = writable('');
 
 export const markerTypeVisibility: Writable<MarkerTypeTable<boolean>> = writable(generateMarkerTypeTableFromProperty<boolean>('visibleByDefault'));
 export const markerTypeTooltips: Writable<MarkerTypeTable<boolean>> = writable(generateMarkerTypeTableFromProperty<boolean>('labelShownByDefault'));
-
-export const visibleMarkers = derived(
-  [viewportInitialized, markerStore, markerFilter, markerTypeVisibility, markerTypeTooltips],
-  ([$viewportInitialized, $markerStore, $markerFilter, $markerTypeVisibility, $markerTypeTooltips]) => {
-    if (!$viewportInitialized) {
-      return;
-    }
-
-    viewport.clearLayers();
-    $markerStore.forEach((marker) => {
-      // set visibility
-      const shouldBeVisible =
-        $markerTypeVisibility[marker.markerType.id] &&
-        (!$markerFilter || $markerFilter === '' || marker.name.toLowerCase().indexOf($markerFilter.toLowerCase()) >= 0);
-      if (shouldBeVisible && !viewport.hasLayer(marker.mapMarker)) {
-        viewport.addLayer(marker.mapMarker);
-      }
-      if (!shouldBeVisible && viewport.hasLayer(marker.mapMarker)) {
-        viewport.removeLayer(marker.mapMarker);
-      }
-
-      // Show/hide tooltip
-      const shouldShowTooltip = $markerTypeTooltips[marker.markerType.id] && marker.name;
-      if (shouldShowTooltip) {
-        marker.mapMarker.openTooltip();
-      } else {
-        marker.mapMarker.closeTooltip();
-      }
-
-      // Highlight keyword in tooltip
-      if (shouldShowTooltip && $markerFilter.length >= 2 && marker.name.toLowerCase().indexOf($markerFilter.toLowerCase()) >= 0) {
-        marker.mapMarker.getTooltip().setContent(marker.name.replaceAll(new RegExp(`(${$markerFilter})`, 'ig'), `<mark>$1</mark>`));
-      } else {
-        marker.mapMarker.getTooltip().setContent(marker.name);
-      }
-    });
-
-    return $markerStore.filter((m) => viewport?.hasLayer(m.mapMarker));
-  }
-);
-
-export const markerTypeCounter = derived([visibleMarkers, markerTypeStore], ([$visibleMarkers, $markerTypeStore]) => {
-  const counterLookup: MarkerTypeTable<number> = generateMarkerTypeTableWithDefaultValue<number>(0);
-  if (!$visibleMarkers) {
-    return counterLookup;
-  }
-  $markerTypeStore.forEach((markerType) => {
-    counterLookup[markerType.id] = $visibleMarkers.filter((m) => m.markerType.id === markerType.id).length;
-  });
-  return counterLookup;
-});

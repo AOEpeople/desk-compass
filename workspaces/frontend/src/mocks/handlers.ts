@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { HttpResponse, http as rest } from 'msw';
 
 // Mock Data
 const locations = [
@@ -57,51 +57,51 @@ export const markers = [
 
 // Define handlers that catch the corresponding requests and returns the mock data.
 export const handlers = [
-  rest.get('api', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.text('dummy'));
+  rest.get('/api', () => {
+    return HttpResponse.json('dummy');
   }),
 
-  rest.get('api/locations', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(locations));
+  rest.get('/api/locations', () => {
+    return HttpResponse.json(locations);
   }),
 
-  rest.post('api/locations', async (req, res, ctx) => {
-    const newLocation = await req.json();
-    return res(ctx.status(200), ctx.json(newLocation));
+  rest.post('/api/locations', async ({request}) => {
+    const newLocation = await request.json();
+    return HttpResponse.json(newLocation);
   }),
 
-  rest.get('api/locations/:locationId', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(locations[0]));
+  rest.get('/api/locations', () => {
+    return HttpResponse.json(locations[0]);
   }),
 
-  rest.put('api/locations/:locationId', async (req, res, ctx) => {
-    const newLocation = await req.json();
-    return res(ctx.status(200), ctx.json(newLocation));
+  rest.put('/api/locations/:locationId', async ({request}) => {
+    const newLocation = await request.json();
+    return HttpResponse.json(newLocation);
   }),
 
-  rest.delete('api/locations/:locationId', async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({}));
+  rest.delete('/api/locations/:locationId', () => {
+    return HttpResponse.json({});
   }),
 
   // marker endpoints
-  rest.get('api/locations/:locationId/markers', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(markers));
+  rest.get('/api/locations/:locationId/markers', () => {
+    return HttpResponse.json(markers);
   }),
 
-  rest.post('api/locations/:locationId/markers', async (req, res, ctx) => {
-    const newMarker = await req.json();
-    return res(ctx.status(200), ctx.json(newMarker));
+  rest.post('/api/locations/:locationId/markers', async ({request}) => {
+    const newMarker = await request.json();
+    return HttpResponse.json(newMarker);
   }),
 
-  rest.put('api/locations/:locationId/markers/1', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(markers[0]));
+  rest.put('/api/locations/:locationId/markers/1', () => {
+    return HttpResponse.json(markers[0]);
   }),
 
-  rest.put('api/locations/:locationId/markers/2', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(markers[1]));
+  rest.put('/api/locations/:locationId/markers/2', () => {
+    return HttpResponse.json(markers[1]);
   }),
 
-  rest.delete('api/locations/:locationId/markers/1', async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({}));
+  rest.delete('/api/locations/:locationId/markers/1', () => {
+    return HttpResponse.json({});
   }),
 ];

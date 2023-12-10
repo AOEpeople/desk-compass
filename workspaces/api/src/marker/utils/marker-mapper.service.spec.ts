@@ -85,9 +85,7 @@ describe('MarkerMapperService', () => {
     expect(actual.attributes['website']).toBe(objData.attributes.website);
     expect(actual.attributes['twitter']).toBe(objData.attributes.twitter);
     expect(actual.attributes['phone_cell']).toBe(objData.attributes.phone_cell);
-    expect(actual.attributes['phone_office']).toBe(
-      objData.attributes.phone_office,
-    );
+    expect(actual.attributes['phone_office']).toBe(objData.attributes.phone_office);
 
     expect(actual['team']).toBeUndefined();
   };

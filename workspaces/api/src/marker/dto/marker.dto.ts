@@ -17,8 +17,7 @@ export class MarkerDto {
   image: string;
 
   @ApiProperty({
-    description:
-      'Currently supported types: `Table`, `Person`, `Room`, `Toilet`, `FirstAidKit`, `Other`',
+    description: 'Currently supported types: `Table`, `Person`, `Room`, `Toilet`, `FirstAidKit`, `Other`',
   })
   type: string;
 
@@ -29,8 +28,7 @@ export class MarkerDto {
   rotation: number;
 
   @ApiProperty({
-    description:
-      'Map object type string onto string for custom attributes depending on marker type',
+    description: 'Map object type string onto string for custom attributes depending on marker type',
     type: 'object',
     additionalProperties: {
       type: 'string',
