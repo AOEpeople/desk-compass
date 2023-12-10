@@ -36,7 +36,7 @@
     "eslint-plugin-json-format": "^2.0.1",
     "eslint-plugin-prettier": "*",
     "eslint-plugin-svelte": "2.32.4",
-    "eslint-plugin-unused-imports": "^2.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "jest-environment-jsdom": "29.6.1",
     "jsdom": "^22.1.0",
     "lint-staged": "^13.0.3",
