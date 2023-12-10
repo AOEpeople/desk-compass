@@ -14,7 +14,7 @@ export default async ({ mode }) => {
   process.env = { ...process.env, ...loaded };
 
   return defineConfig({
-    plugins: [svelte()],
+    plugins: [svelte({ hot: !process.env.VITEST })],
     mode: 'development',
     envDir: '../../environments',
     clearScreen: false,
@@ -37,15 +37,11 @@ export default async ({ mode }) => {
       // in-source testing
       includeSource: ['src/**/*.{js,ts,svelte}'],
       // Add @testing-library/jest-dom matchers & setup MSW
-      setupFiles: ['./setupTest.js', './src/mocks/mockViewportSingleton.ts', './src/mocks/setup.ts', './src/mocks/mockI18n.ts'],
+      setupFiles: ['./setupTest.ts', './src/mocks/mockViewportSingleton.ts', './src/mocks/setup.ts', './src/mocks/mockI18n.ts'],
       coverage: {
         provider: 'v8',
         reporter: [['text', { skipFull: true }], 'json', 'html', 'cobertura', 'text-summary'],
-        exclude: ['setupTest.js', 'src/mocks', 'src/environments', 'src/assets', 'src/i18n', 'src/**/*.spec.ts', 'src/**/*.spec.svelte'],
-      },
-      deps: {
-        // Put Svelte component here, e.g., inline: [/svelte-multiselect/, /msw/]
-        inline: [/msw/],
+        exclude: ['setupTest.ts', 'src/mocks', 'src/environments', 'src/assets', 'src/i18n', 'src/**/*.spec.ts', 'src/**/*.spec.svelte'],
       },
     },
   });

@@ -1,4 +1,4 @@
-import { beforeEach } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 import { markerTypeStore } from '../stores/markerTypes';
 import { generateMarkerTypeTableFromProperty, generateMarkerTypeTableWithDefaultValue } from './MarkerTypeTable';
 

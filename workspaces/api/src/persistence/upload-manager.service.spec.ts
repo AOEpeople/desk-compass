@@ -36,9 +36,7 @@ describe('UploadManagerService', () => {
 
       vi.spyOn(configService, 'getOrThrow').mockReturnValue(storagePath);
       vi.spyOn(fs, 'existsSync').mockImplementation(() => false);
-      vi.spyOn(fs.promises, 'mkdir').mockImplementation(
-        () => new Promise<string>((_, reject) => reject()),
-      );
+      vi.spyOn(fs.promises, 'mkdir').mockImplementation(() => new Promise<string>((_, reject) => reject()));
 
       const exec = () => UploadManagerService.init(configService);
 
@@ -48,9 +46,7 @@ describe('UploadManagerService', () => {
     it('should try to create storage folder if does not exist', async () => {
       vi.spyOn(configService, 'getOrThrow').mockReturnValue(storagePath);
       vi.spyOn(fs, 'existsSync').mockImplementation(() => false);
-      vi.spyOn(fs.promises, 'mkdir').mockImplementation(
-        () => new Promise<string>((resolve) => resolve('/path')),
-      );
+      vi.spyOn(fs.promises, 'mkdir').mockImplementation(() => new Promise<string>((resolve) => resolve('/path')));
       const readdirPromise = new Promise<fs.Dirent[]>((resolve) => resolve([]));
       vi.spyOn(fs.promises, 'readdir').mockImplementation(() => readdirPromise);
 
@@ -60,9 +56,7 @@ describe('UploadManagerService', () => {
     });
 
     it('should fail for unreadable storage folder', async () => {
-      const expectedError = new Error(
-        'Could not read from image storage folder',
-      );
+      const expectedError = new Error('Could not read from image storage folder');
       vi.spyOn(fs, 'existsSync').mockImplementation(() => true);
       const x = new Promise<fs.Dirent[]>((_, reject) => reject());
       vi.spyOn(fs.promises, 'readdir').mockImplementation(() => x);
@@ -103,10 +97,7 @@ describe('UploadManagerService', () => {
 
       await service.upload(file);
 
-      expect(fs.promises.writeFile).toHaveBeenCalledWith(
-        expect.anything(),
-        fileBuffer,
-      );
+      expect(fs.promises.writeFile).toHaveBeenCalledWith(expect.anything(), fileBuffer);
     });
 
     it('should throw an error for missing file input', async () => {
@@ -135,9 +126,7 @@ describe('UploadManagerService', () => {
     });
 
     it('should return false, if something fails', async () => {
-      vi.spyOn(fs.promises, 'unlink').mockImplementation(
-        () => new Promise<void>((_, reject) => reject()),
-      );
+      vi.spyOn(fs.promises, 'unlink').mockImplementation(() => new Promise<void>((_, reject) => reject()));
 
       const actual = await service.isHealthy();
 

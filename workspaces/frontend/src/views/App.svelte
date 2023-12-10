@@ -17,9 +17,7 @@
     return false;
   };
 
-  let routes: {
-    [key: string]: any;
-  } = {
+  let routes = {
     '/': wrap({
       asyncComponent: () => import('../components/Screen.svelte'),
       loadingComponent: Loading,

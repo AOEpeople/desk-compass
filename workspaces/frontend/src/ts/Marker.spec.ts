@@ -1,7 +1,7 @@
-import { generateMarker } from './Marker';
+import { beforeEach, describe, expect, test } from 'vitest';
 import { MarkerOverlay } from './MarkerOverlay';
-import { beforeEach } from 'vitest';
 import { markerTypeStore } from '../stores/markerTypes';
+import { generateMarker } from './Marker';
 
 describe('Marker', () => {
   beforeEach(async () => {
@@ -26,7 +26,7 @@ describe('Marker', () => {
   });
 
   describe('class', () => {
-    let marker;
+    let marker: any;
 
     beforeEach(() => {
       const markerJson = {

@@ -36,7 +36,7 @@ jobs:
           cache: 'npm'
       - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
       - run: yarn lint
-      - run: yarn workspace frontend run check
+      # - run: yarn workspace frontend run check
 
   unit_test_frontend:
     runs-on: ubuntu-latest

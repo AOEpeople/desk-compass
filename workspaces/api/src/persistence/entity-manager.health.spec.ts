@@ -11,9 +11,7 @@ describe('EntityManagerHealthIndicator', () => {
 
   describe('isHealthy', () => {
     it('should be true', async () => {
-      vi.spyOn(em, 'isHealthy').mockReturnValue(
-        new Promise<boolean>((resolve) => resolve(true)),
-      );
+      vi.spyOn(em, 'isHealthy').mockReturnValue(new Promise<boolean>((resolve) => resolve(true)));
 
       const actual = await healthIndicator.isHealthy('test');
 
@@ -23,14 +21,9 @@ describe('EntityManagerHealthIndicator', () => {
     });
 
     it('should throw error if non-healthy', async () => {
-      const expectedError = new HealthCheckError(
-        'EntityManager health check failed',
-        null,
-      );
+      const expectedError = new HealthCheckError('EntityManager health check failed', null);
       let errorWasTriggered = false;
-      vi.spyOn(em, 'isHealthy').mockReturnValue(
-        new Promise<boolean>((resolve) => resolve(false)),
-      );
+      vi.spyOn(em, 'isHealthy').mockReturnValue(new Promise<boolean>((resolve) => resolve(false)));
 
       try {
         await healthIndicator.isHealthy('test');
