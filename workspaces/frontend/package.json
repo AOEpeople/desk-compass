@@ -45,7 +45,7 @@
     "postcss-import": "^15.1.0",
     "postcss-load-config": "^4.0.1",
     "prettier": "*",
-    "prettier-plugin-svelte": "^2.10.1",
+    "prettier-plugin-svelte": "^3.0.0",
     "svelte": "^3.58.0",
     "svelte-check": "^3.4.3",
     "svelte-eslint-parser": "0.32.2",
