@@ -15,6 +15,12 @@
     description: $currentLocation.description,
   };
 
+
+  document.addEventListener('marker', (e: CustomEvent) => {
+    open = false;
+    viewport.hideGrid();
+  });
+
   document.addEventListener('location', (e: CustomEvent) => {
     if (e.detail['action'] === 'select') {
       location = {

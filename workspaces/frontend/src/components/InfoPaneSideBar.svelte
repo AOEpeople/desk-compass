@@ -16,6 +16,12 @@
   $: viewMarker = null;
   $: editMarker = viewMarker ? generateMarker(viewMarker?.getDto()) : null;
 
+  document.addEventListener('location', (e: CustomEvent) => {
+      disableDraggingMode();
+      viewMarker?.mapMarker?.fire('deselect');
+      viewMarker = null;
+  });
+
   document.addEventListener('marker', (e: CustomEvent) => {
     editMode = false;
     if (e.detail['action'] === 'delete') {
