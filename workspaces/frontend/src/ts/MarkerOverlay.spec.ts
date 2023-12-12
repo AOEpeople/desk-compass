@@ -18,7 +18,7 @@ describe('MarkerOverlay', () => {
     mapWidth: 50,
     mapHeight: 50,
   } as MTypeVariant;
-  let markerOverlay: any;
+  let markerOverlay: unknown;
 
   beforeEach(async () => {
     markerOverlay = new MarkerOverlay(position, {

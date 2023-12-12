@@ -1,25 +1,27 @@
 <script lang="ts">
+  import 'cross-fetch/polyfill';
   import { _ } from 'svelte-i18n';
-  import fetch from 'cross-fetch';
   import { locationStore } from '../../stores/locations';
   import { currentLocation } from '../../stores/currentLocation';
   import { getApiUrl } from '../../ts/ApiUrl';
   import { viewport } from '../../ts/ViewportSingleton';
 
-  let files: any;
-  let imageFileInput: any;
+  let files;
+  let imageFileInput;
   $: imageDimensions = $currentLocation.getDimensions();
   const imageManipulation = {
     scaleX: 100,
     scaleY: 100,
   };
 
-  const previewImage = async (input: any) => {
+  const previewImage = async (input) => {
     const reader = new FileReader();
     reader.readAsDataURL(input);
     reader.onload = async (e) => {
       const image = new Image();
       image.src = e.target.result.toString();
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       image.onload = async (_) => {
         imageDimensions.width = (image.naturalWidth * imageManipulation.scaleX) / 100;
         imageDimensions.height = (image.naturalHeight * imageManipulation.scaleY) / 100;

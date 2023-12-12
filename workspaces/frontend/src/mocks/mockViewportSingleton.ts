@@ -6,12 +6,12 @@ import type { ImageDimensions } from '../ts/ImageDimensions';
 
 const mockRenderer = {
   _removePath: vi.fn(),
-} as any as Renderer;
+} as unknown as Renderer;
 
 const mockMap = {
   _targets: vi.fn(),
   getPane: () => {
-    return { appendChild: vi.fn() } as any as HTMLElement;
+    return { appendChild: vi.fn() } as unknown as HTMLElement;
   },
   latLngToLayerPoint: () => point(1, 2),
   layerPointToLatLng: () => latLng(1, 2),
@@ -24,7 +24,7 @@ const mockMap = {
   on: () => vi.fn(),
   off: () => vi.fn(),
   getRenderer: () => mockRenderer,
-} as any as Map;
+} as unknown as Map;
 
 const _mockViewport = {
   _leafletMap: mockMap,
@@ -34,6 +34,7 @@ const _mockViewport = {
 
   getImageDimensions: () => vi.fn(),
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateImage: (_: ImageDimensions, __?: string) => vi.fn(),
 
   showGrid: vi.fn(),
@@ -50,6 +51,8 @@ const _mockViewport = {
     return latLng(1, 2);
   },
   invalidateSize: vi.fn(() => this),
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   layerPointToLatLng(_: PointExpression): LatLng {
     return latLng(1, 2);
   },
@@ -57,9 +60,13 @@ const _mockViewport = {
   hasLayer: (): boolean => {
     return true;
   },
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addLayer: (_: Layer): Map => {
     return mockMap;
   },
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeLayer: (_: Layer): Map => {
     return mockMap;
   },

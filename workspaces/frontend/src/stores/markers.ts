@@ -1,6 +1,5 @@
-import type { Writable } from 'svelte/store';
-import { get, writable } from 'svelte/store';
-import fetch from 'cross-fetch';
+import 'cross-fetch/polyfill';
+import { get, writable, type Writable } from 'svelte/store';
 import { getApiUrl } from '../ts/ApiUrl';
 import { generateMarker, Marker } from '../ts/Marker';
 import { viewport } from '../ts/ViewportSingleton';
@@ -8,7 +7,6 @@ import type { MarkerTypeTable } from '../ts/MarkerTypeTable';
 import { generateMarkerTypeTableFromProperty } from '../ts/MarkerTypeTable';
 import type { RemoteWritable } from './RemoteWritable';
 import { currentLocation } from './currentLocation';
-import { markerTypeStore } from './markerTypes';
 
 const createMarkerStore = (): RemoteWritable<Marker> => {
   const internalStore: Writable<Marker[]> = writable([]);
@@ -21,7 +19,7 @@ const createMarkerStore = (): RemoteWritable<Marker> => {
     init: async (): Promise<boolean> => {
       const res = await fetch(getApiUrl(`locations/${get(currentLocation).id}/markers`));
       if (res.ok) {
-        const json: any[] = await res.json();
+        const json: unknown[] = await res.json();
         const resultObjects: Marker[] = json.map((item) => generateMarker(item)).filter((item) => item !== null);
         set(resultObjects);
       }

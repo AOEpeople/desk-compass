@@ -16,6 +16,7 @@ export class FloorPlanUploadMapControl extends L.Control {
     L.Util.setOptions(this, options);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onAdd(map) {
     const container = L.DomUtil.create('div');
     container.className = 'leaflet-bar leaflet-control hidden md:block';

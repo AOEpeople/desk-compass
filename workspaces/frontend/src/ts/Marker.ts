@@ -19,7 +19,7 @@ export class Marker {
   attributes: { [key: string]: string } = {};
   mapMarker: MarkerOverlay;
 
-  constructor(item: any) {
+  constructor(item) {
     this.id = item.id;
     this.lat = item.lat;
     this.lng = item.lng;
@@ -56,18 +56,18 @@ export class Marker {
   }
 
   private _bindMapMarker(): void {
-    this.mapMarker.on('created', (_) => {
+    this.mapMarker.on('created', () => {
       this.mapMarker.setClassName('selected');
     });
-    this.mapMarker.on('click', (_) => {
+    this.mapMarker.on('click', () => {
       document.dispatchEvent(new CustomEvent('marker', { detail: { action: 'select', marker: this } }));
       viewport.panTo([this.lat, this.lng]);
       this.mapMarker.setClassName('selected');
     });
-    this.mapMarker.on('deselect', (_) => {
+    this.mapMarker.on('deselect', () => {
       this.mapMarker.setClassName('');
     });
-    this.mapMarker.getTooltip()?.on('click', (_) => {
+    this.mapMarker.getTooltip()?.on('click', () => {
       document.dispatchEvent(new CustomEvent('marker', { detail: { action: 'select', marker: this } }));
       viewport.panTo([this.lat, this.lng]);
       this.mapMarker.setClassName('selected');
@@ -94,13 +94,13 @@ export class Marker {
       this.mapMarker.setName(e['name']).setIcon(this.iconType);
       markerStore.updateItem(this);
     });
-    this.mapMarker.on('delete', (e) => {
+    this.mapMarker.on('delete', () => {
       viewport.removeLayer(this.mapMarker);
     });
   }
 }
 
-export const generateMarker = (item: any): Marker => {
+export const generateMarker = (item): Marker => {
   if (!item) {
     return null;
   }

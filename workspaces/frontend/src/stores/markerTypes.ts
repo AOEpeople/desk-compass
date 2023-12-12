@@ -15,7 +15,7 @@ const createMarkerTypeStore = (): RemoteWritable<MType> => {
     set,
     update,
     init: async (): Promise<boolean> => {
-      return new Promise<boolean>((resolve, _) => {
+      return new Promise<boolean>((resolve) => {
         // load from JSON
         const allMarkerTypes = markerTypes as MType[];
         set(allMarkerTypes);
@@ -23,13 +23,13 @@ const createMarkerTypeStore = (): RemoteWritable<MType> => {
         resolve(true);
       });
     },
-    createItem(_: MType) {
+    createItem() { // param: MType
       throw new Error('Not yet implemented');
     },
-    updateItem(_: MType) {
+    updateItem() { // param: MType
       throw new Error('Not yet implemented');
     },
-    deleteItem(_: MType) {
+    deleteItem() { // param: MType
       throw new Error('Not yet implemented');
     },
   };

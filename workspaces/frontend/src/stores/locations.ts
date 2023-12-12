@@ -1,6 +1,5 @@
-import type { Writable } from 'svelte/store';
-import { get, writable } from 'svelte/store';
-import fetch from 'cross-fetch';
+import 'cross-fetch/polyfill';
+import { get, writable, type Writable } from 'svelte/store';
 import { getApiUrl } from '../ts/ApiUrl';
 import { Location } from '../ts/Location';
 import { currentLocation } from './currentLocation';
@@ -13,7 +12,7 @@ const createLocationStore = (): RemoteWritable<Location> => {
   const _init = async (): Promise<boolean> => {
     const res = await fetch(getApiUrl('locations'));
     if (res.ok) {
-      const json: any[] = await res.json();
+      const json: unknown[] = await res.json();
       const resultObjects: Location[] = json.map((item) => new Location(item)).filter((item) => item !== null);
       set(resultObjects);
       await currentLocation.select(resultObjects[0]);
@@ -61,7 +60,7 @@ const createLocationStore = (): RemoteWritable<Location> => {
       }).catch((error) => {
         console.error('Error:', error);
       });
-
+      
       return l;
     });
 

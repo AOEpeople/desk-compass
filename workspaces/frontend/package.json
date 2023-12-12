@@ -51,7 +51,7 @@
     "svelte-eslint-parser": "0.33.1",
     "svelte-htm": "1.2.0",
     "svelte-i18n": "4.0.0",
-    "svelte-preprocess": "5.1.1",
+    "svelte-preprocess": "5.1.2",
     "svelte-range-slider-pips": "2.2.3",
     "tailwindcss": "3.3.6",
     "tslib": "2.6.2",
