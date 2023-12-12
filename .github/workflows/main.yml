@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
       - run: echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
       - run: echo 'yarn-offline-mirror-pruning true' >> .yarnrc
       - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
@@ -31,7 +31,7 @@ jobs:
     needs: [prepare]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           cache: 'npm'
       - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
@@ -43,7 +43,7 @@ jobs:
     needs: [prepare]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           cache: 'npm'
       - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
@@ -54,7 +54,7 @@ jobs:
     needs: [prepare]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           cache: 'npm'
       - run: HUSKY=0 yarn install --frozen-lockfile --no-progress
@@ -68,7 +68,7 @@ jobs:
     needs: [prepare]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           cache: 'npm'
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
