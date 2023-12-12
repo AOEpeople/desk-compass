@@ -1,7 +1,8 @@
 <script lang="ts">
+  import 'cross-fetch/polyfill';
   import { _ } from 'svelte-i18n';
-  import RangeSlider from 'svelte-range-slider-pips';
   import { afterUpdate } from 'svelte';
+  import RangeSlider from 'svelte-range-slider-pips';
   import { markerStore } from '../stores/markers';
   import { currentLocation } from '../stores/currentLocation';
   import { markerTypeVariantByName } from '../ts/MarkerType';
@@ -16,7 +17,7 @@
   $: viewMarker = null;
   $: editMarker = viewMarker ? generateMarker(viewMarker?.getDto()) : null;
 
-  document.addEventListener('location', (e: CustomEvent) => {
+  document.addEventListener('location', () => {
       disableDraggingMode();
       viewMarker?.mapMarker?.fire('deselect');
       viewMarker = null;
@@ -38,12 +39,12 @@
     }
   });
 
-  let avatar: any;
-  let avatarFileInput: any;
-  let files: any;
+  let avatar: URL;
+  let avatarFileInput: HTMLElement;
+  let files: Array<string | Blob>;
   $: {
     if (editMode) {
-      avatar = 'https://via.placeholder.com/100/575757/fff?text=Upload';
+      avatar = new URL('https://via.placeholder.com/100/575757/fff?text=Upload');
     }
     if (viewMarker?.image) {
       avatar = getApiUrl(`locations/${$currentLocation.id}/markers/${viewMarker.id}/image`);

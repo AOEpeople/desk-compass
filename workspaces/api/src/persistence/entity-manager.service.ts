@@ -15,7 +15,10 @@ export class EntityManagerService implements OnModuleInit {
 
   private db: JsonDB;
 
-  constructor(private readonly configService: ConfigService, private readonly migrationService: MigrationService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly migrationService: MigrationService,
+  ) {}
 
   async onModuleInit(): Promise<void> {
     const dbPath = this.configService.getOrThrow<string>('database.path');

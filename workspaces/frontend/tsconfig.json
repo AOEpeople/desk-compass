@@ -16,7 +16,7 @@
      */
     "allowJs": true,
     "checkJs": true,
-    // "strict": true,
+    "strict": true,
     "typeRoots": ["src/.d.ts"],
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },

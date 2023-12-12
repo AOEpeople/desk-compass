@@ -87,6 +87,7 @@ export class MarkerOverlay extends L.Layer {
     return this;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onRemove(map: L.Map): this {
     L.DomUtil.remove(this._container);
     if (this.options.interactive) {
@@ -224,6 +225,7 @@ export class MarkerOverlay extends L.Layer {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _onDragStart(_): void {
     this.fire('dragstart');
   }

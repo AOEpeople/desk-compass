@@ -26,7 +26,7 @@ describe('Marker', () => {
   });
 
   describe('class', () => {
-    let marker: any;
+    let marker: unknown;
 
     beforeEach(() => {
       const markerJson = {

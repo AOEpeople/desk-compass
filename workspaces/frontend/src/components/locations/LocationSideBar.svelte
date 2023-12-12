@@ -16,7 +16,7 @@
   };
 
 
-  document.addEventListener('marker', (e: CustomEvent) => {
+  document.addEventListener('marker', () => {
     open = false;
     viewport.hideGrid();
   });

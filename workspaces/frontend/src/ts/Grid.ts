@@ -54,6 +54,7 @@ export class Grid extends LayerGroup {
     return this;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onRemove(map: Map): this {
     this._map.off('viewreset ' + this.options.redrawEvent, this.redraw, this);
     this.eachLayer(this.removeLayer, this);

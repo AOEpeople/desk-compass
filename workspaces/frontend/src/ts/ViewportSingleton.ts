@@ -20,7 +20,7 @@ export const setViewport = (vp: Viewport) => {
   viewport = vp;
 };
 
-export const mapAction = (container: any): { destroy: () => void } => {
+export const mapAction = (container: HTMLElement): { destroy: () => void } => {
   viewport = Viewport.Instance(container);
   viewportInitialized.set(true);
 
@@ -75,7 +75,7 @@ export class Viewport {
     return this._controls;
   }
 
-  private constructor(container: any) {
+  private constructor(container: HTMLElement) {
     let zoomInTitle = 'Zoom in';
     let zoomOutTitle = 'Zoom out';
 
@@ -151,7 +151,7 @@ export class Viewport {
     this._controls.push(uploadMapCtrl);
 
     this._leafletMap.on('zoomend', (ev) => {
-      container.classList.forEach((cl: any) => {
+      container.classList.forEach((cl: string) => {
         if (cl.startsWith('zoom')) {
           container.classList.remove(cl);
         }
@@ -160,7 +160,7 @@ export class Viewport {
     });
   }
 
-  public static Instance(container: any): Viewport {
+  public static Instance(container: HTMLElement): Viewport {
     return this._instance || (this._instance = new this(container));
   }
 

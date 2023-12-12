@@ -26,7 +26,7 @@ export const generateMarkerTypeTableWithDefaultValue = <T>(defaultProperty?: T):
   if (!allTypes || allTypes.length === 0) {
     return lookup;
   }
-  allTypes.forEach((mType, index) => {
+  allTypes.forEach((mType) => {
     lookup[mType.id] = defaultProperty;
   });
   return lookup;
