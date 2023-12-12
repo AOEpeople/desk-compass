@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+# [1.5.0](https://github.com/AOEpeople/desk-compass/compare/v1.4.4...v1.5.0) (2023-12-12)
+
+
+### Features
+
+* deselect marker on location select; deselect location on marker select ([24d809d](https://github.com/AOEpeople/desk-compass/commit/24d809dd1c09c5f01d7c30b92792c8a5f360bb73)), closes [#54](https://github.com/AOEpeople/desk-compass/issues/54)
+
 ## [1.4.4](https://github.com/AOEpeople/desk-compass/compare/v1.4.3...v1.4.4) (2023-09-27)
 
 
