@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.5.1](https://github.com/AOEpeople/desk-compass/compare/v1.5.0...v1.5.1) (2023-12-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nestjs/swagger to v7.1.17 ([2987fab](https://github.com/AOEpeople/desk-compass/commit/2987fab8c2e2a9b0e920ea488fea76aa992c122f))
+
 # [1.5.0](https://github.com/AOEpeople/desk-compass/compare/v1.4.4...v1.5.0) (2023-12-12)
 
 
