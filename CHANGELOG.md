@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.5.2](https://github.com/AOEpeople/desk-compass/compare/v1.5.1...v1.5.2) (2024-01-08)
+
+
+### Bug Fixes
+
+* **deps:** update opentelemetry-js monorepo to v0.46.0 ([8dac374](https://github.com/AOEpeople/desk-compass/commit/8dac37471669988dacb02575db66407641c4849a))
+
 ## [1.5.1](https://github.com/AOEpeople/desk-compass/compare/v1.5.0...v1.5.1) (2023-12-15)
 
 
