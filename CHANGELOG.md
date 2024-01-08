@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.5.3](https://github.com/AOEpeople/desk-compass/compare/v1.5.2...v1.5.3) (2024-01-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pino-http to v8.6.1 ([20a83f0](https://github.com/AOEpeople/desk-compass/commit/20a83f012b0c772bc6d996bc975b37d56a1a6276))
+
 ## [1.5.2](https://github.com/AOEpeople/desk-compass/compare/v1.5.1...v1.5.2) (2024-01-08)
 
 
