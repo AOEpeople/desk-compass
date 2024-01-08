@@ -41,7 +41,7 @@
     "jsdom": "23.0.1",
     "lint-staged": "15.2.0",
     "msw": "2.0.12",
-    "postcss": "8.4.32",
+    "postcss": "8.4.33",
     "postcss-import": "15.1.0",
     "postcss-load-config": "5.0.2",
     "prettier": "*",
