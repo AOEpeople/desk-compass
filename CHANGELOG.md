@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.5.4](https://github.com/AOEpeople/desk-compass/compare/v1.5.3...v1.5.4) (2024-01-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency reflect-metadata to v0.2.1 ([09bbaea](https://github.com/AOEpeople/desk-compass/commit/09bbaead055d1e1aa4df28a41ba19841937b3796))
+
 ## [1.5.3](https://github.com/AOEpeople/desk-compass/compare/v1.5.2...v1.5.3) (2024-01-08)
 
 
