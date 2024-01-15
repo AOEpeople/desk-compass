@@ -65,7 +65,7 @@
     "@svelteuidev/composables": "0.15.4",
     "cross-fetch": "4.0.0",
     "leaflet": "1.9.4",
-    "svelte-spa-router": "4.0.0"
+    "svelte-spa-router": "4.0.1"
   },
   "lint-staged": {
     "src/**/*.{ts,svelte,css}": [

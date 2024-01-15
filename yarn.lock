@@ -9852,10 +9852,10 @@ svelte-range-slider-pips@2.2.3:
   resolved "https://registry.yarnpkg.com/svelte-range-slider-pips/-/svelte-range-slider-pips-2.2.3.tgz#e44f8d8b22487d64c0717f23da9db23eedf919dd"
   integrity sha512-ZAwX9+NDOE6cdqUTMfwBw27YI7NFgSXyPS1ARx3Zuaish2q6FuAtgx5d9+uqNzxQ7WVFhxgM7iQp8MvCpvy4Jw==
 
-svelte-spa-router@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/svelte-spa-router/-/svelte-spa-router-4.0.0.tgz#87c060566763c4eac0573f351145f5b75cb6328a"
-  integrity sha512-Z9OjOgF6n6N+N30aKZi20DypEfQAYY4USSChQd9UTlV6X7A2BvZ+Dm9uXx4Sw3FqwQUKelyKhEWjlD71yvLdgw==
+svelte-spa-router@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/svelte-spa-router/-/svelte-spa-router-4.0.1.tgz#720ef0cc9a4af33b155812496545c7999483878c"
+  integrity sha512-2JkmUQ2f9jRluijL58LtdQBIpynSbem2eBGp4zXdi7aDY1znbR6yjw0KsonD0aq2QLwf4Yx4tBJQjxIjgjXHKg==
   dependencies:
     regexparam "2.0.2"
 
