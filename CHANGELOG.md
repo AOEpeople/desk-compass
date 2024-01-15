@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.5.6](https://github.com/AOEpeople/desk-compass/compare/v1.5.5...v1.5.6) (2024-01-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency svelte-spa-router to v4.0.1 ([c3d7f9a](https://github.com/AOEpeople/desk-compass/commit/c3d7f9a26ddb4287a18e36b4609e32e55317cc8e))
+
 ## [1.5.5](https://github.com/AOEpeople/desk-compass/compare/v1.5.4...v1.5.5) (2024-01-08)
 
 
