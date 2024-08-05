@@ -23,7 +23,7 @@
     "@nestjs/core": "10.3.10",
     "@nestjs/platform-express": "10.3.10",
     "@nestjs/serve-static": "4.0.0",
-    "@nestjs/swagger": "7.1.17",
+    "@nestjs/swagger": "7.4.0",
     "@nestjs/terminus": "10.2.3",
     "@opentelemetry/api": "1.7.0",
     "@opentelemetry/exporter-prometheus": "0.48.0",
