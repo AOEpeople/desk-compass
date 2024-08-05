@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.5.8](https://github.com/AOEpeople/desk-compass/compare/v1.5.7...v1.5.8) (2024-08-05)
+
+
+### Bug Fixes
+
+* **deps:** update nest monorepo ([ca80ad3](https://github.com/AOEpeople/desk-compass/commit/ca80ad38132b16f6f97f023f8ad8fb42cfa7d5e8))
+
 ## [1.5.7](https://github.com/AOEpeople/desk-compass/compare/v1.5.6...v1.5.7) (2024-08-05)
 
 
