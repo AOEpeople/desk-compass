@@ -44,7 +44,7 @@
     "@nestjs/testing": "10.3.10",
     "@types/express": "4.17.21",
     "@types/multer": "1.4.11",
-    "@types/node": "20.17.10",
+    "@types/node": "20.17.12",
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
     "@vitest/coverage-v8": "*",
