@@ -29,7 +29,7 @@
     "@typescript-eslint/parser": "*",
     "@vitest/coverage-v8": "*",
     "@vitest/ui": "1.6.0",
-    "autoprefixer": "10.4.16",
+    "autoprefixer": "10.4.20",
     "eslint": "*",
     "eslint-config-prettier": "*",
     "eslint-plugin-import": "2.29.1",
