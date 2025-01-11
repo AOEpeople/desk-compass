@@ -62,7 +62,7 @@
     "vitest-dom": "0.1.1"
   },
   "dependencies": {
-    "@svelteuidev/composables": "0.15.4",
+    "@svelteuidev/composables": "0.15.7",
     "cross-fetch": "4.0.0",
     "leaflet": "1.9.4",
     "svelte-spa-router": "4.0.1"
