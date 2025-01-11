@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.5.13](https://github.com/AOEpeople/desk-compass/compare/v1.5.12...v1.5.13) (2025-01-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nestjs/serve-static to v4.0.2 ([7bef706](https://github.com/AOEpeople/desk-compass/commit/7bef706df73213303b12c2e95f16161e4d6a0d40))
+
 ## [1.5.12](https://github.com/AOEpeople/desk-compass/compare/v1.5.11...v1.5.12) (2025-01-11)
 
 
