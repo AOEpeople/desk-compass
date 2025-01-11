@@ -1880,10 +1880,10 @@
     svelte-hmr "^0.15.3"
     vitefu "^0.2.5"
 
-"@svelteuidev/composables@0.15.4":
-  version "0.15.4"
-  resolved "https://registry.yarnpkg.com/@svelteuidev/composables/-/composables-0.15.4.tgz#cfb5afdc704f597ca369a451e60afd723e2bef7a"
-  integrity sha512-GN7ZiUOCptgeLXs2HGcg6iuxo4aVeiV02tynofFNeVAFKSHX10FXhN1kWx8cDDJlW3/BjEP2qXa2qn4XrYNqTA==
+"@svelteuidev/composables@0.15.7":
+  version "0.15.7"
+  resolved "https://registry.yarnpkg.com/@svelteuidev/composables/-/composables-0.15.7.tgz#0e97b0c387d27bc311d1ca0ce5236fd2390b3642"
+  integrity sha512-tVA+0bNtsYsJqlpNx9ZArzHFBJYfoKM+nspkv+wzOx40HsCg33MutqNexOvrMYSj5/tSxxBefLQKdwNumErF6Q==
 
 "@tailwindcss/forms@0.5.7":
   version "0.5.7"
