@@ -1,5 +1,12 @@
 # Desk Compass Changelog
 
+## [1.5.10](https://github.com/AOEpeople/desk-compass/compare/v1.5.9...v1.5.10) (2025-01-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @svelteuidev/composables to v0.15.7 ([377abab](https://github.com/AOEpeople/desk-compass/commit/377ababde76368a5c01ceeca6564d440eb9b7dc4))
+
 ## [1.5.9](https://github.com/AOEpeople/desk-compass/compare/v1.5.8...v1.5.9) (2024-08-05)
 
 
