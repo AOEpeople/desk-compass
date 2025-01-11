@@ -43,7 +43,7 @@
     "msw": "2.3.5",
     "postcss": "8.4.49",
     "postcss-import": "15.1.0",
-    "postcss-load-config": "5.0.2",
+    "postcss-load-config": "5.1.0",
     "prettier": "*",
     "prettier-plugin-svelte": "3.1.2",
     "svelte": "4.2.19",
