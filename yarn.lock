@@ -10185,10 +10185,10 @@ svelte-hyperscript@^1.2.1:
     "@babel/runtime-corejs3" "^7.10.3"
     core-js "^3.6.5"
 
-svelte-i18n@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-4.0.0.tgz#6d892802fb79540267b2250f233afc6d29aadd28"
-  integrity sha512-4vivjKZADUMRIhTs38JuBNy3unbnh9AFRxWFLxq62P4NHic+/BaIZZlAsvqsCdnp7IdJf5EoSiH6TNdItcjA6g==
+svelte-i18n@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/svelte-i18n/-/svelte-i18n-4.0.1.tgz#e2d2ecda9d8848300b80599c2cf4d1e495f616e1"
+  integrity sha512-jaykGlGT5PUaaq04JWbJREvivlCnALtT+m87Kbm0fxyYHynkQaxQMnIKHLm2WeIuBRoljzwgyvz0Z6/CMwfdmQ==
   dependencies:
     cli-color "^2.0.3"
     deepmerge "^4.2.2"
