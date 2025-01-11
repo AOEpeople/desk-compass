@@ -7,6 +7,6 @@
     "test:watch": "playwright test --ui --workers=1"
   },
   "devDependencies": {
-    "@playwright/test": "1.40.1"
+    "@playwright/test": "1.49.1"
   }
 }
